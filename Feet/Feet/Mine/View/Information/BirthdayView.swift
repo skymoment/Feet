@@ -10,13 +10,10 @@ import UIKit
 
 class BirthdayView: UIView {
 
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
+
+  weak var boderField: BorderTextField!
+
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     setViews()
@@ -33,7 +30,7 @@ class BirthdayView: UIView {
       make.top.equalTo(64 + 15)
       make.left.equalTo(15)
       make.right.equalTo(-15)
-      make.height.equalTo(270)
+      make.height.equalTo(180)
     }
     
     let birthImage = UIImageView(image: UIImage(named:"brithday"))
@@ -41,7 +38,20 @@ class BirthdayView: UIView {
     birthImage.snp_makeConstraints(closure: { (make) in
       make.top.equalTo(15)
       make.centerX.equalTo(h)
-      make.width.height.equalTo(46)
+      make.width.height.equalTo(28)
     })
+    
+    boderField = {
+      let b = BorderTextField()
+      b.placeHolder = "选择侬的生日"
+      h.addSubview(b)
+      b.snp_makeConstraints { (make) in
+        make.top.equalTo(birthImage.snp_bottom).offset(50)
+        make.left.equalTo(h.snp_left).offset(20)
+        make.right.equalTo(h.snp_right).offset(-20)
+        make.height.equalTo(40)
+      }
+      return b
+    }()
   }
 }

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1735ECE07E8489B937F4C916 /* Pods_Feet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139D01FB0FFE17D7F8D44C6C /* Pods_Feet.framework */; };
+		21F763781DC4CE7900FC57ED /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F763771DC4CE7900FC57ED /* BorderTextField.swift */; };
+		21F7637A1DC4D91700FC57ED /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F763791DC4D91700FC57ED /* BorderButton.swift */; };
+		21F7637C1DC4E0AD00FC57ED /* FeetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7637B1DC4E0AD00FC57ED /* FeetAPI.swift */; };
 		34ECEA8C33367E5BAE33710B /* Pods_FeetUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 460BFE22A9CEE4929D5BDFEA /* Pods_FeetUITests.framework */; };
 		4706B6DB1D002F8D00CAC365 /* RealmFeetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4706B6DA1D002F8D00CAC365 /* RealmFeetItem.swift */; };
 		471589E21DA795920006E727 /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471589E11DA795920006E727 /* SignView.swift */; };
@@ -98,6 +101,9 @@
 /* Begin PBXFileReference section */
 		139D01FB0FFE17D7F8D44C6C /* Pods_Feet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Feet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1761F2DCC2BFF102A036EF60 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		21F763771DC4CE7900FC57ED /* BorderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
+		21F763791DC4D91700FC57ED /* BorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
+		21F7637B1DC4E0AD00FC57ED /* FeetAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeetAPI.swift; sourceTree = "<group>"; };
 		26DC426A2715F430675F9D04 /* Pods_FeetTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FeetTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		460BFE22A9CEE4929D5BDFEA /* Pods_FeetUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FeetUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4706B6DA1D002F8D00CAC365 /* RealmFeetItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmFeetItem.swift; sourceTree = "<group>"; };
@@ -288,6 +294,8 @@
 				47F4232F1D36998000DFA915 /* QiniuTool.swift */,
 				47613A781D3E5F9E000C808D /* LoactionTool.swift */,
 				473107F61D7885E30086F055 /* Notifications.swift */,
+				21F763771DC4CE7900FC57ED /* BorderTextField.swift */,
+				21F763791DC4D91700FC57ED /* BorderButton.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -428,6 +436,7 @@
 			children = (
 				473AED491D28BC0E005B3E79 /* ApiClient.swift */,
 				473AED4A1D28BC0E005B3E79 /* PromiseEnum.swift */,
+				21F7637B1DC4E0AD00FC57ED /* FeetAPI.swift */,
 			);
 			path = NetWork;
 			sourceTree = "<group>";
@@ -837,6 +846,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21F7637C1DC4E0AD00FC57ED /* FeetAPI.swift in Sources */,
 				473AED451D28BC09005B3E79 /* UIColorExtension.swift in Sources */,
 				47250F581CFEBF0800BF2D2D /* ViewController.swift in Sources */,
 				473AED4C1D28BC0E005B3E79 /* PromiseEnum.swift in Sources */,
@@ -852,6 +862,7 @@
 				473AED461D28BC09005B3E79 /* UIImageExtension.swift in Sources */,
 				476B5D5D1CFAE025003E4636 /* BackView.swift in Sources */,
 				47613A791D3E5F9E000C808D /* LoactionTool.swift in Sources */,
+				21F763781DC4CE7900FC57ED /* BorderTextField.swift in Sources */,
 				471589E61DA795B00006E727 /* SexView.swift in Sources */,
 				471589E81DA795C70006E727 /* BirthdayView.swift in Sources */,
 				47F808321D58D40600738726 /* CommentLabel.swift in Sources */,
@@ -887,6 +898,7 @@
 				47250F601CFEBFC000BF2D2D /* ImageFilter.swift in Sources */,
 				474271B21D4DDB9600F354C1 /* ProfileView.swift in Sources */,
 				4756F1D11D4E4AF2006100BE /* DetailViewController.swift in Sources */,
+				21F7637A1DC4D91700FC57ED /* BorderButton.swift in Sources */,
 				4706B6DB1D002F8D00CAC365 /* RealmFeetItem.swift in Sources */,
 				478A9A101D3152F80037EE08 /* PostView.swift in Sources */,
 				478A9A141D31F4480037EE08 /* MineTableHeader.swift in Sources */,

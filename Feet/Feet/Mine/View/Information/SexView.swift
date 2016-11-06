@@ -34,7 +34,7 @@ class SexView: UIView {
       make.top.equalTo(64 + 15)
       make.left.equalTo(15)
       make.right.equalTo(-15)
-      make.height.equalTo(270)
+      make.height.equalTo(180)
     }
     
     
@@ -54,7 +54,7 @@ class SexView: UIView {
     manImage.snp_makeConstraints(closure: { (make) in
       make.centerY.equalTo(label)
       make.right.equalTo(label.snp_left).offset(-8)
-      make.width.height.equalTo(38)
+      make.width.height.equalTo(24)
     })
     
     let womanImage = UIImageView(image: UIImage(named:"sex_m_d"))
@@ -62,7 +62,7 @@ class SexView: UIView {
     womanImage.snp_makeConstraints(closure: { (make) in
       make.centerY.equalTo(label)
       make.left.equalTo(label.snp_right).offset(8)
-      make.width.height.equalTo(38)
+      make.width.height.equalTo(24)
     })
   }
 }

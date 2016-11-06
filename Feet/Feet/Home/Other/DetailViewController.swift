@@ -42,7 +42,7 @@ class DetailViewController: UIViewController {
     tableView = {
       let t = UITableView()
       t.tableHeaderView = tableViewHeader
-      t.tableFooterView = UIView()
+      t.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: view.width, height: 60))
       t.backgroundColor = UIColor.clearColor()
       t.delegate = self
       t.dataSource = self

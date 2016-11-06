@@ -15,6 +15,8 @@ class MineViewController: UIViewController {
   weak var sexImageView: UIImageView!
   weak var tableView: UITableView!
   
+  
+  // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationController?.navigationBar.hidden = true
@@ -110,10 +112,14 @@ class MineViewController: UIViewController {
   // Actions
   func avatarTaped() {
     let vc = ProfileViewController()
-    navigationController!.pushViewController(vc, animated: true)
+    LoginService.logIn(self) {
+      self.navigationController!.pushViewController(vc, animated: true)
+    }
   }
 }
 
+
+// MAKR: - UITableViewDelegate,UITableViewDataSource
 extension MineViewController: UITableViewDelegate,UITableViewDataSource {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 10

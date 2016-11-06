@@ -18,7 +18,8 @@ struct LoginNetTool {
    - parameter completion: 回调
    */
   static func gainCode(params: [String:String],completion:(Promise<String>) -> ()) {
-    let url = "http://115.28.110.10:8080/feet/user/getPhoneSmsCode"
+//    let url = "http://115.28.110.10:8080/feet/user/getPhoneSmsCode"
+    let url = FeetAPI.User.getPhoneSmsCode
     
     func parseJson(json: JSON) -> Promise<String>{
       if json["code"].intValue == 12000 {
@@ -42,8 +43,8 @@ struct LoginNetTool {
    - parameter completon: 回调
    */
   static func logIn(params: [String: String],completon:(Promise<UserModel>) ->()) {
-    let url = "http://115.28.110.10:8080/feet/user/login"
-    
+//    let url = "http://115.28.110.10:8080/feet/user/login"
+    let url = FeetAPI.User.login
     func parseJson(json: JSON) -> Promise<UserModel>{      
       if json["code"].intValue == 12000 {
         return Promise {UserModel(json: json)}

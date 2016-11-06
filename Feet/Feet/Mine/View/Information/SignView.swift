@@ -10,14 +10,9 @@ import UIKit
 
 class SignView: UIView {
 
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
+  weak var boderField: BorderTextField!
   
+  // MARK: - LifeCycle
   override init(frame: CGRect) {
     super.init(frame: frame)
     setViews()
@@ -27,6 +22,8 @@ class SignView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
+  
+  // MARK: - SetViews
   func setViews() {
     let h = TransparentView()
     self.addSubview(h)
@@ -34,16 +31,31 @@ class SignView: UIView {
       make.top.equalTo(64 + 15)
       make.left.equalTo(15)
       make.right.equalTo(-15)
-      make.height.equalTo(270)
+      make.height.equalTo(180)
     }
     
-    // 头像 需要替换
+    
     let imageView = UIImageView(image: UIImage(named:"sign"))
     h.addSubview(imageView)
     imageView.snp_makeConstraints(closure: { (make) in
       make.top.equalTo(15)
       make.centerX.equalTo(h)
-      make.width.height.equalTo(46)
+      make.width.height.equalTo(28)
     })
+    
+    
+    boderField = {
+      let b = BorderTextField()
+      b.placeHolder = "侬能写点东西吗？"
+      b.textField.becomeFirstResponder()
+      h.addSubview(b)
+      b.snp_makeConstraints { (make) in
+        make.top.equalTo(imageView.snp_bottom).offset(50)
+        make.left.equalTo(h.snp_left).offset(20)
+        make.right.equalTo(h.snp_right).offset(-20)
+        make.height.equalTo(40)
+      }
+      return b
+    }()
   }
 }

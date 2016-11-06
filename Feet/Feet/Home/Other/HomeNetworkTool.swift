@@ -9,11 +9,9 @@
 import Foundation
 import SwiftyJSON
 struct HomeNetworkTool {
+  
   /**
-   发布 Feet
-   
-   - parameter params:    参数
-   - parameter completon: 回调
+   获取 Feets
    */
   static func post(params: [String: String],completon:(Promise<[FeetModel]>) ->()) {
     
