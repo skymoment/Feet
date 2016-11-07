@@ -15,7 +15,7 @@ struct HomeNetworkTool {
    */
   static func post(params: [String: String],completon:(Promise<[FeetModel]>) ->()) {
     
-    let url = "http://115.28.110.10:8080/feet/feet"
+    let url = FeetAPI.Feet.feet
     
     func parseJson(json: JSON) -> Promise<[FeetModel]>{
       if json["code"].intValue == 12000 {

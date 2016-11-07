@@ -55,16 +55,6 @@ class UserDefaultsTool {
     }
   }
   
-  /// 手势密码
-  static var gesturePassword: [Int] {
-    set {
-      UserDefaultsTool.save(newValue, key: "gesturePassword")
-    }
-    get {
-      let userDefaults = NSUserDefaults.standardUserDefaults()
-      return userDefaults.arrayForKey("gesturePassword") as? [Int] ?? [Int]()
-    }
-  }
   
   static var userMobile: String {
     set {
@@ -87,7 +77,7 @@ class UserDefaultsTool {
     }
   }
   
-  ///Token
+  /// QiNiuToken
   static var qiniuToken: String {
     set {
       UserDefaultsTool.save(newValue, key: "qiniuToken")
@@ -107,7 +97,10 @@ class UserDefaultsTool {
   static func cleanUserInfo() {
     let userDefaults = NSUserDefaults.standardUserDefaults()
     userDefaults.removeObjectForKey("userToken")
-    userDefaults.removeObjectForKey("gesturePassword")
+    userDefaults.removeObjectForKey("qiniuToken")
+    userDefaults.removeObjectForKey("userName")
+    userDefaults.removeObjectForKey("headerData")
+    userDefaults.removeObjectForKey("userMobile")
   }
   
   static func isLogin() -> Bool {

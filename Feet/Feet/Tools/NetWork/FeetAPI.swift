@@ -42,6 +42,7 @@ struct FeetAPI {
   // MARK: - 七牛令牌
   struct ImgToken: Subpath {
     static let index = ImgToken.generatePath("index")
+    static let a = ImgToken.generatePath("a")
   }
   
   // MARK: - Feet

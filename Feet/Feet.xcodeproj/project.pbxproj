@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1735ECE07E8489B937F4C916 /* Pods_Feet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139D01FB0FFE17D7F8D44C6C /* Pods_Feet.framework */; };
+		21F5EFA21DCF5785009E53BD /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5EFA11DCF5785009E53BD /* UserInfoModel.swift */; };
+		21F5EFA61DCF627C009E53BD /* UserNetTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5EFA51DCF627C009E53BD /* UserNetTool.swift */; };
 		21F763781DC4CE7900FC57ED /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F763771DC4CE7900FC57ED /* BorderTextField.swift */; };
 		21F7637A1DC4D91700FC57ED /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F763791DC4D91700FC57ED /* BorderButton.swift */; };
 		21F7637C1DC4E0AD00FC57ED /* FeetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7637B1DC4E0AD00FC57ED /* FeetAPI.swift */; };
@@ -101,6 +103,8 @@
 /* Begin PBXFileReference section */
 		139D01FB0FFE17D7F8D44C6C /* Pods_Feet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Feet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1761F2DCC2BFF102A036EF60 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		21F5EFA11DCF5785009E53BD /* UserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		21F5EFA51DCF627C009E53BD /* UserNetTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNetTool.swift; sourceTree = "<group>"; };
 		21F763771DC4CE7900FC57ED /* BorderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
 		21F763791DC4D91700FC57ED /* BorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
 		21F7637B1DC4E0AD00FC57ED /* FeetAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeetAPI.swift; sourceTree = "<group>"; };
@@ -401,6 +405,8 @@
 		4732CB7A1D20306200A0A32E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				21F5EFA11DCF5785009E53BD /* UserInfoModel.swift */,
+				21F5EFA51DCF627C009E53BD /* UserNetTool.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -848,6 +854,7 @@
 			files = (
 				21F7637C1DC4E0AD00FC57ED /* FeetAPI.swift in Sources */,
 				473AED451D28BC09005B3E79 /* UIColorExtension.swift in Sources */,
+				21F5EFA61DCF627C009E53BD /* UserNetTool.swift in Sources */,
 				47250F581CFEBF0800BF2D2D /* ViewController.swift in Sources */,
 				473AED4C1D28BC0E005B3E79 /* PromiseEnum.swift in Sources */,
 				47D8B4041D7097FF006F6731 /* CommentCell.swift in Sources */,
@@ -856,6 +863,7 @@
 				47250F691CFEF54A00BF2D2D /* ZhuGeio.swift in Sources */,
 				474271B01D4DDA8300F354C1 /* ProfileViewController.swift in Sources */,
 				47FD459F1D37CD290097D794 /* AppDelegateExtension.swift in Sources */,
+				21F5EFA21DCF5785009E53BD /* UserInfoModel.swift in Sources */,
 				47250F591CFEBF0800BF2D2D /* FeetCell.swift in Sources */,
 				472DD4F01D2EB1F700D35DD3 /* Constants.swift in Sources */,
 				477611071D323FBE00CD8EB9 /* HomeNetworkTool.swift in Sources */,

@@ -14,7 +14,7 @@ struct PostNetTool {
    获取七牛Token
    */
   static func qiuNiuToken(){
-    let url = "http://115.28.110.10:8080/feet/imgtoken/a"
+    let url = FeetAPI.ImgToken.a
     
     func parseJson(json: JSON) -> Promise<String>{
       if json["code"].intValue == 12000 {

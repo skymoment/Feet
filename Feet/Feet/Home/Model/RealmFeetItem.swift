@@ -1,6 +1,7 @@
 import UIKit
 import RealmSwift
 import SwiftyJSON
+
 class RealmFeetItem: Object {
     dynamic var id = ""
     
