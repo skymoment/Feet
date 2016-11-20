@@ -9,12 +9,17 @@
 import UIKit
 
 protocol CommentDelegate: class{
-  func commentNameselected()
-  func commentOtherNameSelected()
-  func commentContentSelected()
+  func commentNameselected(name: String)
+  func commentOtherNameSelected(otherName: String)
+  func commentContentSelected(name: String)
 }
 
 class CommentLabel: UILabel {
+  
+  weak var delegate: CommentDelegate?
+  
+  var commentInfo: CommentInfo!
+  
   var name: String! = "UOUO"
   var otherName: String! = "HUHU"
   var middleName: String! = " 回复 "
@@ -71,10 +76,13 @@ class CommentLabel: UILabel {
     
     if nameRect().contains(point) {
       debugPrint("haha中了")
+      delegate?.commentNameselected(name)
     } else if otherNameRect().contains(point) {
       debugPrint("中了个蛋")
+      delegate?.commentOtherNameSelected(otherName)
     } else {
       debugPrint("中了个球")
+      delegate?.commentContentSelected(otherName)
     }
   }
   

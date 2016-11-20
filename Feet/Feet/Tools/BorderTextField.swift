@@ -43,6 +43,15 @@ class BorderTextField: UIView {
     }
   }
   
+  var borderColor: UIColor {
+    set {
+      self.layer.borderColor = newValue.CGColor
+    }
+    get {
+      return UIColor(CGColor: self.layer.borderColor!)
+    }
+  }
+  
   
   // LifeCycle
   override init(frame: CGRect) {

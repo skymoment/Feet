@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 class CommentCell: UITableViewCell {
-  
+  var commentInfo: CommentInfo!
   var commentLabel: CommentLabel!
   
   class func identifier() -> String {
@@ -61,7 +61,7 @@ class CommentCell: UITableViewCell {
     }
     self.commentLabel = c
   }
-  
+ 
   func refresh() {
     
   }

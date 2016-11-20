@@ -29,7 +29,7 @@ struct QiniuTool {
       }, option: nil)
   }
   
-  static func upLoadImages(images:[String],completion: (progress: Double) -> (),failtrue: () -> ()) {
+  static func upLoadImages(images:[String],completion: (progress: Double, keys: [String]) -> (),failtrue: () -> ()) {
     
     /****************/
     for image in images  {
@@ -39,15 +39,16 @@ struct QiniuTool {
 
     let token = UserDefaultsTool.qiniuToken
     let upLoadManger = QNUploadManager()
-    
+    var keys = [String]()
     for (index,image) in images.enumerate() {
       upLoadManger.putFile(image, key: nil, token: token, complete: { (info, key, response) in
         debugPrint("info===\(info)")
         debugPrint("key === \(key)")
         debugPrint("response ==== \(response)")
         debugPrint("response ==== \(response["key"]!)")
+        keys.append(response["key"] as! String)
         let percent = Double(index + 1) / Double(images.count)
-        completion(progress: percent)
+        completion(progress: percent, keys: keys)
         }, option: nil)
     }
   }

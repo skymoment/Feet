@@ -15,6 +15,7 @@ class FeetCell: UITableViewCell {
   @IBOutlet weak var cityLabel: UILabel!
   @IBOutlet weak var lookCountLabel: UILabel!
   @IBOutlet weak var likeCountLabel: UILabel!
+  @IBOutlet weak var mainImage: UIImageView!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -45,5 +46,9 @@ class FeetCell: UITableViewCell {
     cityLabel.text = model.city
     lookCountLabel.text = String(model.lookCount)
     likeCountLabel.text = String(model.likeCount)
+    if model.pics.count > 0 {
+      let url = NSURL(string: model.pics[0])
+      mainImage.sd_setImageWithURL(url)
+    }
   }
 }

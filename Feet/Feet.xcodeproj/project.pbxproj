@@ -14,6 +14,7 @@
 		21F763781DC4CE7900FC57ED /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F763771DC4CE7900FC57ED /* BorderTextField.swift */; };
 		21F7637A1DC4D91700FC57ED /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F763791DC4D91700FC57ED /* BorderButton.swift */; };
 		21F7637C1DC4E0AD00FC57ED /* FeetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7637B1DC4E0AD00FC57ED /* FeetAPI.swift */; };
+		21FC30521DE152680069CE42 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FC30511DE152680069CE42 /* CommentView.swift */; };
 		34ECEA8C33367E5BAE33710B /* Pods_FeetUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 460BFE22A9CEE4929D5BDFEA /* Pods_FeetUITests.framework */; };
 		4706B6DB1D002F8D00CAC365 /* RealmFeetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4706B6DA1D002F8D00CAC365 /* RealmFeetItem.swift */; };
 		471589E21DA795920006E727 /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471589E11DA795920006E727 /* SignView.swift */; };
@@ -110,6 +111,7 @@
 		21F763771DC4CE7900FC57ED /* BorderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
 		21F763791DC4D91700FC57ED /* BorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
 		21F7637B1DC4E0AD00FC57ED /* FeetAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeetAPI.swift; sourceTree = "<group>"; };
+		21FC30511DE152680069CE42 /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		26DC426A2715F430675F9D04 /* Pods_FeetTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FeetTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		460BFE22A9CEE4929D5BDFEA /* Pods_FeetUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FeetUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4706B6DA1D002F8D00CAC365 /* RealmFeetItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmFeetItem.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				4756F1D41D4E50F9006100BE /* DetailScorllerView.swift */,
 				47CB02D01D64B39900471F5C /* FeetDetailHeader.swift */,
 				47D8B4031D7097FF006F6731 /* CommentCell.swift */,
+				21FC30511DE152680069CE42 /* CommentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -891,6 +894,7 @@
 				471589EA1DA795D30006E727 /* EmailView.swift in Sources */,
 				47250F5E1CFEBF6A00BF2D2D /* GCDTool.swift in Sources */,
 				4756F1CF1D4E4920006100BE /* SetUserInfoViewController.swift in Sources */,
+				21FC30521DE152680069CE42 /* CommentView.swift in Sources */,
 				478A9A161D31FA4A0037EE08 /* MineCell.swift in Sources */,
 				477611091D32875E00CD8EB9 /* ImagePicker.swift in Sources */,
 				473107F71D7885E30086F055 /* Notifications.swift in Sources */,
@@ -1075,6 +1079,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Feet/Feet-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1093,6 +1098,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Feet/Feet-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

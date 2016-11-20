@@ -52,7 +52,6 @@ class SetUserInfoViewController: UIViewController {
     // Do any additional setup after loading the view.
     view.addSubview(BackView())
     subView = returnView()
-    
     //
     let btn = BorderButton(frame: CGRect(x: 0, y: 0, width: 50, height: 24))
     let rightBarItem = UIBarButtonItem(customView: btn)

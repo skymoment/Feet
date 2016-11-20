@@ -10,6 +10,7 @@
 #define Feet_Bridging_Header_h
 
 #import "UMSocial.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>//引入base相关所有的头文件
 
 #import <BaiduMapAPI_Map/BMKMapComponent.h>//引入地图功能所有的头文件

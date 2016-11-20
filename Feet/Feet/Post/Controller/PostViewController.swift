@@ -139,10 +139,10 @@ class PostViewController: UIViewController {
   func postAction() {
     debugPrint("正在发布发布")
     
-    QiniuTool.upLoadImages(imagesPaths, completion: { (progress) in
+    QiniuTool.upLoadImages(imagesPaths, completion: { (progress, keys) in
       debugPrint("上传进度 \(progress)")
       if progress == 1 {
-        self.postToServer()
+        self.postToServer(keys)
       }
     }) {
       debugPrint("上传失败")
@@ -150,19 +150,36 @@ class PostViewController: UIViewController {
   }
   
   func gainQiNiuToken() {
-    if UserDefaultsTool.qiniuToken == "" {
+//    if UserDefaultsTool.qiniuToken == "" {
       PostNetTool.qiuNiuToken()
-    }
+//    }
   }
   
   
   // 上传 feet 到 自己服务器上
-  func postToServer() {
+  func postToServer(paths: [String]) {
+    let httpHeader = "http://o8ahkpej6.bkt.clouddn.com/"
+    
+    let newPaths = paths.map { s in
+      return httpHeader + s
+    }
+    
+    var imgs = ""
+    for (index,path) in newPaths.enumerate() {
+      if index == paths.count {
+        imgs = imgs + path
+      } else {
+        imgs = imgs + path + ","
+      }
+    }
+    
+    debugPrint(imgs)
+    
     let params = [
       "content": postView.textView.text!,
       "city": locationXY,
-      "imgs": "http://o8ahkpej6.bkt.clouddn.com/Flop5M4N_0rUiQ-3VFFf2sb6NKwK?ratio=2,http://o8ahkpej6.bkt.clouddn.com/FtT0XXldRuxj8CNkj60oX-roiReq?ratio=2",
-      "mood": "1"
+      "imgs": imgs,
+      "mood": "2"
     ]
     
     PostNetTool.post(params) { promiseString in
