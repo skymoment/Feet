@@ -87,19 +87,21 @@ class DetailViewController: UIViewController {
   // MARK: - Keyborad Notification Method
   func keyboardWillShow(notification: NSNotification) {
     let rect = notification.userInfo![UIKeyboardFrameEndUserInfoKey]!.CGRectValue
+    let time = notification.userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
     let height = rect.height
     
     commentView.snp_updateConstraints { (make) in
       make.bottom.equalTo(view.snp_bottom).offset(-height)
     }
+    
     view.setNeedsUpdateConstraints()
-    UIView.animateWithDuration(0.3) {
+    UIView.animateWithDuration(time) {
       self.commentView.hight()
       self.view.layoutIfNeeded()
     }
   }
   
-  func keyboardWillHidden() {
+  func keyboardWillHidden(notification: NSNotification) {
     commentView.snp_updateConstraints { (make) in
       make.bottom.equalTo(view.snp_bottom)
     }
