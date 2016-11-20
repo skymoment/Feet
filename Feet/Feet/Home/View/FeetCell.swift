@@ -41,6 +41,9 @@ class FeetCell: UITableViewCell {
   }
   
   func refresh(model: FeetModel) {
-    
+    contentLabel.text = model.content
+    cityLabel.text = model.city
+    lookCountLabel.text = String(model.lookCount)
+    likeCountLabel.text = String(model.likeCount)
   }
 }

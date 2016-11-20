@@ -10,6 +10,7 @@ import UIKit
 
 protocol ProfileDelegate: class {
   func pushToInfoView(type: InfoViews)
+  func logOutAction()
 }
 
 class ProfileView: UIView {
@@ -283,6 +284,7 @@ class ProfileView: UIView {
       debugPrint("更换头像")
     } else {
       debugPrint("退出登录")
+      delegate?.logOutAction()
     }
   }
 }

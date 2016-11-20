@@ -10,6 +10,12 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Feet想使用你的相机</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Feet想使用你的相册</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Feet想使用你的麦克风</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

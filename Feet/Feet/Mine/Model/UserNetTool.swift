@@ -12,8 +12,8 @@ import SwiftyJSON
 struct UserNetworkTool {
   
   /**
-    用户信息：更新、获取
-   */
+    * 用户信息：更新、获取
+    */
   static func userInfo(params: [String: String], completion: (Promise<UserInfoModel>) -> ()) {
     let url = FeetAPI.User.updateUserInfo
     
@@ -32,7 +32,4 @@ struct UserNetworkTool {
       completion(result)
     }
   }
-  
-  
-  
 }

@@ -84,3 +84,14 @@ class CommentLabel: UILabel {
     self.comment = comment
   }
 }
+
+extension UILabel {
+  func attrbuteText(text: String, color: UIColor,font: UIFont) {
+    if self.text!.containsString(text) {
+      let range = (self.text! as NSString).rangeOfString(text)
+      let attr = NSMutableAttributedString(string: self.text!)
+      attr.addAttributes([NSForegroundColorAttributeName: color, NSFontAttributeName: font], range: range)
+      self.attributedText = attr
+    }
+  }
+}

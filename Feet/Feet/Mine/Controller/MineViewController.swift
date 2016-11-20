@@ -14,7 +14,7 @@ class MineViewController: UIViewController {
   weak var nameLabel: UILabel!
   weak var sexImageView: UIImageView!
   weak var tableView: UITableView!
-  
+  var feetModels = [FeetModel]()
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
@@ -30,6 +30,7 @@ class MineViewController: UIViewController {
     (tabBarController as! TabBarController).addGestrue()
 
     navigationController?.setNavigationBarHidden(true, animated: false)
+    loadData()
   }
   
   override func viewWillDisappear(animated: Bool) {
@@ -49,7 +50,6 @@ class MineViewController: UIViewController {
   func setViews() {
     view.insertSubview(BackView(), atIndex: 0)
 
-    
     avatarView = {
       let a = UIImageView(image: UIImage(named:"m_default"))
       a.userInteractionEnabled = true
@@ -109,6 +109,27 @@ class MineViewController: UIViewController {
     }()
   }
   
+  // MARK: - LoadData
+  func loadData() {
+    let params = [
+      "pageNumber": "1",
+      "type": "1"
+      ]
+    
+    HomeNetworkTool.getFeet(params) { promiseModels in
+      do {
+        let _ = try promiseModels.then({models in
+          self.feetModels = models
+          self.tableView.reloadData()
+        }).resolve()
+      } catch where error is MyError{
+        debugPrint("\(error)")
+      } catch{
+        debugPrint("网络错误")
+      }
+    }
+  }
+  
   // Actions
   func avatarTaped() {
     let vc = ProfileViewController()
@@ -122,11 +143,12 @@ class MineViewController: UIViewController {
 // MAKR: - UITableViewDelegate,UITableViewDataSource
 extension MineViewController: UITableViewDelegate,UITableViewDataSource {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
+    return feetModels.count
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = MineCell(style: .Default, reuseIdentifier: MineCell.identifier())
+    cell.refresh(feetModels[indexPath.row])
     return cell
   }
   

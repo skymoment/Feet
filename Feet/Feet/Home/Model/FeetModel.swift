@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+
 class FeetModel: NSObject {
   
 //  "city": "Beijing",
@@ -27,9 +28,9 @@ class FeetModel: NSObject {
   var likeCount:Int = 0
   var lookCount:Int = 0
   var time:String = ""
-  var pics:String = ""
+  var pics = [String]()
   var content:String = ""
-  
+
   init(json: JSON) {
     id = json["id"].intValue
     userId = json["userId"].intValue
@@ -38,7 +39,14 @@ class FeetModel: NSObject {
     likeCount = json["likeCount"].intValue
     lookCount = json["lookCount"].intValue
     time = json["time"].stringValue
-    pics = json["pics"].stringValue
+    let pictrues = json["pics"].stringValue
+    
+    if !pictrues.isEmpty {
+      let p = pictrues.componentsSeparatedByString(",")
+      pics.appendContentsOf(p)
+    }
+    
     content = json["content"].stringValue
   }
 }
+

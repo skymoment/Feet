@@ -42,20 +42,22 @@ class CommentCell: UITableViewCell {
   // SetViews
   func setViews() {
     let c = CommentLabel()
-    contentView.backgroundColor = UIColor.whiteColor()
-    contentView.addSubview(c)
-    contentView.snp_makeConstraints { (make) in
-      make.left.equalTo(self.snp_left).offset(15)
-      make.right.equalTo(self.snp_right).offset(-15)
-      make.top.equalTo(10)
-      make.bottom.equalTo(self.snp_bottom).offset(-10)
+    let v = UIView()
+    v.backgroundColor = UIColor.whiteColor()
+    contentView.addSubview(v)
+    v.snp_makeConstraints { (make) in
+      make.left.equalTo(contentView.snp_left).offset(15)
+      make.right.equalTo(contentView.snp_right).offset(-15)
+      make.top.equalTo(contentView)
+      make.bottom.equalTo(contentView.snp_bottom)
     }
     
+    v.addSubview(c)
     c.snp_makeConstraints { (make) in
       make.left.equalTo(8)
       make.right.equalTo(-8)
-      make.bottom.equalTo(contentView.snp_bottom).offset(-5)
-      make.top.equalTo(contentView.snp_top).offset(5)
+      make.bottom.equalTo(v.snp_bottom).offset(-5)
+      make.top.equalTo(v.snp_top).offset(5)
     }
     self.commentLabel = c
   }

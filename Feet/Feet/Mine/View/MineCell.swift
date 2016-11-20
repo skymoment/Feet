@@ -132,4 +132,9 @@ class MineCell: UITableViewCell {
       return c
     }()
   }
+  
+  func refresh(model: FeetModel) {
+    countLabel.text = "共\(model.pics.count)张"
+    contentLabel.text = model.content
+  }
 }

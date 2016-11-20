@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
   @IBOutlet weak var tableView: UITableView!
-  var feetModels:[FeetModel]!
+  var feetModels = [FeetModel]()
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
@@ -29,14 +29,13 @@ class ViewController: UIViewController {
     
     setNaviItem()
 //    zhugeTrack()
-    
-    loadData()
   }
   
   override func viewWillAppear(animated: Bool) {
     navigationController?.setNavigationBarHidden(false, animated: false)
     super.viewWillAppear(animated)
     (tabBarController as! TabBarController).addGestrue()
+    loadData()
   }
   
   override func viewWillDisappear(animated: Bool) {
@@ -55,7 +54,6 @@ class ViewController: UIViewController {
     let gesture = UITapGestureRecognizer(target: self, action: #selector(rightBarAction))
     imageView.addGestureRecognizer(gesture)
     navigationItem.rightBarButtonItem = UIBarButtonItem(customView: imageView)
-    
     
     let leftImageView = UIImageView(image: UIImage(named: "send"))
     let gestureLeft = UITapGestureRecognizer(target: self, action: #selector(leftBarAction))
@@ -85,13 +83,14 @@ class ViewController: UIViewController {
   // 默认 10 条
   func loadData() {
     let params = [
-      "pageNumber": "1"
+      "pageNumber": "1",
     ]
     
-    HomeNetworkTool.post(params) { promiseModels in
+    HomeNetworkTool.getFeet(params) { promiseModels in
       do {
         let _ = try promiseModels.then({models in
           self.feetModels = models
+          self.tableView.reloadData()
         }).resolve()
       } catch where error is MyError{
         debugPrint("\(error)")
@@ -107,13 +106,13 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate,UITableViewDataSource {
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
+    return feetModels.count
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
   
     let cell = tableView.dequeueReusableCellWithIdentifier("feetCell") as! FeetCell
-    
+    cell.refresh(feetModels[indexPath.row])
     return cell
   }
   

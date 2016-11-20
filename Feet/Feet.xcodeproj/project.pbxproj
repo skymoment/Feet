@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1735ECE07E8489B937F4C916 /* Pods_Feet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139D01FB0FFE17D7F8D44C6C /* Pods_Feet.framework */; };
+		21D53DAB1DD822DD00B0E309 /* FeetDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */; };
 		21F5EFA21DCF5785009E53BD /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5EFA11DCF5785009E53BD /* UserInfoModel.swift */; };
 		21F5EFA61DCF627C009E53BD /* UserNetTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5EFA51DCF627C009E53BD /* UserNetTool.swift */; };
 		21F763781DC4CE7900FC57ED /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F763771DC4CE7900FC57ED /* BorderTextField.swift */; };
@@ -103,6 +104,7 @@
 /* Begin PBXFileReference section */
 		139D01FB0FFE17D7F8D44C6C /* Pods_Feet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Feet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1761F2DCC2BFF102A036EF60 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeetDetailModel.swift; sourceTree = "<group>"; };
 		21F5EFA11DCF5785009E53BD /* UserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		21F5EFA51DCF627C009E53BD /* UserNetTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNetTool.swift; sourceTree = "<group>"; };
 		21F763771DC4CE7900FC57ED /* BorderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 			children = (
 				47250F5A1CFEBF1D00BF2D2D /* FeetModel.swift */,
 				4706B6DA1D002F8D00CAC365 /* RealmFeetItem.swift */,
+				21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -898,6 +901,7 @@
 				47250F5B1CFEBF1D00BF2D2D /* FeetModel.swift in Sources */,
 				478A9A1A1D3202980037EE08 /* TimeLabel.swift in Sources */,
 				471589E21DA795920006E727 /* SignView.swift in Sources */,
+				21D53DAB1DD822DD00B0E309 /* FeetDetailModel.swift in Sources */,
 				4732CB7D1D20307A00A0A32E /* MineViewController.swift in Sources */,
 				479DD9D61D00143400D3AD1E /* SlideAnimationController.swift in Sources */,
 				47FD45A51D37DD000097D794 /* UIViewExtension.swift in Sources */,

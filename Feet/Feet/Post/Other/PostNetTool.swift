@@ -42,7 +42,8 @@ struct PostNetTool {
   static func post(params: [String: String],completon:(Promise<String>) ->()) {
     
     debugPrint(params["feeToken"])
-    let url = "http://115.28.110.10:8080/feet/feet/add"
+//    let url = "http://115.28.110.10:8080/feet/feet/add"
+    let url = FeetAPI.Feet.add
     
     func parseJson(json: JSON) -> Promise<String>{
       if json["code"].intValue == 12000 {
@@ -58,5 +59,4 @@ struct PostNetTool {
       completon(result)
     }
   }
-
 }

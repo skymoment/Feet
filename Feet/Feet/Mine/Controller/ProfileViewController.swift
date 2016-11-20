@@ -49,4 +49,9 @@ extension ProfileViewController: ProfileDelegate {
     let vc = SetUserInfoViewController(type: type)
     navigationController?.pushViewController(vc, animated: true)
   }
+  
+  func logOutAction() {
+    UserDefaultsTool.cleanUserInfo()
+    navigationController?.popViewControllerAnimated(true)
+  }
 }

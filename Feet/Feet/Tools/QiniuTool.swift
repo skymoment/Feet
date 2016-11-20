@@ -10,14 +10,14 @@ import Foundation
 import Qiniu
 
 struct QiniuTool {
-  //  NSString *token = @"从服务端SDK获取";
-  //  QNUploadManager *upManager = [[QNUploadManager alloc] init];
-  //  NSData *data = [@"Hello, World!" dataUsingEncoding : NSUTF8StringEncoding];
-  //  [upManager putData:data key:@"hello" token:token
-  //  complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-  //  NSLog(@"%@", info);
-  //  NSLog(@"%@", resp);
-  //  } option:nil];
+//    NSString *token = @"从服务端SDK获取";
+//    QNUploadManager *upManager = [[QNUploadManager alloc] init];
+//    NSData *data = [@"Hello, World!" dataUsingEncoding : NSUTF8StringEncoding];
+//    [upManager putData:data key:@"hello" token:token
+//    complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+//    NSLog(@"%@", info);
+//    NSLog(@"%@", resp);
+//    } option:nil];
   
   static func upLoadImage(filePath: String) {
     let token = UserDefaultsTool.qiniuToken
@@ -30,6 +30,13 @@ struct QiniuTool {
   }
   
   static func upLoadImages(images:[String],completion: (progress: Double) -> (),failtrue: () -> ()) {
+    
+    /****************/
+    for image in images  {
+      debugPrint("image: \(image)")
+    }
+    /****************/
+
     let token = UserDefaultsTool.qiniuToken
     let upLoadManger = QNUploadManager()
     
@@ -38,8 +45,8 @@ struct QiniuTool {
         debugPrint("info===\(info)")
         debugPrint("key === \(key)")
         debugPrint("response ==== \(response)")
-        
-        let percent = Double(index) / Double(images.count)
+        debugPrint("response ==== \(response["key"]!)")
+        let percent = Double(index + 1) / Double(images.count)
         completion(progress: percent)
         }, option: nil)
     }

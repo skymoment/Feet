@@ -21,7 +21,7 @@ class PostViewController: UIViewController {
   var isMain: Bool = true
   var images: [UIImage] = []
   var imagesPaths: [String] = []
-  var locationXY: String = ""
+  var locationXY: String = "上海市"
   
   var postViewUpdateHeight = 35
   var scorllerOffsetY:CGFloat = 0
@@ -137,7 +137,7 @@ class PostViewController: UIViewController {
   }
   
   func postAction() {
-    debugPrint("发布")
+    debugPrint("正在发布发布")
     
     QiniuTool.upLoadImages(imagesPaths, completion: { (progress) in
       debugPrint("上传进度 \(progress)")
@@ -161,14 +161,14 @@ class PostViewController: UIViewController {
     let params = [
       "content": postView.textView.text!,
       "city": locationXY,
-      "imgs": "imgurl?ratio=2,imgurl?ratio=2.3,imgurl?ratio=6.2",
+      "imgs": "http://o8ahkpej6.bkt.clouddn.com/Flop5M4N_0rUiQ-3VFFf2sb6NKwK?ratio=2,http://o8ahkpej6.bkt.clouddn.com/FtT0XXldRuxj8CNkj60oX-roiReq?ratio=2",
       "mood": "1"
     ]
     
     PostNetTool.post(params) { promiseString in
       do {
         let _ = try promiseString.then({str in
-          debugPrint("\(str)")
+          debugPrint("发布结果 ===== \(str)")
           self.popAction()
         }).resolve()
       } catch where error is MyError{
@@ -241,6 +241,7 @@ extension PostViewController: ImagePickerDelegate {
     
     debugPrint("newSize === \(newSize)")
     if isMain {
+      images.append(image)
       postView.imageView1.image = image
     } else {
       images.append(image)
