@@ -11,6 +11,11 @@ import UIKit
 class SignView: UIView {
 
   weak var boderField: BorderTextField!
+  var sign: String {
+    get {
+      return boderField.text
+    }
+  }
   
   // MARK: - LifeCycle
   override init(frame: CGRect) {

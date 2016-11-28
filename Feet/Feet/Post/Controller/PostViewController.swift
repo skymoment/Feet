@@ -152,16 +152,15 @@ class PostViewController: UIViewController {
   }
   
   func gainQiNiuToken() {
-      PostNetTool.qiuNiuToken()
+    PostNetTool.qiuNiuToken()
   }
   
   
   // 上传 feet 到 自己服务器上
   func postToServer(paths: [String]) {
-    let httpHeader = "http://o8ahkpej6.bkt.clouddn.com/"
     
     let newPaths = paths.map { s in
-      return httpHeader + s
+      return QNHeader + s
     }
     
     var imgs = ""

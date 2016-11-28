@@ -12,7 +12,11 @@ class BirthdayView: UIView {
 
 
   weak var boderField: BorderTextField!
-
+  var birthday: String {
+    get {
+      return boderField.text
+    }
+  }
   
   override init(frame: CGRect) {
     super.init(frame: frame)

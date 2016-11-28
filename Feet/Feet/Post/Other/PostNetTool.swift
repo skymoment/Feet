@@ -13,7 +13,7 @@ struct PostNetTool {
   /**
    获取七牛Token
    */
-  static func qiuNiuToken(){
+  static func qiuNiuToken(compeltion: (() -> ())? = nil){
     let url = FeetAPI.ImgToken.a
     
     func parseJson(json: JSON) -> Promise<String>{
@@ -29,6 +29,9 @@ struct PostNetTool {
     ApiClient.fetch(.POST, URLString: url,paramters: ["feetToken": UserDefaultsTool.userToken]) { promiseJSON in
       let result = promiseJSON.then(parseJson)
       debugPrint(result)
+      if let c = compeltion {
+        c()
+      }
     }
   }
   

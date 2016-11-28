@@ -11,6 +11,8 @@ import UIKit
 class ProfileViewController: UIViewController {
   
   var profileView: ProfileView!
+  var imagePicker: ImagePicker!
+  var avatar: UIImageView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -39,11 +41,29 @@ class ProfileViewController: UIViewController {
       }
       return p
     }()
-
+  }
+  
+  // MARK: - Method
+  func avatarUpLoad(path: String) {
+    PostNetTool.qiuNiuToken { 
+      QiniuTool.upLoadImage(path) { (img) in
+        UserNetworkTool.userInfo(["image": QNHeader + img], completion: { promiseString in
+          do {
+            let _ = try promiseString.then({model in
+              debugPrint("上传结果 ===== \(model.image)")
+            }).resolve()
+          } catch where error is MyError{
+            debugPrint("\(error)")
+          } catch{
+            debugPrint("网络错误")
+          }
+        })
+      }
+    }
   }
 }
 
-// MARK: - 
+// MARK: -  ProfileDelegate
 extension ProfileViewController: ProfileDelegate {
   func pushToInfoView(type: InfoViews) {
     let vc = SetUserInfoViewController(type: type)
@@ -53,5 +73,29 @@ extension ProfileViewController: ProfileDelegate {
   func logOutAction() {
     UserDefaultsTool.cleanUserInfo()
     navigationController?.popViewControllerAnimated(true)
+  }
+  
+  func changeAvatar(view: UIImageView) {
+    avatar = view
+    self.imagePicker = ImagePicker(viewController: self)
+    self.imagePicker.delegate = self
+  }
+}
+
+// MARK: - ImagePickerDelegate
+extension ProfileViewController: ImagePickerDelegate {
+  func imagePickerDidFinishPickingImage(image: UIImage) {
+    let folderPath = cacheFolderPath + "/imageCaches"
+    let imagePath = folderPath + "/header.jpg"
+    
+    let data = UIImageJPEGRepresentation(image, 0.5)
+    debugPrint("imageDataSize: === \((data?.length)!/1024)")
+    do {
+      try NSFileManager.defaultManager().createDirectoryAtPath(folderPath, withIntermediateDirectories: true, attributes: nil)
+      data?.writeToFile(imagePath, atomically: true)
+    } catch _ {}
+    
+    avatar.image = image.imageWithSize(CGSize(width: 160, height: 160))
+    avatarUpLoad(imagePath)
   }
 }

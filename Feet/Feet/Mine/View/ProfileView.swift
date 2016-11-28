@@ -11,6 +11,7 @@ import UIKit
 protocol ProfileDelegate: class {
   func pushToInfoView(type: InfoViews)
   func logOutAction()
+  func changeAvatar(view: UIImageView)
 }
 
 class ProfileView: UIView {
@@ -25,6 +26,7 @@ class ProfileView: UIView {
   var updateView: TransparentView!   // 107
   var changBackView: TransparentView!// 108
   var logOutView: TransparentView!   // 109
+  var headerImageView: UIImageView!  // 头像
   
   var userModel: UserModel!
   
@@ -62,6 +64,7 @@ class ProfileView: UIView {
         make.center.equalTo(h)
         make.width.height.equalTo(46)
       })
+      headerImageView = avatar
       
       return h
     }()
@@ -282,6 +285,7 @@ class ProfileView: UIView {
     
     if tag == 101 {
       debugPrint("更换头像")
+      delegate?.changeAvatar(headerImageView)
     } else {
       debugPrint("退出登录")
       delegate?.logOutAction()

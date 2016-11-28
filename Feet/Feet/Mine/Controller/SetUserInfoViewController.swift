@@ -39,7 +39,6 @@ class SetUserInfoViewController: UIViewController {
   var infoType = InfoViews.sign
   weak var subView: UIView!
   
-  
   // MARK: - LifeCycle
   convenience init(type: InfoViews) {
     self.init()
@@ -54,6 +53,7 @@ class SetUserInfoViewController: UIViewController {
     subView = returnView()
     //
     let btn = BorderButton(frame: CGRect(x: 0, y: 0, width: 50, height: 24))
+    btn.addTarget(self, action: #selector(saveAciton), forControlEvents: .TouchUpInside)
     let rightBarItem = UIBarButtonItem(customView: btn)
     navigationItem.rightBarButtonItem = rightBarItem
   }
@@ -69,12 +69,15 @@ class SetUserInfoViewController: UIViewController {
     switch infoType {
     case .sign:
       v = createView(SignView.self)
+      break
     case .name:
       v = createView(NameView.self)
+      break
     case .sex:
       v = createView(SexView.self)
     case .birthday:
       v = createView(BirthdayView.self)
+      break
     case .email:
       v = createView(EmailView.self)
     }
@@ -89,6 +92,63 @@ class SetUserInfoViewController: UIViewController {
   func createView<T: UIView>(type: T.Type) -> T{
     let t = T()
     return t
+  }
+}
+
+// MARK: - 
+extension SetUserInfoViewController {
+  func saveAciton() {
+    switch infoType {
+    case .sign:
+      let sign = (subView as! SignView).sign
+      if sign.length() > 0 {
+        save(["info": sign])
+      } else {
+        debugPrint("侬能留下点东西吗")
+      }
+      break
+    case .name:
+      let name = (subView as! NameView).name
+      if name.length() > 0 {
+        save(["nickname": name])
+      } else {
+        debugPrint("侬的名字不能为空哦")
+      }
+      break
+    case .sex:
+      // TODO ....
+      let _ = (subView as! NameView).name
+    case .birthday:
+      let birthday = (subView as! BirthdayView).birthday
+      if birthday.length() > 0 {
+        save(["birthday": birthday])
+      } else {
+        debugPrint("侬的生日跑哪去了")
+      }
+      break
+    case .email:
+      let email = (subView as! EmailView).email
+      if email.length() > 0 {
+        save(["email": email])
+      } else {
+        debugPrint("侬的邮箱不见了。。。")
+      }
+    }
+  }
+
+  func save(param: [String: String]) {
+     UserNetworkTool.userInfo(param) { (promiseModel) in
+      do {
+        let _  = try promiseModel.then({model in
+          debugPrint(model)
+          self.navigationController?.popViewControllerAnimated(true)
+        }).resolve()
+      } catch where error is MyError{
+        debugPrint("\(error)")
+      } catch{
+        debugPrint("网络错误")
+      }
+    }
   }
 }
 

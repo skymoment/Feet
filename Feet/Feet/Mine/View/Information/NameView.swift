@@ -11,6 +11,11 @@ import UIKit
 class NameView: UIView {
 
   weak var boderField: BorderTextField!
+  var name: String {
+    get {
+      return boderField.text
+    }
+  }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -51,21 +56,5 @@ class NameView: UIView {
       }
       return b
     }()
-    
-    let b = UIButton(type: .System)
-    b.setTitle("保 存", forState: .Normal)
-    b.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-    
-    b.layer.borderWidth = 1
-    b.layer.borderColor = UIColor.whiteColor().CGColor
-    b.layer.cornerRadius = 3
-    b.frame = CGRect(x: 80, y: 150, width: 50, height: 26)
-    
-    h.addSubview(b)
-  }
-  
-  
-  func saveAction() {
-  
-  }
+  }  
 }

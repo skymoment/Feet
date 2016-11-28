@@ -11,7 +11,11 @@ import UIKit
 class EmailView: UIView {
 
   weak var boderField: BorderTextField!
-
+  var email: String {
+    get {
+      return boderField.text
+    }
+  }
   
   override init(frame: CGRect) {
     super.init(frame: frame)

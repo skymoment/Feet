@@ -7,6 +7,9 @@
 //
 
 import Foundation
+/// 七牛空间
+let QNHeader = "http://o8ahkpej6.bkt.clouddn.com/"
+
 
 // Colors
 let MianFontColor = UIColor(hexString: "#282828")

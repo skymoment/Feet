@@ -19,13 +19,15 @@ struct QiniuTool {
 //    NSLog(@"%@", resp);
 //    } option:nil];
   
-  static func upLoadImage(filePath: String) {
+  static func upLoadImage(filePath: String, compeletion: (String) ->()) {
     let token = UserDefaultsTool.qiniuToken
     let upLoadManger = QNUploadManager()
     upLoadManger.putFile(filePath, key: nil, token: token, complete: { (info, key, response) in
       debugPrint("info===\(info)")
       debugPrint("key === \(key)")
       debugPrint("response ==== \(response)")
+      let key = (response["key"] as! String)
+      compeletion(key)
       }, option: nil)
   }
   
