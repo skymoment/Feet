@@ -25,6 +25,8 @@ class PostViewController: UIViewController {
   
   var postViewUpdateHeight = 35
   var scorllerOffsetY:CGFloat = 0
+  
+  
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -150,9 +152,7 @@ class PostViewController: UIViewController {
   }
   
   func gainQiNiuToken() {
-//    if UserDefaultsTool.qiniuToken == "" {
       PostNetTool.qiuNiuToken()
-//    }
   }
   
   
@@ -241,6 +241,7 @@ extension PostViewController: PostViewDelegate {
   }
 }
 
+// MARK: - ImagePickerDelegate
 extension PostViewController: ImagePickerDelegate {
   func imagePickerDidFinishPickingImage(image: UIImage) {
     let folderPath = cacheFolderPath + "/imageCaches"

@@ -51,7 +51,7 @@ class MineViewController: UIViewController {
     view.insertSubview(BackView(), atIndex: 0)
 
     avatarView = {
-      let a = UIImageView(image: UIImage(named:"m_default"))
+      let a = UIImageView(image: UIImage(named:"d_header3"))
       a.userInteractionEnabled = true
       a.layer.cornerRadius = 48
       a.layer.masksToBounds = true

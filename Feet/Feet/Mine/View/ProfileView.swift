@@ -54,7 +54,7 @@ class ProfileView: UIView {
         make.height.equalTo(75)
       }
       // 头像 需要替换
-      let avatar = UIImageView(image: UIImage(named:"m_default"))
+      let avatar = UIImageView(image: UIImage(named:"d_header2"))
       avatar.layer.cornerRadius = 23
       avatar.layer.masksToBounds = true
       h.addSubview(avatar)

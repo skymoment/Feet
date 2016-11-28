@@ -25,7 +25,7 @@ class DetailViewController: UIViewController {
     super.viewWillAppear(animated)
     (tabBarController as! TabBarController).removeGestrue()
     
-    //
+
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHidden), name: UIKeyboardWillHideNotification, object: nil)
     (tabBarController as! TabBarController).removeGestrue()
@@ -113,6 +113,8 @@ class DetailViewController: UIViewController {
   }
 }
 
+
+// MARK: - UITableViewDelegate,UITableViewDataSource
 extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -134,6 +136,8 @@ extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
   }
 }
 
+
+// MARK: - CommentDelegate
 extension DetailViewController: CommentDelegate {
   func commentNameselected(name: String) {
     debugPrint(name)

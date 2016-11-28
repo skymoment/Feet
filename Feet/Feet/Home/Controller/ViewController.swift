@@ -55,7 +55,8 @@ class ViewController: UIViewController {
     imageView.addGestureRecognizer(gesture)
     navigationItem.rightBarButtonItem = UIBarButtonItem(customView: imageView)
     
-    let leftImageView = UIImageView(image: UIImage(named: "send"))
+    let leftImageView = UIImageView(image: UIImage(named: "d_header"))
+    leftImageView.frame = CGRect(x: 0, y: 0, width: 28, height: 28)
     let gestureLeft = UITapGestureRecognizer(target: self, action: #selector(leftBarAction))
     leftImageView.addGestureRecognizer(gestureLeft)
     navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftImageView)
@@ -97,12 +98,11 @@ class ViewController: UIViewController {
       } catch{
         debugPrint("网络错误")
       }
-
     }
   }
 }
 
-
+//MARK: - UITableViewDelegate,UITableViewDataSource
 extension ViewController: UITableViewDelegate,UITableViewDataSource {
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

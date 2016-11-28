@@ -91,7 +91,6 @@ class PostView: UIView {
       t.font = UIFont.systemFontOfSize(14)
       t.scrollEnabled = false
       t.delegate = self
-      t.backgroundColor = UIColor.greenColor()
       backView.addSubview(t)
       t.snp_makeConstraints(closure: { (make) in
         make.top.equalTo(imageView1.snp_bottom).offset(8)
