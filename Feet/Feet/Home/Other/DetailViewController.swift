@@ -14,6 +14,9 @@ class DetailViewController: UIViewController {
   var tableViewHeader: FeetDetailHeader!
   weak var commentView: CommentView!
   
+  /// 键盘 + commentView 的高度
+  var heightOfKB: CGFloat = 0
+  
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -89,7 +92,7 @@ class DetailViewController: UIViewController {
     let rect = notification.userInfo![UIKeyboardFrameEndUserInfoKey]!.CGRectValue
     let time = notification.userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
     let height = rect.height
-    
+    heightOfKB = height + 50
     commentView.snp_updateConstraints { (make) in
       make.bottom.equalTo(view.snp_bottom).offset(-height)
     }
@@ -102,6 +105,7 @@ class DetailViewController: UIViewController {
   }
   
   func keyboardWillHidden(notification: NSNotification) {
+    heightOfKB = 0
     commentView.snp_updateConstraints { (make) in
       make.bottom.equalTo(view.snp_bottom)
     }
@@ -139,15 +143,29 @@ extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
 
 // MARK: - CommentDelegate
 extension DetailViewController: CommentDelegate {
-  func commentNameselected(name: String) {
+  func commentNameselected(name: String, y: Int) {
     debugPrint(name)
+    commentView.borderText.textField.becomeFirstResponder()
+    tableContentOffset(y)
   }
   
-  func commentOtherNameSelected(otherName: String) {
+  func commentOtherNameSelected(otherName: String, y: Int) {
     debugPrint(otherName)
+    commentView.borderText.textField.becomeFirstResponder()
+    tableContentOffset(y)
   }
   
-  func commentContentSelected(name: String) {
+  func commentContentSelected(name: String, y: Int) {
     debugPrint(name)
+    commentView.borderText.textField.becomeFirstResponder()
+    tableContentOffset(y)
+  }
+  
+  func tableContentOffset(y: Int) {
+    let offsetY = CGFloat(y) - (KScreenHeigth - heightOfKB)
+    if offsetY > 0 {
+      let contentY = tableView.contentOffset.y
+      tableView.setContentOffset(CGPoint(x: 0, y: contentY + offsetY), animated: true)
+    }
   }
 }

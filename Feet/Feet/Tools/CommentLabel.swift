@@ -9,9 +9,9 @@
 import UIKit
 
 protocol CommentDelegate: class{
-  func commentNameselected(name: String)
-  func commentOtherNameSelected(otherName: String)
-  func commentContentSelected(name: String)
+  func commentNameselected(name: String, y: Int)
+  func commentOtherNameSelected(otherName: String, y: Int)
+  func commentContentSelected(name: String, y: Int)
 }
 
 class CommentLabel: UILabel {
@@ -73,16 +73,18 @@ class CommentLabel: UILabel {
   
   func tapAction(tap: UITapGestureRecognizer) {
     let point = tap.locationInView(self)
-    
+    let rect = self.superview!.superview!.convertRect(self.superview!.frame, toView: window?.subviews.last)
+    let y = Int(rect.origin.y + rect.size.height)
+    debugPrint("y === \(y)")
     if nameRect().contains(point) {
       debugPrint("haha中了")
-      delegate?.commentNameselected(name)
+      delegate?.commentNameselected(name,y: y)
     } else if otherNameRect().contains(point) {
       debugPrint("中了个蛋")
-      delegate?.commentOtherNameSelected(otherName)
+      delegate?.commentOtherNameSelected(otherName,y: y)
     } else {
       debugPrint("中了个球")
-      delegate?.commentContentSelected(otherName)
+      delegate?.commentContentSelected(otherName,y: y)
     }
   }
   

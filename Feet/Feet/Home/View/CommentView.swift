@@ -40,6 +40,8 @@ class CommentView: UIView {
       let b = BorderTextField()
       b.textField.textColor = UIColor.blackColor()
       b.borderColor = UIColor(hexString: "#b4b4b4")
+      b.textField.keyboardType = .NamePhonePad
+      b.textField.delegate = self
       b.placeHolder = "抢个沙发吧 ~"
       self.addSubview(b)
       b.snp_makeConstraints { (make) in
@@ -59,5 +61,27 @@ class CommentView: UIView {
   
   func hight() {
     self.backgroundColor = UIColor(hexString: "#FFFFFF", alpha: 1.0)
+  }
+}
+
+// MAKR: - UITextFieldDelegate
+extension CommentView: UITextFieldDelegate {
+  func textFieldShouldReturn(textField: UITextField) -> Bool {
+    let params = ["content": textField.text!,
+                  "feetid": "10",
+                  "replyUserId": "102"
+                  ]
+    HomeNetworkTool.commentFeet(params) { promiseJSON in
+      do {
+        let _ = try promiseJSON.then({models in
+          textField.resignFirstResponder()
+        }).resolve()
+      } catch where error is MyError{
+        debugPrint("\(error)")
+      } catch{
+        debugPrint("网络错误")
+      }
+    }
+    return true
   }
 }

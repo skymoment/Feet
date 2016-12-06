@@ -117,7 +117,8 @@ extension SetUserInfoViewController {
       break
     case .sex:
       // TODO ....
-      let _ = (subView as! NameView).name
+      let sex = (subView as! SexView).sex
+      save(["gender": "\(sex)"])
     case .birthday:
       let birthday = (subView as! BirthdayView).birthday
       if birthday.length() > 0 {

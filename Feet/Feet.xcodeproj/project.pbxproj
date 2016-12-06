@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1735ECE07E8489B937F4C916 /* Pods_Feet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139D01FB0FFE17D7F8D44C6C /* Pods_Feet.framework */; };
+		21050F1D1DF4535500A8FF8E /* SKBirthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21050F1C1DF4535500A8FF8E /* SKBirthPicker.swift */; };
 		21D53DAB1DD822DD00B0E309 /* FeetDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */; };
 		21F5EFA21DCF5785009E53BD /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5EFA11DCF5785009E53BD /* UserInfoModel.swift */; };
 		21F5EFA61DCF627C009E53BD /* UserNetTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5EFA51DCF627C009E53BD /* UserNetTool.swift */; };
@@ -105,11 +106,12 @@
 /* Begin PBXFileReference section */
 		139D01FB0FFE17D7F8D44C6C /* Pods_Feet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Feet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1761F2DCC2BFF102A036EF60 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		21050F1C1DF4535500A8FF8E /* SKBirthPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKBirthPicker.swift; sourceTree = "<group>"; };
 		21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeetDetailModel.swift; sourceTree = "<group>"; };
 		21F5EFA11DCF5785009E53BD /* UserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		21F5EFA51DCF627C009E53BD /* UserNetTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNetTool.swift; sourceTree = "<group>"; };
-		21F763771DC4CE7900FC57ED /* BorderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
-		21F763791DC4D91700FC57ED /* BorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
+		21F763771DC4CE7900FC57ED /* BorderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BorderTextField.swift; path = ../BorderTextField.swift; sourceTree = "<group>"; };
+		21F763791DC4D91700FC57ED /* BorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BorderButton.swift; path = ../BorderButton.swift; sourceTree = "<group>"; };
 		21F7637B1DC4E0AD00FC57ED /* FeetAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeetAPI.swift; sourceTree = "<group>"; };
 		21FC30511DE152680069CE42 /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		26DC426A2715F430675F9D04 /* Pods_FeetTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FeetTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,7 +186,7 @@
 		47D8B4031D7097FF006F6731 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		47E19B321D041E1A0053E984 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		47F4232F1D36998000DFA915 /* QiniuTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiniuTool.swift; sourceTree = "<group>"; };
-		47F808311D58D40600738726 /* CommentLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentLabel.swift; sourceTree = "<group>"; };
+		47F808311D58D40600738726 /* CommentLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentLabel.swift; path = ../CommentLabel.swift; sourceTree = "<group>"; };
 		47FD459E1D37CD290097D794 /* AppDelegateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateExtension.swift; sourceTree = "<group>"; };
 		47FD45A21D37D44D0097D794 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = ../../Mine/Controller/MapViewController.swift; sourceTree = "<group>"; };
 		47FD45A41D37DD000097D794 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -225,6 +227,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21050F1B1DF4531400A8FF8E /* Compent */ = {
+			isa = PBXGroup;
+			children = (
+				47F808311D58D40600738726 /* CommentLabel.swift */,
+				21F763771DC4CE7900FC57ED /* BorderTextField.swift */,
+				21F763791DC4D91700FC57ED /* BorderButton.swift */,
+				21050F1C1DF4535500A8FF8E /* SKBirthPicker.swift */,
+			);
+			path = Compent;
+			sourceTree = "<group>";
+		};
 		471589E01DA78CD20006E727 /* Information */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,9 +302,9 @@
 		47250F5C1CFEBF4500BF2D2D /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				21050F1B1DF4531400A8FF8E /* Compent */,
 				471589EB1DA79C280006E727 /* Services */,
 				476592981D7A6E75006A4506 /* UIImage+ImageEffects */,
-				47F808311D58D40600738726 /* CommentLabel.swift */,
 				477611081D32875E00CD8EB9 /* ImagePicker.swift */,
 				472DD4EF1D2EB1F700D35DD3 /* Constants.swift */,
 				473AED481D28BC0E005B3E79 /* NetWork */,
@@ -304,8 +317,6 @@
 				47F4232F1D36998000DFA915 /* QiniuTool.swift */,
 				47613A781D3E5F9E000C808D /* LoactionTool.swift */,
 				473107F61D7885E30086F055 /* Notifications.swift */,
-				21F763771DC4CE7900FC57ED /* BorderTextField.swift */,
-				21F763791DC4D91700FC57ED /* BorderButton.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -887,6 +898,7 @@
 				47E19B331D041E1A0053E984 /* NavigationController.swift in Sources */,
 				478A9A0C1D313F140037EE08 /* SmallImageView.swift in Sources */,
 				472EC5101D3D1D3800B9214E /* ThemeManager.swift in Sources */,
+				21050F1D1DF4535500A8FF8E /* SKBirthPicker.swift in Sources */,
 				479DD9D81D00146900D3AD1E /* TabBarVCDelegate.swift in Sources */,
 				47FD45A31D37D44D0097D794 /* MapViewController.swift in Sources */,
 				476B5D2F1CFAD3FF003E4636 /* AppDelegate.swift in Sources */,

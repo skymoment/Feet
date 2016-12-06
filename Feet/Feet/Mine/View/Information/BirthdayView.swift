@@ -10,8 +10,9 @@ import UIKit
 
 class BirthdayView: UIView {
 
-
+  var birthdayPicker: SKBirthPicker!
   weak var boderField: BorderTextField!
+  
   var birthday: String {
     get {
       return boderField.text
@@ -45,9 +46,18 @@ class BirthdayView: UIView {
       make.width.height.equalTo(28)
     })
     
+    birthdayPicker = {
+      let p = SKBirthPicker()
+      p.frame = CGRect(x: 0, y: KScreenHeigth - 162, width: KScreenWidth, height: 162)
+      p.delegate = self
+      return p
+    }()
+    
     boderField = {
       let b = BorderTextField()
       b.placeHolder = "选择侬的生日"
+      b.textField.inputView = birthdayPicker
+      b.textField.delegate = self
       h.addSubview(b)
       b.snp_makeConstraints { (make) in
         make.top.equalTo(birthImage.snp_bottom).offset(50)
@@ -57,5 +67,17 @@ class BirthdayView: UIView {
       }
       return b
     }()
+  }
+}
+
+extension BirthdayView: SKBirthPickerDelegate {
+  func pickerChanged(date: String) {
+    boderField.text = date
+  }
+}
+
+extension BirthdayView: UITextFieldDelegate {
+  func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    return false
   }
 }

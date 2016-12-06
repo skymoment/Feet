@@ -59,4 +59,14 @@ struct HomeNetworkTool {
       
     }
   }
+  
+  /**
+   点赞
+   */
+  static func zanFeet(params: [String: String],completon:(Promise<[FeetModel]>) ->()) {
+    let url = FeetAPI.Comment.zan
+    ApiClient.fetch(.POST, URLString: url,paramters: params) { promiseJSON in
+      
+    }
+  }
 }

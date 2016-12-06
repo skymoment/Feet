@@ -144,6 +144,9 @@ class FeetDetailHeader: UIView {
     
     likeView = {
       let i = UIImageView(image: UIImage(named: "loves"))
+      let tapGestrue = UITapGestureRecognizer(target: self, action: #selector(likeAction))
+      i.userInteractionEnabled = true
+      i.addGestureRecognizer(tapGestrue)
       contentView.addSubview(i)
       i.snp_makeConstraints { (make) in
         make.right.equalTo(likeLabel.snp_left).offset(-4)
@@ -188,5 +191,17 @@ class FeetDetailHeader: UIView {
   
   func likeAction() {
     debugPrint("likeAction")
+    HomeNetworkTool.zanFeet(["feetid": "102"]) { promiseModel in
+      do {
+        let _ = try promiseModel.then({model in
+//          self.feetModels = models
+//          self.tableView.reloadData()
+        }).resolve()
+      } catch where error is MyError{
+        debugPrint("\(error)")
+      } catch{
+        debugPrint("网络错误")
+      }
+    }
   }
 }

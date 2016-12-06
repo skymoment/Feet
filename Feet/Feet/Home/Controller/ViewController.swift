@@ -106,13 +106,13 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate,UITableViewDataSource {
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return feetModels.count
+    return feetModels.count  + 2
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
   
     let cell = tableView.dequeueReusableCellWithIdentifier("feetCell") as! FeetCell
-    cell.refresh(feetModels[indexPath.row])
+//    cell.refresh(feetModels[indexPath.row])
     return cell
   }
   

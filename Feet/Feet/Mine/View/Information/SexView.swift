@@ -10,13 +10,10 @@ import UIKit
 
 class SexView: UIView {
 
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
+  var sex:Int = 0
+  
+  weak var manBtn: BorderButton!
+  weak var womanBtn: BorderButton!
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -64,5 +61,46 @@ class SexView: UIView {
       make.left.equalTo(label.snp_right).offset(8)
       make.width.height.equalTo(24)
     })
+    
+    manBtn = {
+      let manBtn = BorderButton()
+      manBtn.tag = 0
+      manBtn.setTitle("男", forState: .Normal)
+      h.addSubview(manBtn)
+      manBtn.addTarget(self, action: #selector(sexButton), forControlEvents: .TouchUpInside)
+      manBtn.snp_makeConstraints { (make) in
+        make.top.equalTo(label.snp_bottom).offset(30)
+        make.centerX.equalTo(h)
+        make.width.equalTo(100)
+        make.height.equalTo(35)
+      }
+      return manBtn
+    }()
+    
+    womanBtn = {
+      let womanBtn = BorderButton()
+      womanBtn.tag = 1
+      womanBtn.setTitle("女", forState: .Normal)
+      h.addSubview(womanBtn)
+      womanBtn.addTarget(self, action: #selector(sexButton), forControlEvents: .TouchUpInside)
+      womanBtn.snp_makeConstraints { (make) in
+        make.top.equalTo(manBtn.snp_bottom).offset(15)
+        make.centerX.equalTo(h)
+        make.width.equalTo(100)
+        make.height.equalTo(35)
+      }
+      return womanBtn
+    }()
+  }
+  
+  func sexButton(button: UIButton) {
+    sex = button.tag
+    if sex == 0 {
+      manBtn.backgroundColor = UIColor.lightGrayColor()
+      womanBtn.backgroundColor = UIColor.clearColor()
+    } else {
+      manBtn.backgroundColor = UIColor.clearColor()
+      womanBtn.backgroundColor = UIColor.lightGrayColor()
+    }
   }
 }
