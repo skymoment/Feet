@@ -11,6 +11,8 @@ import UIKit
 class CommentView: UIView {
   
   weak var borderText: BorderTextField!
+  var userId = "0"
+  var feetId = "0"
   
   // MARK: - LifeCycle
   override init(frame: CGRect) {
@@ -54,6 +56,12 @@ class CommentView: UIView {
     }()
   }
   
+  // MARK: - LoadData
+  func loadData(userId: String, feetId: String) {
+    self.userId = userId
+    self.feetId = feetId
+  }
+  
   // MARK: - Method
   func normal() {
     self.backgroundColor = UIColor(hexString: "#FFFFFF", alpha: 0.7)
@@ -67,9 +75,10 @@ class CommentView: UIView {
 // MAKR: - UITextFieldDelegate
 extension CommentView: UITextFieldDelegate {
   func textFieldShouldReturn(textField: UITextField) -> Bool {
-    let params = ["content": textField.text!,
-                  "feetid": "10",
-                  "replyUserId": "102"
+    let content = textField.text!.componentsSeparatedByString(":")
+    let params = ["content": content[1],
+                  "feetid": feetId,
+                  "replyUserId": userId
                   ]
     HomeNetworkTool.commentFeet(params) { promiseJSON in
       do {

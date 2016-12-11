@@ -40,11 +40,22 @@ struct HomeNetworkTool {
   /**
    *  Feet 详情
    */
-  static func getFeetDetail(params: [String: String],completon:(Promise<[FeetModel]>) ->()) {
+  static func getFeetDetail(params: [String: String],completon:(Promise<FeetDetailModel>) ->()) {
     let url = FeetAPI.Feet.getInfo
     
+    func parseJson(json: JSON) -> Promise<FeetDetailModel>{
+      if json["code"].intValue == 12000 {
+        let model = FeetDetailModel(json: json)
+        return Promise.Success(model)
+      } else {
+        return Promise.Error(MyError(error: json["msg"].stringValue))
+      }
+    }
+    
     ApiClient.fetch(.POST, URLString: url,paramters: params) { promiseJSON in
-      
+      let result = promiseJSON.then(parseJson)
+      debugPrint(result)
+      completon(result)
     }
   }
   

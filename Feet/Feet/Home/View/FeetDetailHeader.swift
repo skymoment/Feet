@@ -26,10 +26,17 @@ class FeetDetailHeader: UIView {
   var likeLabel: UILabel!
   var linelabel: UILabel!
   
+  var model: FeetDetailModel!
+  
   // MARK: - LifeCycle
+  convenience init(model: FeetDetailModel) {
+    self.init(frame: CGRect(x: 0, y: 0, width: KScreenWidth, height: 10))
+    self.model = model
+    setViews()
+  }
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
-    setViews()
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -78,7 +85,7 @@ class FeetDetailHeader: UIView {
     
     timeAndCity = {
       let l = UILabel()
-      l.text = "2016-08-15  上海"
+      l.text = model.feetInfo.time
       l.font = UIFont.systemFontOfSize(12)
       l.textColor = UIColor(hexString: "#646464")
       contentView.addSubview(l)
@@ -94,7 +101,7 @@ class FeetDetailHeader: UIView {
       c.font = UIFont.systemFontOfSize(15)
       c.textColor = MianFontColor
       c.numberOfLines = 0
-      c.text = "我的的得得得我的的得得得我的的得得得我的的得得得我的的得得得我的的得得得"
+      c.text = model.feetInfo.content
       contentView.addSubview(c)
       c.snp_makeConstraints { (make) in
         make.top.equalTo(avatarView.snp_bottom).offset(6)
@@ -118,7 +125,7 @@ class FeetDetailHeader: UIView {
     
     watchLabel = {
       let l = UILabel()
-      l.text = "80"
+      l.text = "\(model.feetInfo.lookCount)"
       l.textColor = MianFontColor
       l.font = UIFont.systemFontOfSize(15)
       contentView.addSubview(l)
@@ -131,7 +138,7 @@ class FeetDetailHeader: UIView {
     
     likeLabel = {
       let l = UILabel()
-      l.text = "110"
+      l.text = "\(model.feetInfo.likeCount)"
       l.textColor = MianFontColor
       l.font = UIFont.systemFontOfSize(15)
       contentView.addSubview(l)
@@ -179,10 +186,16 @@ class FeetDetailHeader: UIView {
     contentView.layoutIfNeeded()
     self.frame = CGRect(x: 15, y: 0, width: KScreenWidth-30, height: contentView.height)
     
-    let whiteView = UIView(frame: CGRect(x: self.x + 0.5,y: self.y+8,width: self.width - 1,height: self.height))
-    whiteView.backgroundColor = UIColor.whiteColor()
-    insertSubview(whiteView, belowSubview: contentView)
+    if model.commentInfo.count > 0 {
+      let whiteView = UIView(frame: CGRect(x: self.x + 0.5,y: self.y+8,width: self.width - 1,height: self.height))
+      whiteView.backgroundColor = UIColor.whiteColor()
+      insertSubview(whiteView, belowSubview: contentView)
+    } else {
+      linelabel.backgroundColor = UIColor.clearColor()
+    }
+
   }
+  
   
   // MARK: - Actions
   func pushPersonInfo() {

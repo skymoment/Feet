@@ -21,7 +21,7 @@ class PostViewController: UIViewController {
   var isMain: Bool = true
   var images: [UIImage] = []
   var imagesPaths: [String] = []
-  var locationXY: String = "上海市"
+  var locationXY: String = "未使用定位"
   
   var postViewUpdateHeight = 35
   var scorllerOffsetY:CGFloat = 0
@@ -81,17 +81,15 @@ class PostViewController: UIViewController {
     }()
     
     postBtn = {
-      let btn = UIButton(type: .System)
-      btn.setTitle("发布", forState: .Normal)
-      btn.tintColor = UIColor.whiteColor()
-      btn.titleLabel?.font = UIFont.systemFontOfSize(22)
+      let btn = BorderButton()
+      btn.setTitle("发 布", forState: .Normal)
       btn.addTarget(self, action: #selector(postAction), forControlEvents: .TouchUpInside)
       view.addSubview(btn)
       btn.snp_makeConstraints(closure: { (make) in
         make.centerY.equalTo(cancelBtn)
         make.right.equalTo(-15)
         make.width.equalTo(50)
-        make.height.equalTo(40)
+        make.height.equalTo(24)
       })
       return btn
     }()

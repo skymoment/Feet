@@ -51,15 +51,15 @@ extension LoactionTool: CLLocationManagerDelegate {
   func CLGeocoderAction(location: CLLocation) {
     let geocoder = CLGeocoder()
     geocoder.reverseGeocodeLocation(location) { (marks, error) in
-//      for mark in marks! {
-//        let dic = mark.addressDictionary
-//        let state = dic!["State"]
-//        debugPrint("lcoaiton ==== \(state) ")
-//        
-//        if let d = self.delegate {
-//          d.locationWithState(location, state: "\(state!)")
-//        }
-//      }
+      for mark in marks! {
+        let dic = mark.addressDictionary
+        let state = dic!["State"]
+        debugPrint("lcoaiton ==== \(state) ")
+        
+        if let d = self.delegate {
+          d.locationWithState(location, state: "\(state!)")
+        }
+      }
     }
   }
 }

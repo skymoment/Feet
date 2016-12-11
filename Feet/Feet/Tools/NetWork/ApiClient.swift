@@ -19,13 +19,13 @@ struct ApiClient {
   //生成header信息，每个请求都必须带的
   private static func generationHeaders() -> [String : String] {
     let headers = [
-      "feeToken": UserDefaultsTool.userToken,
-      "X-App-Id": "",
-      "X-Requested-With": "XMLHttpRequest",
-      "HTTP_X_APP_TYPE": "2",
-      "X-Udid" : "",
-      "X-User-Phone-Brand" : "",
-      "X-User-System" : ""
+      "feeToken": UserDefaultsTool.userToken
+//      "X-App-Id": "",
+//      "X-Requested-With": "XMLHttpRequest",
+//      "HTTP_X_APP_TYPE": "2",
+//      "X-Udid" : "",
+//      "X-User-Phone-Brand" : "",
+//      "X-User-System" : ""
     ]
     return headers
   }

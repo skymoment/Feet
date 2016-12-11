@@ -9,17 +9,16 @@
 import UIKit
 
 protocol CommentDelegate: class{
-  func commentNameselected(name: String, y: Int)
-  func commentOtherNameSelected(otherName: String, y: Int)
-  func commentContentSelected(name: String, y: Int)
+  func commentNameselected(name: CommentInfo, y: Int)
+  func commentOtherNameSelected(otherName: CommentInfo, y: Int)
+  func commentContentSelected(name: CommentInfo, y: Int)
 }
 
 class CommentLabel: UILabel {
   
   weak var delegate: CommentDelegate?
   
-  var commentInfo: CommentInfo!
-  
+  var model: CommentInfo!
   var name: String! = "UOUO"
   var otherName: String! = "HUHU"
   var middleName: String! = " 回复 "
@@ -35,6 +34,13 @@ class CommentLabel: UILabel {
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  // MARK: - LoadData
+  func loadData(model: CommentInfo) {
+    name = model.nickname
+    otherName = model.replyUserName
+    comment = model.content
   }
   
   func addTapGestrue() {
@@ -78,13 +84,13 @@ class CommentLabel: UILabel {
     debugPrint("y === \(y)")
     if nameRect().contains(point) {
       debugPrint("haha中了")
-      delegate?.commentNameselected(name,y: y)
+      delegate?.commentNameselected(model,y: y)
     } else if otherNameRect().contains(point) {
       debugPrint("中了个蛋")
-      delegate?.commentOtherNameSelected(otherName,y: y)
+      delegate?.commentOtherNameSelected(model,y: y)
     } else {
       debugPrint("中了个球")
-      delegate?.commentContentSelected(otherName,y: y)
+      delegate?.commentContentSelected(model,y: y)
     }
   }
   

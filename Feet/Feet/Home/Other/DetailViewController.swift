@@ -9,18 +9,25 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-  
+  var id = "0"
+  var model: FeetDetailModel!
+  var comments = [CommentInfo]()
   var tableView: UITableView!
-  var tableViewHeader: FeetDetailHeader!
   weak var commentView: CommentView!
   
   /// 键盘 + commentView 的高度
   var heightOfKB: CGFloat = 0
   
   // MARK: - LifeCycle
+  convenience init(id: String) {
+    self.init()
+    self.id = id
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     setViews()
+    loadData()
     // Do any additional setup after loading the view.
   }
   
@@ -48,25 +55,20 @@ class DetailViewController: UIViewController {
   func setViews() {
     view.backgroundColor = UIColor.whiteColor()
     
-    tableViewHeader = {
-      let t = FeetDetailHeader(frame: CGRect(x: 0, y: 0, width: view.width, height: 10))
-      return t
-    }()
-    
     tableView = {
       let t = UITableView()
-      t.tableHeaderView = tableViewHeader
       t.backgroundColor = UIColor.clearColor()
       t.delegate = self
       t.dataSource = self
+      t.separatorStyle = .None
       t.rowHeight = UITableViewAutomaticDimension
       t.estimatedRowHeight = 100
   
       view.addSubview(t)
       t.snp_makeConstraints(closure: { (make) in
-        make.left.right.bottom.equalTo(view)
+        make.left.right.equalTo(view)
         make.top.equalTo(view).offset(64)
-        make.bottom.equalTo(view).offset(-50)
+        make.bottom.equalTo(view.snp_bottom).offset(-50)
       })
       return t
     }()
@@ -86,6 +88,23 @@ class DetailViewController: UIViewController {
     }()
   }
   
+  // MAKR: - LoadData
+  func loadData() {
+    HomeNetworkTool.getFeetDetail(["id": id]) { (promisModel) in
+      do {
+        let _ = try promisModel.then({ model in
+          self.model = model
+          self.comments = model.commentInfo
+          self.tableView.tableHeaderView = FeetDetailHeader(model: self.model)
+          self.tableView.reloadData()
+        }).resolve()
+      } catch where error is MyError {
+        debugPrint("\(error)")
+      } catch {
+        debugPrint("网络错误")
+      }
+    }
+  }
   
   // MARK: - Keyborad Notification Method
   func keyboardWillShow(notification: NSNotification) {
@@ -122,17 +141,26 @@ class DetailViewController: UIViewController {
 extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
+    if let model = model {
+      return model.commentInfo.count
+    } else {
+      return 0
+    }
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = CommentCell(style: .Default, reuseIdentifier: CommentCell.identifier())
     cell.commentLabel.delegate = self
+    cell.refresh(model.commentInfo[indexPath.row])
     return cell
   }
   
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    debugPrint(indexPath.row)
+  func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    return 0.1
+  }
+  
+  func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 0.1
   }
   
   func scrollViewWillBeginDragging(scrollView: UIScrollView) {
@@ -143,21 +171,30 @@ extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
 
 // MARK: - CommentDelegate
 extension DetailViewController: CommentDelegate {
-  func commentNameselected(name: String, y: Int) {
+  func commentNameselected(name: CommentInfo, y: Int) {
     debugPrint(name)
+    commentView.loadData("\(name.userId)", feetId: "\(name.feetId)")
     commentView.borderText.textField.becomeFirstResponder()
+    let text = "回复\(name.nickname):"
+    commentView.borderText.text = text
     tableContentOffset(y)
   }
   
-  func commentOtherNameSelected(otherName: String, y: Int) {
+  func commentOtherNameSelected(otherName: CommentInfo, y: Int) {
     debugPrint(otherName)
+    commentView.loadData("\(otherName.replyUserId)", feetId: "\(otherName.feetId)")
     commentView.borderText.textField.becomeFirstResponder()
+    let text = "回复\(otherName.replyUserName):"
+    commentView.borderText.text = text
     tableContentOffset(y)
   }
   
-  func commentContentSelected(name: String, y: Int) {
+  func commentContentSelected(name: CommentInfo, y: Int) {
     debugPrint(name)
+    commentView.loadData("\(name.userId)", feetId: "\(name.feetId)")
     commentView.borderText.textField.becomeFirstResponder()
+    let text = "回复\(name.replyUserName):"
+    commentView.borderText.text = text
     tableContentOffset(y)
   }
   

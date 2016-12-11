@@ -15,10 +15,10 @@ struct UserNetworkTool {
     * 用户信息：更新、获取
     */
   static func userInfo(params: [String: String], completion: (Promise<UserInfoModel>) -> ()) {
-    let url = FeetAPI.User.updateUserInfo
+    let url = "http://115.28.110.10:8080/feet/user/updateUserInfo" //FeetAPI.User.updateUserInfo
     
     func parseJson(json: JSON) -> Promise<UserInfoModel> {
-      if json["code"].intValue == 120000 {
+      if json["code"].intValue == 12000 {
         let model = UserInfoModel(json: json)
         return Promise.Success(model)
       } else {
@@ -26,7 +26,7 @@ struct UserNetworkTool {
       }
     }
     
-    ApiClient.fetch(.POST, URLString: url) { (promiseJSON) in
+    ApiClient.fetch(.POST, URLString: url, paramters: params) { (promiseJSON) in
       let result = promiseJSON.then(parseJson)
       debugPrint(result)
       completion(result)

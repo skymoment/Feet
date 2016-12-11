@@ -14,7 +14,7 @@ class BorderTextField: UIView {
   var text: String {
     get {
       if let field = textField {
-        return field.text ?? ""
+        return field.text! ?? ""
       } else {
         return ""
       }

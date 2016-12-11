@@ -84,7 +84,7 @@ class ViewController: UIViewController {
   // 默认 10 条
   func loadData() {
     let params = [
-      "pageNumber": "1",
+      "pageNumber": "1"
     ]
     
     HomeNetworkTool.getFeet(params) { promiseModels in
@@ -106,19 +106,19 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate,UITableViewDataSource {
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return feetModels.count  + 2
+    return feetModels.count
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
   
     let cell = tableView.dequeueReusableCellWithIdentifier("feetCell") as! FeetCell
-//    cell.refresh(feetModels[indexPath.row])
+    cell.refresh(feetModels[indexPath.row])
     return cell
   }
   
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let vc = DetailViewController()
+    let vc = DetailViewController(id: "\(feetModels[indexPath.row].id)")
     navigationController?.pushViewController(vc, animated: true)
   }
 }
