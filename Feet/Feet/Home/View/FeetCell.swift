@@ -43,7 +43,13 @@ class FeetCell: UITableViewCell {
   
   func refresh(model: FeetModel) {
     contentLabel.text = model.content
-    cityLabel.text = model.city
+    var city = ""
+    if model.city.containsString("=") {
+      city = model.city.componentsSeparatedByString("=")[0]
+    } else {
+      city = model.city
+    }
+    cityLabel.text = city
     lookCountLabel.text = String(model.lookCount)
     likeCountLabel.text = String(model.likeCount)
     if model.pics.count > 0 {

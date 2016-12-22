@@ -30,6 +30,7 @@ class MineViewController: UIViewController {
     (tabBarController as! TabBarController).addGestrue()
 
     navigationController?.setNavigationBarHidden(true, animated: false)
+    avatarView.image = UIImage(data: UserDefaultsTool.headerData)
     loadData()
   }
   
@@ -51,7 +52,7 @@ class MineViewController: UIViewController {
     view.insertSubview(BackView(), atIndex: 0)
 
     avatarView = {
-      let a = UIImageView(image: UIImage(named:"d_header3"))
+      let a = UIImageView(image: UIImage(data: UserDefaultsTool.headerData))
       a.userInteractionEnabled = true
       a.layer.cornerRadius = 48
       a.layer.masksToBounds = true

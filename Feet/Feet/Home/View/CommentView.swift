@@ -11,6 +11,7 @@ import UIKit
 class CommentView: UIView {
   
   weak var borderText: BorderTextField!
+  var feetUserId = "0"
   var userId = "0"
   var feetId = "0"
   
@@ -76,9 +77,18 @@ class CommentView: UIView {
 extension CommentView: UITextFieldDelegate {
   func textFieldShouldReturn(textField: UITextField) -> Bool {
     let content = textField.text!.componentsSeparatedByString(":")
-    let params = ["content": content[1],
+    
+    guard textField.text?.length() > 0 else {
+      debugPrint("评论内容不能为空哦")
+      return true
+    }
+    
+    let comment = content.count >= 2 ? content[1] : textField.text!
+    let uid = userId == "0" ? feetUserId : userId
+    
+    let params = ["content": comment,
                   "feetid": feetId,
-                  "replyUserId": userId
+                  "replyUserId": uid
                   ]
     HomeNetworkTool.commentFeet(params) { promiseJSON in
       do {

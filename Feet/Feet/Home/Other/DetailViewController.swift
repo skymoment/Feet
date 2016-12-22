@@ -95,6 +95,7 @@ class DetailViewController: UIViewController {
         let _ = try promisModel.then({ model in
           self.model = model
           self.comments = model.commentInfo
+          self.commentView.feetUserId = model.feetInfo.userId
           self.tableView.tableHeaderView = FeetDetailHeader(model: self.model)
           self.tableView.reloadData()
         }).resolve()

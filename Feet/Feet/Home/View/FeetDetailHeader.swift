@@ -150,10 +150,12 @@ class FeetDetailHeader: UIView {
     }()
     
     likeView = {
-      let i = UIImageView(image: UIImage(named: "loves"))
-      let tapGestrue = UITapGestureRecognizer(target: self, action: #selector(likeAction))
-      i.userInteractionEnabled = true
-      i.addGestureRecognizer(tapGestrue)
+      let i = UIImageView()
+      if model.feetInfo.selflike != 0 {
+        i.image = UIImage(named: "loved")
+      } else {
+        i.image = UIImage(named: "loves")
+      }
       contentView.addSubview(i)
       i.snp_makeConstraints { (make) in
         make.right.equalTo(likeLabel.snp_left).offset(-4)
@@ -163,6 +165,16 @@ class FeetDetailHeader: UIView {
       }
       return i
     }()
+    
+    let likeControl = UIControl()
+    likeControl.addTarget(self, action: #selector(likeAction), forControlEvents: .TouchDown)
+    contentView.addSubview(likeControl)
+    likeControl.snp_makeConstraints { (make) in
+      make.right.equalTo(timeAndCity.snp_right).offset(4)
+      make.centerY.equalTo(watchView)
+      make.width.equalTo(80)
+      make.height.equalTo(38)
+    }
     
     linelabel = {
       let l = UILabel()
@@ -204,7 +216,7 @@ class FeetDetailHeader: UIView {
   
   func likeAction() {
     debugPrint("likeAction")
-    HomeNetworkTool.zanFeet(["feetid": "102"]) { promiseModel in
+    HomeNetworkTool.zanFeet(["feetid": "\(model.feetInfo.id)"]) { promiseModel in
       do {
         let _ = try promiseModel.then({model in
 //          self.feetModels = models

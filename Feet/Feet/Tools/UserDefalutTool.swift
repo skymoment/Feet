@@ -29,7 +29,7 @@ class UserDefaultsTool {
     get{
       let userDefaults = NSUserDefaults.standardUserDefaults()
       userDefaults.dataForKey("headerData")
-      return userDefaults.dataForKey("headerData") ?? UIImageJPEGRepresentation(UIImage(named: "p_defalut_header")!, 1)!
+      return userDefaults.dataForKey("headerData") ?? UIImageJPEGRepresentation(UIImage(named: "d_header3")!, 1)!
     }
   }
   

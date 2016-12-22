@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class LoginViewController: UIViewController {
   
@@ -168,8 +169,15 @@ class LoginViewController: UIViewController {
     LoginNetTool.logIn(param) { promiseModel in
       do {
         let _ = try promiseModel.then({model in
-          self.dismissViewControllerAnimated(true, completion: nil)
           UserDefaultsTool.userToken = model.token
+          UserDefaultsTool.userName = model.nickName
+          UserDefaultsTool.userMobile = model.phone
+          ApiClient.downloadImage(model.image, compeletion: { (data) in
+            if let data = data {
+              UserDefaultsTool.headerData = data
+            }
+            self.dismissViewControllerAnimated(true, completion: nil)
+          })
         }).resolve()
       } catch where error is MyError{
         debugPrint("\(error)")

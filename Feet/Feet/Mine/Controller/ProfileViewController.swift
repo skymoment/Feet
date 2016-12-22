@@ -51,6 +51,12 @@ class ProfileViewController: UIViewController {
           do {
             let _ = try promiseString.then({model in
               debugPrint("上传结果 ===== \(model.image)")
+              ApiClient.downloadImage(model.image, compeletion: { (data) in
+                if let data = data {
+                  UserDefaultsTool.headerData = data
+                  self.avatar.image = UIImage(data: data)
+                }
+              })
             }).resolve()
           } catch where error is MyError{
             debugPrint("\(error)")
@@ -95,7 +101,7 @@ extension ProfileViewController: ImagePickerDelegate {
       data?.writeToFile(imagePath, atomically: true)
     } catch _ {}
     
-    avatar.image = image.imageWithSize(CGSize(width: 160, height: 160))
+//    avatar.image = image.imageWithSize(CGSize(width: 160, height: 160))
     avatarUpLoad(imagePath)
   }
 }
