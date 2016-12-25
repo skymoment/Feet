@@ -89,6 +89,8 @@ extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDe
 //      imageSize = CGSize(width: width, height: height)
 //    }
     
+    
+    
     let smallImage = info[UIImagePickerControllerEditedImage] as! UIImage
     
     let imageCropRect = info[UIImagePickerControllerCropRect]?.CGRectValue()
