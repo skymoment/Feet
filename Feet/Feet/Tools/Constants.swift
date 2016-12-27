@@ -11,6 +11,12 @@ import Foundation
 let QNHeader = "http://o8ahkpej6.bkt.clouddn.com/"
 
 
+// iPhone 
+let iPhone4 = UIScreen.mainScreen().bounds.height == 480
+let iPhone5 = UIScreen.mainScreen().bounds.height == 568
+let smallScreen = UIScreen.mainScreen().bounds.width == 320 ? true : false
+
+
 // Colors
 let MianFontColor = UIColor(hexString: "#282828")
 let LineColor = UIColor(hexString: "#dcdcdc")

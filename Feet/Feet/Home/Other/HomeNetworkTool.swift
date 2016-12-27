@@ -63,21 +63,42 @@ struct HomeNetworkTool {
   /**
    评论
    */
-  static func commentFeet(params: [String: String],completon:(Promise<[FeetModel]>) ->()) {
+  static func commentFeet(params: [String: String],completon:(Promise<Void>) ->()) {
     let url = FeetAPI.Comment.add
     
+    func parseJson(json: JSON) -> Promise<Void>{
+      if json["code"].intValue == 12000 {
+        return Promise.Success()
+      } else {
+        return Promise.Error(MyError(error: json["msg"].stringValue))
+      }
+    }
+    
     ApiClient.fetch(.POST, URLString: url,paramters: params) { promiseJSON in
-      
+      let result = promiseJSON.then(parseJson)
+      debugPrint(result)
+      completon(result)
     }
   }
   
   /**
    点赞
    */
-  static func zanFeet(params: [String: String],completon:(Promise<[FeetModel]>) ->()) {
+  static func zanFeet(params: [String: String],completon:(Promise<Void>) ->()) {
     let url = FeetAPI.Comment.zan
+    
+    func parseJson(json: JSON) -> Promise<Void>{
+      if json["code"].intValue == 12000 {
+        return Promise.Success()
+      } else {
+        return Promise.Error(MyError(error: json["msg"].stringValue))
+      }
+    }
+    
     ApiClient.fetch(.POST, URLString: url,paramters: params) { promiseJSON in
-      
+      let result = promiseJSON.then(parseJson)
+      debugPrint(result)
+      completon(result)
     }
   }
 }

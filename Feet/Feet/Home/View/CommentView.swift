@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol CommentViewDelegate: class {
+  func commented()
+}
+
 class CommentView: UIView {
   
   weak var borderText: BorderTextField!
-  var feetUserId = "0"
-  var userId = "0"
-  var feetId = "0"
+  var userId = ""
+  var feetId = ""
+  
+  weak var delegate: CommentViewDelegate?
   
   // MARK: - LifeCycle
   override init(frame: CGRect) {
@@ -43,7 +48,6 @@ class CommentView: UIView {
       let b = BorderTextField()
       b.textField.textColor = UIColor.blackColor()
       b.borderColor = UIColor(hexString: "#b4b4b4")
-      b.textField.keyboardType = .NamePhonePad
       b.textField.delegate = self
       b.placeHolder = "抢个沙发吧 ~"
       self.addSubview(b)
@@ -84,16 +88,17 @@ extension CommentView: UITextFieldDelegate {
     }
     
     let comment = content.count >= 2 ? content[1] : textField.text!
-    let uid = userId == "0" ? feetUserId : userId
     
     let params = ["content": comment,
                   "feetid": feetId,
-                  "replyUserId": uid
+                  "replyUserId": userId
                   ]
     HomeNetworkTool.commentFeet(params) { promiseJSON in
       do {
         let _ = try promiseJSON.then({models in
+          textField.text = ""
           textField.resignFirstResponder()
+          self.delegate?.commented()
         }).resolve()
       } catch where error is MyError{
         debugPrint("\(error)")

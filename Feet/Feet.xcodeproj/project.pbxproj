@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1735ECE07E8489B937F4C916 /* Pods_Feet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139D01FB0FFE17D7F8D44C6C /* Pods_Feet.framework */; };
 		21050F1D1DF4535500A8FF8E /* SKBirthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21050F1C1DF4535500A8FF8E /* SKBirthPicker.swift */; };
+		218EF8801E12B62C0057F1BC /* FeatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EF87F1E12B62C0057F1BC /* FeatureViewController.swift */; };
+		218EF8821E12B8AF0057F1BC /* ControllerTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EF8811E12B8AF0057F1BC /* ControllerTool.swift */; };
 		21D53DAB1DD822DD00B0E309 /* FeetDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */; };
 		21F5EFA21DCF5785009E53BD /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5EFA11DCF5785009E53BD /* UserInfoModel.swift */; };
 		21F5EFA61DCF627C009E53BD /* UserNetTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5EFA51DCF627C009E53BD /* UserNetTool.swift */; };
@@ -107,6 +109,8 @@
 		139D01FB0FFE17D7F8D44C6C /* Pods_Feet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Feet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1761F2DCC2BFF102A036EF60 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21050F1C1DF4535500A8FF8E /* SKBirthPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKBirthPicker.swift; sourceTree = "<group>"; };
+		218EF87F1E12B62C0057F1BC /* FeatureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureViewController.swift; sourceTree = "<group>"; };
+		218EF8811E12B8AF0057F1BC /* ControllerTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerTool.swift; sourceTree = "<group>"; };
 		21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeetDetailModel.swift; sourceTree = "<group>"; };
 		21F5EFA11DCF5785009E53BD /* UserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		21F5EFA51DCF627C009E53BD /* UserNetTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNetTool.swift; sourceTree = "<group>"; };
@@ -316,6 +320,7 @@
 				477611031D32308200CD8EB9 /* UserDefalutTool.swift */,
 				47F4232F1D36998000DFA915 /* QiniuTool.swift */,
 				47613A781D3E5F9E000C808D /* LoactionTool.swift */,
+				218EF8811E12B8AF0057F1BC /* ControllerTool.swift */,
 				473107F61D7885E30086F055 /* Notifications.swift */,
 			);
 			path = Tools;
@@ -556,6 +561,7 @@
 			children = (
 				47250F631CFEC0B800BF2D2D /* TabBarController.swift */,
 				47E19B321D041E1A0053E984 /* NavigationController.swift */,
+				218EF87F1E12B62C0057F1BC /* FeatureViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -877,6 +883,7 @@
 				47D8B4041D7097FF006F6731 /* CommentCell.swift in Sources */,
 				473AED3D1D28AD27005B3E79 /* UMengShare.swift in Sources */,
 				472DD4EE1D2EAFA500D35DD3 /* PostViewController.swift in Sources */,
+				218EF8801E12B62C0057F1BC /* FeatureViewController.swift in Sources */,
 				47250F691CFEF54A00BF2D2D /* ZhuGeio.swift in Sources */,
 				474271B01D4DDA8300F354C1 /* ProfileViewController.swift in Sources */,
 				47FD459F1D37CD290097D794 /* AppDelegateExtension.swift in Sources */,
@@ -909,6 +916,7 @@
 				21FC30521DE152680069CE42 /* CommentView.swift in Sources */,
 				478A9A161D31FA4A0037EE08 /* MineCell.swift in Sources */,
 				477611091D32875E00CD8EB9 /* ImagePicker.swift in Sources */,
+				218EF8821E12B8AF0057F1BC /* ControllerTool.swift in Sources */,
 				473107F71D7885E30086F055 /* Notifications.swift in Sources */,
 				471589E41DA795A10006E727 /* NameView.swift in Sources */,
 				473AED4E1D28BF91005B3E79 /* LoginNetTool.swift in Sources */,

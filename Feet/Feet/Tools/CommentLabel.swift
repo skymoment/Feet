@@ -38,9 +38,11 @@ class CommentLabel: UILabel {
   
   // MARK: - LoadData
   func loadData(model: CommentInfo) {
+    self.model = model
     name = model.nickname
     otherName = model.replyUserName
     comment = model.content
+    setMutableString()
   }
   
   func addTapGestrue() {
@@ -83,13 +85,13 @@ class CommentLabel: UILabel {
     let y = Int(rect.origin.y + rect.size.height)
     debugPrint("y === \(y)")
     if nameRect().contains(point) {
-      debugPrint("haha中了")
+      debugPrint("haha中了 \(name)")
       delegate?.commentNameselected(model,y: y)
     } else if otherNameRect().contains(point) {
-      debugPrint("中了个蛋")
+      debugPrint("中了个蛋 \(otherName)")
       delegate?.commentOtherNameSelected(model,y: y)
     } else {
-      debugPrint("中了个球")
+      debugPrint("中了个球 \(comment)")
       delegate?.commentContentSelected(model,y: y)
     }
   }

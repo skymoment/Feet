@@ -63,8 +63,7 @@ class CommentCell: UITableViewCell {
   }
  
   func refresh(model: CommentInfo) {
-    self.model = model
-    
+    commentLabel.loadData(model)
   }
 }
 

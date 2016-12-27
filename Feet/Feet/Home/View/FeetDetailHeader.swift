@@ -219,8 +219,7 @@ class FeetDetailHeader: UIView {
     HomeNetworkTool.zanFeet(["feetid": "\(model.feetInfo.id)"]) { promiseModel in
       do {
         let _ = try promiseModel.then({model in
-//          self.feetModels = models
-//          self.tableView.reloadData()
+          self.likeView.image = UIImage(named: "loved")
         }).resolve()
       } catch where error is MyError{
         debugPrint("\(error)")

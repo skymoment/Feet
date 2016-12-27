@@ -78,6 +78,7 @@ class DetailViewController: UIViewController {
     
     commentView = {
       let commentView = CommentView()
+      commentView.delegate = self
       view.addSubview(commentView)
       commentView.snp_makeConstraints { (make) in
         make.bottom.equalTo(view.snp_bottom).priorityMedium()
@@ -95,7 +96,7 @@ class DetailViewController: UIViewController {
         let _ = try promisModel.then({ model in
           self.model = model
           self.comments = model.commentInfo
-          self.commentView.feetUserId = model.feetInfo.userId
+          self.commentView.loadData("", feetId: "\(model.feetInfo.id)")
           self.tableView.tableHeaderView = FeetDetailHeader(model: self.model)
           self.tableView.reloadData()
         }).resolve()
@@ -192,9 +193,9 @@ extension DetailViewController: CommentDelegate {
   
   func commentContentSelected(name: CommentInfo, y: Int) {
     debugPrint(name)
-    commentView.loadData("\(name.userId)", feetId: "\(name.feetId)")
+    commentView.loadData("\(name.replyUserId)", feetId: "\(name.feetId)")
     commentView.borderText.textField.becomeFirstResponder()
-    let text = "回复\(name.replyUserName):"
+    let text = "回复\(name.nickname):"
     commentView.borderText.text = text
     tableContentOffset(y)
   }
@@ -207,3 +208,14 @@ extension DetailViewController: CommentDelegate {
     }
   }
 }
+
+
+// MARK: - CommentViewDelegate
+extension DetailViewController: CommentViewDelegate {
+  func commented() {
+    loadData()
+  }
+}
+
+
+

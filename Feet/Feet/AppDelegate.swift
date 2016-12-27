@@ -21,10 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let fileList = ThemeManager.shareInstance.themeImagesPath()
     print("fileList======== \(fileList)")
-    sleep(3)
+    sleep(1)
     window = UIWindow(frame: UIScreen.mainScreen().bounds)
-    let tabbar = TabBarController()
-    window?.rootViewController = tabbar
+    window?.rootViewController = ControllerTool.chooseRootViewController()
     window?.makeKeyAndVisible()
     return true
   }
