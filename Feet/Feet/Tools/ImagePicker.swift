@@ -66,7 +66,7 @@ extension ImagePicker: UIActionSheetDelegate {
       imagePicker.sourceType = .Camera
       viewController.presentViewController(imagePicker, animated: true, completion: nil)
     } else if buttonIndex == 1 {
-      imagePicker.sourceType = .PhotoLibrary
+      imagePicker.sourceType = .SavedPhotosAlbum
       viewController.presentViewController(imagePicker, animated: true, completion: nil)
     }
   }
@@ -74,33 +74,26 @@ extension ImagePicker: UIActionSheetDelegate {
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-//  func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-//    let newImage = image.imageWithSize(area)
-//    delegate?.imagePickerDidFinishPickingImage?(newImage)
-//    picker.dismissViewControllerAnimated(true, completion: nil)
-//  }
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-    let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-//    var imageSize = image.size
-//    if imageSize.width > 1000 {
-//      let width = CGFloat(1000)
-//      let height = imageSize.height * width / imageSize.width
-//      imageSize = CGSize(width: width, height: height)
-//    }
-    
-    
-    
-    let smallImage = info[UIImagePickerControllerEditedImage] as! UIImage
-    
-    let imageCropRect = info[UIImagePickerControllerCropRect]?.CGRectValue()
-    var imageSize = image.size
-//    debugPrint("imageSize: 宽度=== \(imageSize.width) 高度 ==== \(imageSize.height)")
-//    debugPrint("imageCropRect ====== \(imageCropRect)")
-//    let cropRect = CGRect(x: imageCropRect!.origin.y, y: imageCropRect!.origin.x, width: imageCropRect!.size.width, height: imageCropRect!.size.height)
-//    debugPrint("cropRect ====== \(cropRect)")
+    let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+    let width = originalImage.size.width
+    let height = originalImage.size.height
 
-    delegate?.imagePickerDidFinishPickingImage?(smallImage)
+    var cutRect: CGRect!
+    if width > height {
+      let newWidth = height * 17 / 9
+      cutRect = CGRect(x: (width - newWidth)/2, y: 0, width: newWidth, height: height)
+    } else {
+      let newHeight = width * 9 / 17
+      cutRect = CGRect(x: 0, y: (height - newHeight)/2, width: width, height: newHeight)
+    }
+    
+    let newImage = originalImage.cutImage(cutRect)
+//    let smallImage = info[UIImagePickerControllerEditedImage] as! UIImage
+//    let imageCropRect = info[UIImagePickerControllerCropRect]?.CGRectValue()
+
+    delegate?.imagePickerDidFinishPickingImage?(newImage)
     picker.dismissViewControllerAnimated(true, completion: nil)
   }
   

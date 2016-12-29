@@ -45,5 +45,6 @@ class FeatureViewController: UIViewController {
   
   func tapAction() {
     debugPrint("最后一张")
+    UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarController()
   }
 }

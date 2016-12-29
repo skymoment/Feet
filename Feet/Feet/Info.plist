@@ -2,20 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDisplayName</key>
-	<string>脚步</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>脚步</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Feet想使用你的相机</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Feet想使用你的相册</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Feet想使用你的麦克风</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -35,12 +29,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Feet想使用你的相机</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Feet需要定位您位置</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Feet需要定位您位置</string>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Feet想使用你的麦克风</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Feet想使用你的相册</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

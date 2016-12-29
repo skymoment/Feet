@@ -16,6 +16,7 @@ class ViewController: UIViewController {
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
+
     // Do any additional setup after loading the view, typically from a nib.
     title = "Feet"
     view.backgroundColor = UIColor.whiteColor()
@@ -26,7 +27,8 @@ class ViewController: UIViewController {
     
     // WARNING: - need to fixed
     view.insertSubview(BackView(), belowSubview: tableView)
-    
+    (tabBarController as! TabBarController).removeGestrue()
+
     setNaviItem()
 //    zhugeTrack()
   }
@@ -34,7 +36,9 @@ class ViewController: UIViewController {
   override func viewWillAppear(animated: Bool) {
     navigationController?.setNavigationBarHidden(false, animated: false)
     super.viewWillAppear(animated)
-    (tabBarController as! TabBarController).addGestrue()
+    if UserDefaultsTool.isLogin() {
+      (tabBarController as! TabBarController).addGestrue()
+    }
     loadData()
   }
   
@@ -70,14 +74,17 @@ class ViewController: UIViewController {
   }
   
   func rightBarAction() {
-    
     debugPrint("rightBar")
-    navigationController!.pushViewController(PostViewController(), animated: true)
+    LoginService.logIn(self) { 
+      self.navigationController!.pushViewController(PostViewController(), animated: true)
+    }
   }
   
   func leftBarAction() {
     debugPrint("leftBar")
-    tabBarController?.selectedIndex = 0
+    LoginService.logIn(self) {
+      self.tabBarController?.selectedIndex = 0
+    }
   }
   
   
