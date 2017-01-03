@@ -91,6 +91,7 @@ class DetailViewController: UIViewController {
   
   // MAKR: - LoadData
   func loadData() {
+    HUD.show()
     HomeNetworkTool.getFeetDetail(["id": id]) { (promisModel) in
       do {
         let _ = try promisModel.then({ model in
@@ -99,11 +100,13 @@ class DetailViewController: UIViewController {
           self.commentView.loadData("", feetId: "\(model.feetInfo.id)")
           self.tableView.tableHeaderView = FeetDetailHeader(model: self.model)
           self.tableView.reloadData()
+          HUD.dismiss()
         }).resolve()
       } catch where error is MyError {
         debugPrint("\(error)")
+        HUD.showError(status: "\(error)")
       } catch {
-        debugPrint("网络错误")
+        HUD.showError(status: "网络错误")
       }
     }
   }
@@ -201,10 +204,12 @@ extension DetailViewController: CommentDelegate {
   }
   
   func tableContentOffset(y: Int) {
-    let offsetY = CGFloat(y) - (KScreenHeigth - heightOfKB)
-    if offsetY > 0 {
-      let contentY = tableView.contentOffset.y
-      tableView.setContentOffset(CGPoint(x: 0, y: contentY + offsetY), animated: true)
+    GCDTool.delay(0.2) {
+      let offsetY = CGFloat(y) - (KScreenHeigth - self.heightOfKB)
+      if offsetY > 0 {
+        let contentY = self.tableView.contentOffset.y
+        self.tableView.setContentOffset(CGPoint(x: 0, y: contentY + offsetY), animated: true)
+      }
     }
   }
 }

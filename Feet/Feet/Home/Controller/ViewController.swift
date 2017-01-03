@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import MJRefresh
 
 class ViewController: UIViewController {
 
   @IBOutlet weak var tableView: UITableView!
   var feetModels = [FeetModel]()
+  
+  //
+  var currentPage = 1
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
@@ -24,6 +28,18 @@ class ViewController: UIViewController {
     tableView.estimatedRowHeight = 300
     tableView.backgroundColor = UIColor.clearColor()
     tableView.separatorStyle = .None
+    
+    // header
+    tableView.mj_header = MJRefreshStateHeader {
+      self.loadData()
+    }
+    
+    // footer
+    tableView.mj_footer = MJRefreshBackStateFooter {
+      self.loadData(self.currentPage)
+    }
+    
+    tableView.mj_header.beginRefreshing()
     
     // WARNING: - need to fixed
     view.insertSubview(BackView(), belowSubview: tableView)
@@ -39,7 +55,8 @@ class ViewController: UIViewController {
     if UserDefaultsTool.isLogin() {
       (tabBarController as! TabBarController).addGestrue()
     }
-    loadData()
+    // TODO: ...
+//    loadData()
   }
   
   override func viewWillDisappear(animated: Bool) {
@@ -89,23 +106,38 @@ class ViewController: UIViewController {
   
   
   // 默认 10 条
-  func loadData() {
+  func loadData(page: Int = 1) {
     let params = [
-      "pageNumber": "1"
+      "pageNumber": "\(page)"
     ]
     
     HomeNetworkTool.getFeet(params) { promiseModels in
       do {
-        let _ = try promiseModels.then({models in
-          self.feetModels = models
+        let _ = try promiseModels.then({ feetModels in
+          if feetModels.pageNumber == 1 {
+            self.feetModels.removeAll()
+          }
+          
+          self.tableView.mj_footer.hidden = feetModels.lastPage
+          self.feetModels.appendContentsOf(feetModels.feets)
+          self.currentPage = feetModels.pageNumber
           self.tableView.reloadData()
+          self.endRefresh()
         }).resolve()
       } catch where error is MyError{
+        HUD.showError(status: "\(error)")
+        self.endRefresh()
         debugPrint("\(error)")
       } catch{
-        debugPrint("网络错误")
+        self.endRefresh()
+        HUD.showError(status: "网络错误")
       }
     }
+  }
+  
+  func endRefresh() {
+    tableView.mj_header.endRefreshing()
+    tableView.mj_footer.endRefreshing()
   }
 }
 

@@ -38,7 +38,7 @@ class PostViewController: UIViewController {
       location.delegate = self
     } else {
       // WARNING: to do
-      postView.locationLabel.text = "定位失败咯，点击可以输入你的位置吧"
+      postView.locationLabel.text = "定位失败"
       debugPrint("定位失败")
     }
   }
@@ -211,8 +211,9 @@ extension PostViewController: PostViewDelegate {
   func viewSelectLocation() {
     dismissKeyBoard()
     debugPrint("location")
-    let vc = MapViewController()
-    navigationController?.pushViewController(vc, animated: true)
+    // TODO: ....
+//    let vc = MapViewController()
+//    navigationController?.pushViewController(vc, animated: true)
   }
   
   func viewUpdateHeight(height: Int, hx: Int) {
@@ -271,7 +272,12 @@ extension PostViewController: ImagePickerDelegate {
 extension PostViewController: LocationToolDelegate {
   func locationWithState(location: CLLocation, state: String) {
     locationXY = "\(state)=\(location.coordinate.latitude,location.coordinate.longitude)"
-    postView.locationLabel.text = state + " (点击可以切换定位哦)"
+    postView.locationLabel.text = state
+  }
+  
+  func locationFail() {
+    locationXY = "定位失败=0,0"
+    postView.locationLabel.text = "定位失败"
   }
 }
 

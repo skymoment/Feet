@@ -10,6 +10,8 @@ import UIKit
 
 class MineTableHeader: UIView {
   
+  private var Vline: CGFloat = 0
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     self.backgroundColor = UIColor.clearColor()
@@ -46,9 +48,14 @@ class MineTableHeader: UIView {
     
     //画直线
     debugPrint("竖线位置X: \(15 + 8 + newSize.width + 8 + 15)")
+    Vline = 15 + 8 + newSize.width + 8 + 15
     CGContextSetLineWidth(context, 2) //设置画笔的宽度
     CGContextMoveToPoint(context, 15 + 8 + newSize.width + 8 + 15, rect.height/2)
     CGContextAddLineToPoint(context, 15 + 8 + newSize.width + 8 + 15, rect.height)
     CGContextStrokePath(context)  //关闭路径
+  }
+  
+  func vline() -> CGFloat {
+    return Vline
   }
 }

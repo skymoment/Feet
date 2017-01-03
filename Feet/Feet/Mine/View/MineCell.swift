@@ -17,12 +17,21 @@ class MineCell: UITableViewCell {
   weak var photoImageView: UIImageView!
   weak var countLabel: UILabel!
   
+  var vline: CGFloat = 0
+  
+  convenience init(vLine: CGFloat, style: UITableViewCellStyle, reuseIdentifier: String?) {
+    self.init(style: style, reuseIdentifier: reuseIdentifier)
+    self.vline = vLine
+    setViews()
+
+  }
+  
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     self.selectionStyle = .None
     self.backgroundColor = UIColor.clearColor()
     
-    setViews()
+//    setViews()
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -39,8 +48,8 @@ class MineCell: UITableViewCell {
     
     //画直线
     CGContextSetLineWidth(context, 2) //设置画笔的宽度
-    CGContextMoveToPoint(context, 107, 0)
-    CGContextAddLineToPoint(context, 107, rect.height)
+    CGContextMoveToPoint(context, vline, 0)
+    CGContextAddLineToPoint(context, vline, rect.height)
     CGContextStrokePath(context)  //关闭路径
     
     //画圆
@@ -64,7 +73,7 @@ class MineCell: UITableViewCell {
       self.addSubview(m)
       m.snp_makeConstraints(closure: { (make) in
         make.top.equalTo(22 + 2)
-        make.left.equalTo(106 - 13)
+        make.left.equalTo(106 - 12)
         make.width.height.equalTo(26)
       })
       return m
@@ -136,5 +145,10 @@ class MineCell: UITableViewCell {
   func refresh(model: FeetModel) {
     countLabel.text = "共\(model.pics.count)张"
     contentLabel.text = model.content
+    
+    if let url = NSURL(string: model.pics[0]) {
+      photoImageView.sd_setImageWithURL(url)
+    }
+//    photoImageView.image = UIImag
   }
 }

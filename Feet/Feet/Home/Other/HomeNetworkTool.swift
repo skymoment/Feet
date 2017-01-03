@@ -13,18 +13,15 @@ struct HomeNetworkTool {
   /**
    获取 Feets
    */
-  static func getFeet(params: [String: String],completon:(Promise<[FeetModel]>) ->()) {
+  static func getFeet(params: [String: String],completon:(Promise<FeetModels>) ->()) {
     
     let url = FeetAPI.Feet.feet
     debugPrint(url)
     debugPrint(UserDefaultsTool.userToken)
-    func parseJson(json: JSON) -> Promise<[FeetModel]>{
+    func parseJson(json: JSON) -> Promise<FeetModels>{
       if json["code"].intValue == 12000 {
-        var models = [FeetModel]()
-        for model in json["data","list"].arrayValue {
-          models.append(FeetModel(json: model))
-        }
-        return Promise.Success(models)
+        let feetModels = FeetModels(json: json["data"])
+        return Promise.Success(feetModels)
       } else {
         return Promise.Error(MyError(error: json["msg"].stringValue))
       }

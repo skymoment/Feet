@@ -9,6 +9,25 @@
 import Foundation
 import SwiftyJSON
 
+
+class FeetModels: NSObject {
+  
+  var totalRow = 0
+  var lastPage = true
+  var pageNumber = 0
+  var feets = [FeetModel]()
+  
+  init(json: JSON) {
+    totalRow = json["totalRow"].intValue
+    pageNumber = json["pageNumber"].intValue
+    lastPage = json["lastPage"].boolValue
+    
+    for model in json["list"].arrayValue {
+      feets.append(FeetModel(json: model))
+    }
+  }
+}
+
 class FeetModel: NSObject {
   
 //  "city": "Beijing",

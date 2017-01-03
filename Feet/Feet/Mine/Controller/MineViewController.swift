@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class MineViewController: UIViewController {
   
@@ -15,6 +16,9 @@ class MineViewController: UIViewController {
   weak var sexImageView: UIImageView!
   weak var tableView: UITableView!
   var feetModels = [FeetModel]()
+  var currentPage = 1
+  
+  let tabelHeader = MineTableHeader(frame: CGRect(x: 0, y: 0, width: KScreenWidth, height: 40))
   
   // MARK: - LifeCycle
   override func viewDidLoad() {
@@ -23,6 +27,12 @@ class MineViewController: UIViewController {
     // Do any additional setup after loading the view.
     
     setViews()
+    
+    // footer
+    tableView.mj_footer = MJRefreshBackStateFooter {
+      self.loadData(self.currentPage)
+    }
+    loadData()
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -31,7 +41,6 @@ class MineViewController: UIViewController {
 
     navigationController?.setNavigationBarHidden(true, animated: false)
     avatarView.image = UIImage(data: UserDefaultsTool.headerData)
-    loadData()
   }
   
   override func viewWillDisappear(animated: Bool) {
@@ -111,24 +120,37 @@ class MineViewController: UIViewController {
   }
   
   // MARK: - LoadData
-  func loadData() {
+  func loadData(page: Int = 1) {
     let params = [
-      "pageNumber": "1",
+      "pageNumber": "\(page)",
       "type": "1"
       ]
     
     HomeNetworkTool.getFeet(params) { promiseModels in
       do {
-        let _ = try promiseModels.then({models in
-          self.feetModels = models
+        let _ = try promiseModels.then({feetModels in
+          if feetModels.pageNumber == 1 {
+            self.feetModels.removeAll()
+          }
+          
+          self.tableView.mj_footer.hidden = feetModels.lastPage
+          self.feetModels.appendContentsOf(feetModels.feets)
+          self.currentPage = feetModels.pageNumber
           self.tableView.reloadData()
+          self.endRefresh()
         }).resolve()
       } catch where error is MyError{
-        debugPrint("\(error)")
+        HUD.showError(status: "\(error)")
+        self.endRefresh()
       } catch{
-        debugPrint("网络错误")
+        self.endRefresh()
+        HUD.showError(status: "网络错误")
       }
     }
+  }
+  
+  func endRefresh() {
+    tableView.mj_footer.endRefreshing()
   }
   
   // Actions
@@ -148,7 +170,7 @@ extension MineViewController: UITableViewDelegate,UITableViewDataSource {
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = MineCell(style: .Default, reuseIdentifier: MineCell.identifier())
+    let cell = MineCell(vLine: tabelHeader.vline(),style: .Default, reuseIdentifier: MineCell.identifier())
     cell.refresh(feetModels[indexPath.row])
     return cell
   }
@@ -158,11 +180,16 @@ extension MineViewController: UITableViewDelegate,UITableViewDataSource {
   }
   
   func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let v = MineTableHeader(frame: CGRect(x: 0, y: 0, width: KScreenWidth, height: 40))
-    return v
+    return tabelHeader
   }
   
   func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 40
+  }
+  
+  func scrollViewDidScroll(scrollView: UIScrollView) {
+    if scrollView.contentOffset.y <= -80 {
+      loadData()
+    }
   }
 }

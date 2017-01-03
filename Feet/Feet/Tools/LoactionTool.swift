@@ -12,6 +12,7 @@ import CoreLocation
 @objc
 protocol LocationToolDelegate:class {
   func locationWithState(location: CLLocation, state: String)
+  func locationFail()
 }
 
 class LoactionTool: NSObject {
@@ -31,6 +32,7 @@ class LoactionTool: NSObject {
       locationManager.startUpdatingLocation()
       return true
     }
+    delegate?.locationFail()
     return false
   }
 }
@@ -58,10 +60,10 @@ extension LoactionTool: CLLocationManagerDelegate {
           let state = dic!["State"]
           debugPrint("lcoaiton ==== \(state) ")
           
-          if let d = self.delegate {
-            d.locationWithState(location, state: "\(state!)")
-          }
+          self.delegate?.locationWithState(location, state: "\(state!)")
         }
+      } else {
+        self.delegate?.locationFail()
       }
     }
   }

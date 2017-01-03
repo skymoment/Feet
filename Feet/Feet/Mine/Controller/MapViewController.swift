@@ -42,7 +42,7 @@ class MapViewController: UIViewController {
     coor.latitude = 39.915
     coor.longitude = 116.404
     annotation.coordinate = coor
-    annotation.title = "这里是北京"
+    annotation.title = "长按可移动哦"
     mapView.addAnnotation(annotation)
   }
   
@@ -64,7 +64,7 @@ extension MapViewController: BMKMapViewDelegate{
       newAnnotationView.pinColor = UInt(BMKPinAnnotationColorRed)
       newAnnotationView.animatesDrop = true
       newAnnotationView.draggable = true
-      newAnnotationView.image = UIImage(named: "image1")
+      newAnnotationView.image = UIImage(named: "location")
       return newAnnotationView
     }
     return nil
@@ -74,5 +74,4 @@ extension MapViewController: BMKMapViewDelegate{
     print("newState=======\(newState)")
     print("newState=======\(oldState)")
   }
-  
 }
