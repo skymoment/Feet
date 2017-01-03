@@ -13,6 +13,8 @@ pod 'SwiftyJSON','~>2.4.0'
 pod 'RealmSwift'
 pod 'Qiniu'
 pod 'UMengSocialCOM'
+pod 'SVProgressHUD'
+pod 'MJRefresh'
 
   # Pods for Feet
 
