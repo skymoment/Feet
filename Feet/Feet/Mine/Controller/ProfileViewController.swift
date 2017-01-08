@@ -24,6 +24,7 @@ class ProfileViewController: UIViewController {
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     (tabBarController as! TabBarController).removeGestrue()
+    profileView.updateProfie()
   }
   
   override func didReceiveMemoryWarning() {
@@ -45,6 +46,7 @@ class ProfileViewController: UIViewController {
   
   // MARK: - Method
   func avatarUpLoad(path: String) {
+    HUD.show()
     PostNetTool.qiuNiuToken { 
       QiniuTool.upLoadImage(path) { (img) in
         UserNetworkTool.userInfo(["image": QNHeader + img], completion: { promiseString in
@@ -55,6 +57,7 @@ class ProfileViewController: UIViewController {
                 if let data = data {
                   UserDefaultsTool.headerData = data
                   self.avatar.image = UIImage(data: data)
+                  HUD.showSuccess(status: "上传成功")
                 }
               })
             }).resolve()

@@ -138,13 +138,14 @@ class PostViewController: UIViewController {
   
   func postAction() {
     debugPrint("正在发布发布")
-    
+    HUD.show(title: "正在上传...")
     QiniuTool.upLoadImages(imagesPaths, completion: { (progress, keys) in
       debugPrint("上传进度 \(progress)")
       if progress == 1 {
         self.postToServer(keys)
       }
     }) {
+      HUD.showError(status: "图片上传失败")
       debugPrint("上传失败")
     }
   }
@@ -182,10 +183,12 @@ class PostViewController: UIViewController {
     PostNetTool.post(params) { promiseString in
       do {
         let _ = try promiseString.then({str in
+          HUD.showSuccess(status: "已发布")
           debugPrint("发布结果 ===== \(str)")
           self.popAction()
         }).resolve()
       } catch where error is MyError{
+        HUD.showError(status: "\(error)")
         debugPrint("\(error)")
       } catch{
         debugPrint("网络错误")

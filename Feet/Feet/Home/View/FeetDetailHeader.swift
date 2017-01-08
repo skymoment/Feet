@@ -10,11 +10,9 @@ import UIKit
 
 class FeetDetailHeader: UIView {
   
-  var images: [String] = ["image1","image2","image3"]
-  
   var contentView: UIView!
   var detailScroller: DetailScorllerView!
-  
+  var images = [String]()
   var avatarView: UIImageView!
   var nameLable: UILabel!
   var timeAndCity: UILabel!
@@ -54,12 +52,20 @@ class FeetDetailHeader: UIView {
       return c
     }()
     
+    
+    if model.feetInfo.pics.count > 0 {
+      images.append(model.feetInfo.pics[0])
+    }
     let s = DetailScorllerView(images: images)
     contentView.addSubview(s)
     detailScroller = s
     
     avatarView = {
-      let a = UIImageView(image: UIImage(named: "m_default"))
+      let a = UIImageView(image: UIImage(named: "d_header"))
+      let url = NSURL(string: model.feetInfo.image)
+      if let url = url {
+        a.sd_setImageWithURL(url)
+      }
       a.cornerRadiusImageView(12)
       contentView.addSubview(a)
       a.snp_makeConstraints { (make) in
@@ -72,7 +78,7 @@ class FeetDetailHeader: UIView {
     
     nameLable = {
       let n = UILabel()
-      n.text = "转交遇到爱"
+      n.text = model.feetInfo.nickname
       n.textColor = UIColor(hexString: "#11d211")
       n.font = UIFont.systemFontOfSize(15)
       contentView.addSubview(n)

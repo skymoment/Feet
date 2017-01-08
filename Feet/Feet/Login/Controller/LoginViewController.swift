@@ -172,10 +172,14 @@ class LoginViewController: UIViewController {
           UserDefaultsTool.userToken = model.token
           UserDefaultsTool.userName = model.nickName
           UserDefaultsTool.userMobile = model.phone
-          ApiClient.downLoadImage(model.image, compeletion: { (data, cookieString) in
+          if model.image != "" {
+            ApiClient.downLoadImage(model.image, compeletion: { (data, cookieString) in
               UserDefaultsTool.headerData = data!
+              self.dismissViewControllerAnimated(true, completion: nil)
+            })
+          } else {
             self.dismissViewControllerAnimated(true, completion: nil)
-          })
+          }
         }).resolve()
       } catch where error is MyError{
         debugPrint("\(error)")

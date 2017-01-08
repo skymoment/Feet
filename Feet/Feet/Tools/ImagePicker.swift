@@ -66,8 +66,13 @@ class ImagePicker: NSObject {
 extension ImagePicker: UIActionSheetDelegate {
   func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
     if buttonIndex == 0 {
-      imagePicker.sourceType = .Camera
-      viewController.presentViewController(imagePicker, animated: true, completion: nil)
+      // 判断相机是否可用
+      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+        imagePicker.sourceType = .Camera
+        viewController.presentViewController(imagePicker, animated: true, completion: nil)
+      } else {
+        HUD.showError(status: "未获取到相机")
+      }
     } else if buttonIndex == 1 {
       imagePicker.sourceType = .SavedPhotosAlbum
       viewController.presentViewController(imagePicker, animated: true, completion: nil)

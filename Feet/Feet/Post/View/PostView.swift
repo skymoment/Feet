@@ -21,6 +21,7 @@ class PostView: UIView {
   
   weak var backView: UIView!
   weak var imageView1: UIImageView!
+  weak var cameraView: UIView!
   weak var addImageView: SmallImageView!
   weak var textView: KMPlaceholderTextView!
   weak var locationImage: UIImageView!
@@ -55,8 +56,28 @@ class PostView: UIView {
       return v
     }()
     
+    cameraView = {
+      let v = UIView()
+      v.userInteractionEnabled = true
+      let gesture = UITapGestureRecognizer(target: self,action: #selector(addImage))
+      v.addGestureRecognizer(gesture)
+      backView.addSubview(v)
+      v.snp_makeConstraints { (make) in
+        make.top.left.right.equalTo(0)
+        make.height.equalTo((KScreenWidth-30)*9/17)
+      }
+      return v
+    }()
+    
+    let imageView = UIImageView(image: UIImage(named: "camera"))
+    cameraView.addSubview(imageView)
+    imageView.snp_makeConstraints(closure: { (make) in
+      make.center.equalTo(cameraView)
+    })
+    
+    
     imageView1 = {
-      let v = UIImageView(image: UIImage(named: "beauti2"))
+      let v = UIImageView()
       v.tag = 1 + 1000
       v.userInteractionEnabled = true
       let gesture = UITapGestureRecognizer(target: self,action: #selector(addImage))
@@ -66,6 +87,7 @@ class PostView: UIView {
         make.top.left.right.equalTo(0)
         make.height.equalTo((KScreenWidth-30)*9/17)
       })
+      v.hidden = true
       return v
     }()
     
@@ -74,8 +96,8 @@ class PostView: UIView {
       v.image = UIImage(named: "image1")
       v.tag = 2
       v.userInteractionEnabled = true
-      let gesture = UITapGestureRecognizer(target: self,action: #selector(addImage))
-      v.addGestureRecognizer(gesture)
+//      let gesture = UITapGestureRecognizer(target: self,action: #selector(addImage))
+//      v.addGestureRecognizer(gesture)
       imageView1.addSubview(v)
       v.snp_makeConstraints(closure: { (make) in
         make.left.equalTo(8).priorityMedium()
@@ -88,7 +110,7 @@ class PostView: UIView {
     
     textView = {
       let t = KMPlaceholderTextView()
-      t.text = "总有一天，我会回来的！"
+      t.placeholder = "生活不应只有眼前的苟且，还有诗和远方。"
       t.font = UIFont.systemFontOfSize(14)
       t.scrollEnabled = false
       t.delegate = self
@@ -117,7 +139,7 @@ class PostView: UIView {
     locationLabel = {
       let l = UILabel()
       l.userInteractionEnabled = true
-      l.text = "抱歉定位失败，点击选取您当前的位置"
+      l.text = "正在定位..."
       l.font = UIFont.systemFontOfSize(12)
       l.textColor = mainTextColor
       let gesture = UITapGestureRecognizer(target: self,action: #selector(selectLocation))
@@ -158,11 +180,12 @@ class PostView: UIView {
   }
   
   func addImage(gestrue: UITapGestureRecognizer) {
-    if gestrue.view!.tag == 1001 {
-      delegate.viewAddImage(true)
-    } else {
-      delegate.viewAddImage(false)
-    }
+    imageView1.hidden = false
+//    if gestrue.view!.tag == 1001 {
+    delegate.viewAddImage(true)
+//    } else {
+//      delegate.viewAddImage(false)
+//    }
   }
   
   func selectLocation() {

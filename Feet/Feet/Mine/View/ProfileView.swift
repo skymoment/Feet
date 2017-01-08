@@ -19,10 +19,15 @@ class ProfileView: UIView {
   let preTag = 100
   var headerView: TransparentView!   // 101
   var signView: TransparentView!     // 102
+  var signLabel: UILabel!
   var nameView: TransparentView!     // 103
+  var nameLabel: UILabel!
   var sexView: TransparentView!      // 104
+  var sexImageView: UIImageView!
   var brithdayView: TransparentView! // 105
+  var birthdayLabel: UILabel!
   var mailView: TransparentView!     // 106
+  var mailLabel: UILabel!
   var updateView: TransparentView!   // 107
   var changBackView: TransparentView!// 108
   var logOutView: TransparentView!   // 109
@@ -93,16 +98,13 @@ class ProfileView: UIView {
       let label = UILabel()
       h.addSubview(label)
       label.textColor = UIColor.whiteColor()
-      if UserDefaultsTool.sign == "" {
-        label.text = "彰显个性，留下签名"
-      } else {
-        label.text = UserDefaultsTool.sign
-      }
+      label.text = "彰显个性，留下签名"
       label.font = UIFont.systemFontOfSize(15)
       label.snp_makeConstraints(closure: { (make) in
         make.centerX.equalTo(imageView)
         make.top.equalTo(imageView.snp_bottom).offset(10)
       })
+      signLabel = label
       return h
     }()
     
@@ -129,16 +131,13 @@ class ProfileView: UIView {
       let label = UILabel()
       h.addSubview(label)
       label.textColor = UIColor.whiteColor()
-      if UserDefaultsTool.userName == "" {
-        label.text = "昵称"
-      } else {
-        label.text = UserDefaultsTool.userName
-      }
+      label.text = "昵称"
       label.font = UIFont.systemFontOfSize(15)
       label.snp_makeConstraints(closure: { (make) in
         make.centerX.equalTo(imageView)
         make.top.equalTo(imageView.snp_bottom).offset(10)
       })
+      nameLabel = label
       return h
     }()
     
@@ -167,15 +166,12 @@ class ProfileView: UIView {
       
       
       let imageView = UIImageView(image: UIImage(named: "sex_m"))
-      if UserDefaultsTool.sex == 1 {
-        imageView.image = UIImage(named: "sex_w")
-      }
       h.addSubview(imageView)
       imageView.snp_makeConstraints(closure: { (make) in
         make.centerX.equalTo(label)
         make.top.equalTo(label.snp_bottom).offset(10)
       })
-      
+      sexImageView = imageView
       return h
     }()
     
@@ -204,17 +200,13 @@ class ProfileView: UIView {
       let label = UILabel()
       h.addSubview(label)
       label.textColor = UIColor.whiteColor()
-      if UserDefaultsTool.birthday == "" {
-        label.text = "请选择生日"
-      } else {
-        label.text = UserDefaultsTool.birthday
-      }
+      label.text = "请选择生日"
       label.font = UIFont.systemFontOfSize(15)
       label.snp_makeConstraints(closure: { (make) in
         make.centerX.equalTo(imageView)
         make.top.equalTo(imageView.snp_bottom).offset(10)
       })
-      
+      birthdayLabel = label
       return h
     }()
     
@@ -243,17 +235,17 @@ class ProfileView: UIView {
       let label = UILabel()
       h.addSubview(label)
       label.textColor = UIColor.whiteColor()
-      if UserDefaultsTool.email == "" {
-        label.text = "请输入您的邮箱"
+      label.text = "请输入您的邮箱"
+      if smallScreen {
+        label.font = UIFont.systemFontOfSize(12)
       } else {
-        label.text = UserDefaultsTool.email
+        label.font = UIFont.systemFontOfSize(15)
       }
-      label.font = UIFont.systemFontOfSize(15)
       label.snp_makeConstraints(closure: { (make) in
         make.centerX.equalTo(imageView)
         make.top.equalTo(imageView.snp_bottom).offset(10)
       })
-      
+      mailLabel = label
       return h
     }()
     
@@ -310,6 +302,31 @@ class ProfileView: UIView {
     } else {
       debugPrint("退出登录")
       delegate?.logOutAction()
+    }
+  }
+  
+  /// 更新个人信息 
+  func updateProfie() {
+    if UserDefaultsTool.sign != "" {
+      signLabel.text = UserDefaultsTool.sign
+    }
+    
+    if UserDefaultsTool.userName != "" {
+      nameLabel.text = UserDefaultsTool.userName
+    }
+    
+    if UserDefaultsTool.sex == 0 {
+      sexImageView.image = UIImage(named: "sex_m")
+    } else {
+      sexImageView.image = UIImage(named: "sex_w")
+    }
+    
+    if UserDefaultsTool.birthday != "" {
+      birthdayLabel.text = UserDefaultsTool.birthday
+    }
+    
+    if UserDefaultsTool.email != "" {
+      mailLabel.text = UserDefaultsTool.email
     }
   }
 }

@@ -41,6 +41,16 @@ class MineViewController: UIViewController {
 
     navigationController?.setNavigationBarHidden(true, animated: false)
     avatarView.image = UIImage(data: UserDefaultsTool.headerData)
+    
+    if UserDefaultsTool.userName != "" {
+      nameLabel.text = UserDefaultsTool.userName
+    }
+    
+    if UserDefaultsTool.sex == 0 {
+      sexImageView.image = UIImage(named: "sex_m")
+    } else {
+      sexImageView.image = UIImage(named: "sex_w")
+    }
   }
   
   override func viewWillDisappear(animated: Bool) {
@@ -79,11 +89,7 @@ class MineViewController: UIViewController {
     
     nameLabel = {
       let l = UILabel()
-      if UserDefaultsTool.userName == "" {
-        l.text = "Your Name"
-      } else {
-        l.text = UserDefaultsTool.userName
-      }
+      l.text = "Your Name"
       l.font = UIFont.systemFontOfSize(16)
       l.textColor = UIColor.whiteColor()
       view.addSubview(l)
@@ -192,7 +198,7 @@ extension MineViewController: UITableViewDelegate,UITableViewDataSource {
   }
   
   func scrollViewDidScroll(scrollView: UIScrollView) {
-    if scrollView.contentOffset.y <= -80 {
+    if scrollView.contentOffset.y <= -100 {
       loadData()
     }
   }

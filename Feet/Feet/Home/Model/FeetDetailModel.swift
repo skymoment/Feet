@@ -20,6 +20,8 @@ class FeetInfo: NSObject {
   var content: String = ""
   var lookCount:Int = 0
   var selflike:Int = 1
+  var nickname:String = ""
+  var image: String = ""
   
   init(json: JSON) {
     mood = json["mood"].intValue
@@ -31,10 +33,17 @@ class FeetInfo: NSObject {
     content = json["content"].stringValue
     lookCount = json["lookCount"].intValue
     selflike = json["selflike"].intValue
+    nickname = json["nickname"].stringValue
+    image = json["image"].stringValue
+    
     let pictures = json["pics"].stringValue
     if !pictures.isEmpty {
-      let p = pictures.componentsSeparatedByString(",")
-      pics.appendContentsOf(p)
+      if pictures.containsString(",") {
+        let p = pictures.componentsSeparatedByString(",")
+        pics.appendContentsOf(p)
+      } else {
+        pics.append(pictures)
+      }
     }
   }
 }
