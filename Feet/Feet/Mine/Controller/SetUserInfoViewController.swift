@@ -142,6 +142,11 @@ extension SetUserInfoViewController {
       do {
         let _  = try promiseModel.then({model in
           debugPrint(model)
+          UserDefaultsTool.sign = model.info
+          UserDefaultsTool.sex = model.gender
+          UserDefaultsTool.birthday = model.birthday
+          UserDefaultsTool.email = model.email
+          UserDefaultsTool.userName = model.nickname
           self.navigationController?.popViewControllerAnimated(true)
         }).resolve()
       } catch where error is MyError{

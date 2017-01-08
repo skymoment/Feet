@@ -56,7 +56,8 @@ class ProfileView: UIView {
         make.height.equalTo(75)
       }
       // 头像 需要替换
-      let avatar = UIImageView(image: UIImage(named:"d_header2"))
+      let headerImage = UIImage(data: UserDefaultsTool.headerData)
+      let avatar = UIImageView(image: headerImage)
       avatar.layer.cornerRadius = 23
       avatar.layer.masksToBounds = true
       h.addSubview(avatar)
@@ -92,7 +93,11 @@ class ProfileView: UIView {
       let label = UILabel()
       h.addSubview(label)
       label.textColor = UIColor.whiteColor()
-      label.text = "彰显个性，留下签名"
+      if UserDefaultsTool.sign == "" {
+        label.text = "彰显个性，留下签名"
+      } else {
+        label.text = UserDefaultsTool.sign
+      }
       label.font = UIFont.systemFontOfSize(15)
       label.snp_makeConstraints(closure: { (make) in
         make.centerX.equalTo(imageView)
@@ -124,7 +129,11 @@ class ProfileView: UIView {
       let label = UILabel()
       h.addSubview(label)
       label.textColor = UIColor.whiteColor()
-      label.text = "昵称"
+      if UserDefaultsTool.userName == "" {
+        label.text = "昵称"
+      } else {
+        label.text = UserDefaultsTool.userName
+      }
       label.font = UIFont.systemFontOfSize(15)
       label.snp_makeConstraints(closure: { (make) in
         make.centerX.equalTo(imageView)
@@ -156,7 +165,11 @@ class ProfileView: UIView {
         make.top.equalTo(20)
       })
       
+      
       let imageView = UIImageView(image: UIImage(named: "sex_m"))
+      if UserDefaultsTool.sex == 1 {
+        imageView.image = UIImage(named: "sex_w")
+      }
       h.addSubview(imageView)
       imageView.snp_makeConstraints(closure: { (make) in
         make.centerX.equalTo(label)
@@ -191,7 +204,11 @@ class ProfileView: UIView {
       let label = UILabel()
       h.addSubview(label)
       label.textColor = UIColor.whiteColor()
-      label.text = "请选择生日"
+      if UserDefaultsTool.birthday == "" {
+        label.text = "请选择生日"
+      } else {
+        label.text = UserDefaultsTool.birthday
+      }
       label.font = UIFont.systemFontOfSize(15)
       label.snp_makeConstraints(closure: { (make) in
         make.centerX.equalTo(imageView)
@@ -226,7 +243,11 @@ class ProfileView: UIView {
       let label = UILabel()
       h.addSubview(label)
       label.textColor = UIColor.whiteColor()
-      label.text = "请输入您的邮箱"
+      if UserDefaultsTool.email == "" {
+        label.text = "请输入您的邮箱"
+      } else {
+        label.text = UserDefaultsTool.email
+      }
       label.font = UIFont.systemFontOfSize(15)
       label.snp_makeConstraints(closure: { (make) in
         make.centerX.equalTo(imageView)

@@ -9,7 +9,8 @@
 import Foundation
 
 class UserDefaultsTool {
-  
+  /*************************************************/
+
   /// 用户名
   static var userName: String {
     set{
@@ -32,6 +33,52 @@ class UserDefaultsTool {
       return userDefaults.dataForKey("headerData") ?? UIImageJPEGRepresentation(UIImage(named: "d_header3")!, 1)!
     }
   }
+  
+  /// 签名
+  static var sign: String {
+    set{
+      UserDefaultsTool.save(newValue, key: "info")
+    }
+    get{
+      let userDefaults = NSUserDefaults.standardUserDefaults()
+      return userDefaults.stringForKey("info") ?? ""
+    }
+  }
+  
+  /// 邮箱
+  static var email: String {
+    set{
+      UserDefaultsTool.save(newValue, key: "email")
+    }
+    get{
+      let userDefaults = NSUserDefaults.standardUserDefaults()
+      return userDefaults.stringForKey("email") ?? ""
+    }
+  }
+  
+  /// 性别
+  static var sex: Int {
+    set{
+      UserDefaultsTool.save(newValue, key: "gender")
+    }
+    get{
+      let userDefaults = NSUserDefaults.standardUserDefaults()
+      return userDefaults.integerForKey("gender") ?? 0
+    }
+  }
+  
+  /// 性别
+  static var birthday: String {
+    set{
+      UserDefaultsTool.save(newValue, key: "birthday")
+    }
+    get{
+      let userDefaults = NSUserDefaults.standardUserDefaults()
+      return userDefaults.stringForKey("birthday") ?? ""
+    }
+  }
+  
+  /*************************************************/
   
   /// app进入后台的时间
   static var enterBackgroundDate: Double {

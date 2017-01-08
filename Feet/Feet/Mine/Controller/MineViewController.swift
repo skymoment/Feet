@@ -79,7 +79,11 @@ class MineViewController: UIViewController {
     
     nameLabel = {
       let l = UILabel()
-      l.text = "Your Name"
+      if UserDefaultsTool.userName == "" {
+        l.text = "Your Name"
+      } else {
+        l.text = UserDefaultsTool.userName
+      }
       l.font = UIFont.systemFontOfSize(16)
       l.textColor = UIColor.whiteColor()
       view.addSubview(l)
@@ -125,14 +129,14 @@ class MineViewController: UIViewController {
       "pageNumber": "\(page)",
       "type": "1"
       ]
-    
+    HUD.show()
     HomeNetworkTool.getFeet(params) { promiseModels in
       do {
         let _ = try promiseModels.then({feetModels in
           if feetModels.pageNumber == 1 {
             self.feetModels.removeAll()
           }
-          
+          HUD.dismiss()
           self.tableView.mj_footer.hidden = feetModels.lastPage
           self.feetModels.appendContentsOf(feetModels.feets)
           self.currentPage = feetModels.pageNumber
