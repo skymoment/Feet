@@ -52,29 +52,15 @@ struct ApiClient {
     }
   }
   
-  static func downloadImage(imageURL: String, compeletion: (NSData?)-> Void) {
-    let destination = Request.suggestedDownloadDestination(directory: .DocumentDirectory, domain: .UserDomainMask)
-    let url = NSURL(string: imageURL)
-    if let url = url {
-      let urlRequest = NSMutableURLRequest(URL: url)
-      download(urlRequest, destination: destination).responseData(completionHandler: { (response) in
-        compeletion(response.data)
-      })
+  
+  /// 下载图片并获取图片cookie
+  static func downLoadImage(urlString: String, compeletion: (NSData?, String?) -> ()) {
+    let url = NSURL(string: urlString)
+    let request = NSURLRequest(URL: url!)
+    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) in
+      let httpUrlResponse = response as! NSHTTPURLResponse
+      let cookieString = (httpUrlResponse.allHeaderFields as NSDictionary).valueForKey("Set-Cookie") as? String
+      compeletion(data, cookieString)
     }
-//    Alamofire.download(imageURL, destination: destination).downloadProgress { progress in
-//
-//    }.responseData { response in
-//
-//    }
-//    Alamofire.download("http://www.hangge.com/favicon.ico", to: destination)
-//          .downloadProgress { progress in
-//                print("当前进度: \(progress.fractionCompleted)")
-//            }
-//          .responseData { response in
-//                if let data = response.result.value {
-//                      print("下载完毕!")
-//                      let image = UIImage(data: data)
-//                  }
-//            }
   }
 }

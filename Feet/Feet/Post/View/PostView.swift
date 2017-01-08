@@ -64,7 +64,7 @@ class PostView: UIView {
       backView.addSubview(v)
       v.snp_makeConstraints(closure: { (make) in
         make.top.left.right.equalTo(0)
-        make.height.equalTo((KScreenWidth-30)*9/16)
+        make.height.equalTo((KScreenWidth-30)*9/17)
       })
       return v
     }()
@@ -82,6 +82,7 @@ class PostView: UIView {
         make.bottom.equalTo(imageView1.snp_bottom).offset(-6)
         make.height.width.equalTo(40)
       })
+      v.hidden = true
       return v
     }()
     
@@ -146,7 +147,7 @@ class PostView: UIView {
       make.top.equalTo(0)
       make.left.equalTo(15)
       make.right.equalTo(-15)
-      make.height.equalTo(114 + (KScreenWidth - 30)*9/16).priorityMedium()
+      make.height.equalTo(114 + (KScreenWidth - 30)*9/17).priorityMedium()
     })
   }
   
@@ -204,16 +205,16 @@ extension PostView:UITextViewDelegate {
     let rect = textView.text.boundingRectWithSize(CGSize(width: KScreenWidth - 60, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attrs, context: nil)
     
     let hx = Int(rect.height/14)
-    let height = 290 - 176 + (KScreenWidth - 30)*9/16
+    let height = 290 - 176 + (KScreenWidth - 30)*9/17
     if hx >= 1 {
       textView.snp_updateConstraints { (make) -> Void in
-        let height = 35+(16*(hx - 1))
+        let height = 35+(17*(hx - 1))
         make.height.equalTo(height)
         self.delegate.viewUpdateHeight(height,hx: hx)
       }
       
       backView.snp_updateConstraints(closure: { (make) in
-        let h = Int(height)+(16*(hx - 1))
+        let h = Int(height)+(17*(hx - 1))
         make.height.equalTo(h)
       })
     }

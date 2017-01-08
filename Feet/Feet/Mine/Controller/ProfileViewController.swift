@@ -51,7 +51,7 @@ class ProfileViewController: UIViewController {
           do {
             let _ = try promiseString.then({model in
               debugPrint("上传结果 ===== \(model.image)")
-              ApiClient.downloadImage(model.image, compeletion: { (data) in
+              ApiClient.downLoadImage(model.image, compeletion: { (data, cookieString) in
                 if let data = data {
                   UserDefaultsTool.headerData = data
                   self.avatar.image = UIImage(data: data)
@@ -78,6 +78,7 @@ extension ProfileViewController: ProfileDelegate {
   
   func logOutAction() {
     UserDefaultsTool.cleanUserInfo()
+    tabBarController?.selectedIndex = 1
     navigationController?.popViewControllerAnimated(true)
   }
   

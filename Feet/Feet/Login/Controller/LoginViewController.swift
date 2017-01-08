@@ -172,15 +172,14 @@ class LoginViewController: UIViewController {
           UserDefaultsTool.userToken = model.token
           UserDefaultsTool.userName = model.nickName
           UserDefaultsTool.userMobile = model.phone
-          ApiClient.downloadImage(model.image, compeletion: { (data) in
-            if let data = data {
-              UserDefaultsTool.headerData = data
-            }
+          ApiClient.downLoadImage(model.image, compeletion: { (data, cookieString) in
+              UserDefaultsTool.headerData = data!
             self.dismissViewControllerAnimated(true, completion: nil)
           })
         }).resolve()
       } catch where error is MyError{
         debugPrint("\(error)")
+        HUD.showError(status: "\(error)")
       } catch{
         debugPrint("网络错误")
       }
