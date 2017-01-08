@@ -140,6 +140,7 @@ class PostView: UIView {
         make.centerX.equalTo(self)
         make.height.width.equalTo(16)
       })
+      btn.hidden = true
       return btn
     }()
     
@@ -147,7 +148,7 @@ class PostView: UIView {
       make.top.equalTo(0)
       make.left.equalTo(15)
       make.right.equalTo(-15)
-      make.height.equalTo(114 + (KScreenWidth - 30)*9/17).priorityMedium()
+      make.height.equalTo(98 + (KScreenWidth - 30)*9/17).priorityMedium()
     })
   }
   
@@ -205,7 +206,7 @@ extension PostView:UITextViewDelegate {
     let rect = textView.text.boundingRectWithSize(CGSize(width: KScreenWidth - 60, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attrs, context: nil)
     
     let hx = Int(rect.height/14)
-    let height = 290 - 176 + (KScreenWidth - 30)*9/17
+    let height = 290 - 176 + (KScreenWidth - 30)*9/17 - 16
     if hx >= 1 {
       textView.snp_updateConstraints { (make) -> Void in
         let height = 35+(17*(hx - 1))

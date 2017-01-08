@@ -104,7 +104,7 @@ class PostViewController: UIViewController {
     }()
     
     postView = {
-      let p = PostView(frame: CGRect(x: 0, y: 0, width: KScreenWidth, height: 290 - 176 + (KScreenWidth - 30)*9/16))
+      let p = PostView(frame: CGRect(x: 0, y: 0, width: KScreenWidth, height: 290 - 192 + (KScreenWidth - 30)*9/17))
       p.delegate = self
       scrollerView.addSubview(p)
       scrollerView.contentSize = CGSize(width: p.frame.width, height: p.frame.height + 64)
@@ -257,6 +257,7 @@ extension PostViewController: ImagePickerDelegate {
     
     debugPrint("newSize === \(newSize)")
     if isMain {
+      images.removeAll()
       images.append(image)
       postView.imageView1.image = image
     } else {
