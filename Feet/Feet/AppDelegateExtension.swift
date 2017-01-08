@@ -19,3 +19,25 @@ extension AppDelegate {
     }
   }
 }
+
+
+/// 名人名言
+extension AppDelegate {
+  func owFeet(compeletion: ((OWModel) -> ())? = nil) {
+    HomeNetworkTool.owFeet { promiseMode in
+      do {
+        let _ = try promiseMode.then({ model in
+          debugPrint(model.name)
+          model.name = "by Feet"
+          model.day = "1"
+          model.content = "从今天开始，同学们的脚步由我来守护！！！"
+          compeletion?(model)
+        }).resolve()
+      } catch where error is MyError{
+        debugPrint("\(error)")
+      } catch{
+        debugPrint("\(error)")
+      }
+    }
+  }
+}

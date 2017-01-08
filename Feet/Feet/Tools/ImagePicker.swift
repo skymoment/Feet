@@ -8,6 +8,9 @@
 
 import UIKit
 import Foundation
+import AssetsLibrary
+import Photos
+
 @objc
 protocol ImagePickerDelegate {
   optional func imagePickerDidFinishPickingImage(image: UIImage)
@@ -48,8 +51,8 @@ class ImagePicker: NSObject {
   }
   
   func initImagePicker() {
-    imagePicker.editing = true
-    imagePicker.allowsEditing = true
+//    imagePicker.editing = true
+//    imagePicker.allowsEditing = true
     imagePicker.delegate = self
     imagePicker.navigationBar.barTintColor = UIColor.whiteColor()
     imagePicker.navigationBar.tintColor = .whiteColor() // Cancel button ~ any UITabBarButton items
@@ -76,28 +79,90 @@ extension ImagePicker: UIActionSheetDelegate {
 extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    debugPrint(info)
     let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-    let width = originalImage.size.width
-    let height = originalImage.size.height
-
-    var cutRect: CGRect!
-    if width > height {
-      let newWidth = height * 17 / 9
-      cutRect = CGRect(x: (width - newWidth)/2, y: 0, width: newWidth, height: height)
-    } else {
-      let newHeight = width * 9 / 17
-      cutRect = CGRect(x: 0, y: (height - newHeight)/2, width: width, height: newHeight)
-    }
     
-    let newImage = originalImage.cutImage(cutRect)
-//    let smallImage = info[UIImagePickerControllerEditedImage] as! UIImage
-//    let imageCropRect = info[UIImagePickerControllerCropRect]?.CGRectValue()
-
-    delegate?.imagePickerDidFinishPickingImage?(newImage)
-    picker.dismissViewControllerAnimated(true, completion: nil)
+    if picker.sourceType == .Camera {
+      UIImageWriteToSavedPhotosAlbum(originalImage, self, #selector(ImagePicker.image(_:didFinishSavingWithError:contextInfo:)), nil)
+    } else {
+      let newImage = cutImage(originalImage)
+      delegate?.imagePickerDidFinishPickingImage?(newImage)
+      picker.dismissViewControllerAnimated(true, completion: nil)
+    }
   }
   
   func imagePickerControllerDidCancel(picker: UIImagePickerController) {
     picker.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+
+  
+  func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>) {
+    if let err = error {
+      UIAlertView(title: "错误", message: err.localizedDescription, delegate: nil, cancelButtonTitle: "确定").show()
+    } else {
+      getFirstPhoto({ (image) in
+        let newImage = self.cutImage(image)
+        self.delegate?.imagePickerDidFinishPickingImage?(newImage)
+        self.imagePicker.dismissViewControllerAnimated(true, completion: nil)
+      })
+//      let newImage = cutImage(image)
+//      delegate?.imagePickerDidFinishPickingImage?(newImage)
+//      imagePicker.dismissViewControllerAnimated(true, completion: nil)
+   
+      //      ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//      [library assetForURL:[dic objectForKey:UIImagePickerControllerReferenceURL]
+//      resultBlock:^(ALAsset *asset)
+//      {
+//      ALAssetRepresentation *representation = [asset defaultRepresentation];
+//      CGImageRef imgRef = [representation fullResolutionImage];
+//      UIImage *image = [UIImage imageWithCGImage:imgRef
+//      scale:representation.scale
+//      orientation:(UIImageOrientation)representation.orientation];
+//      NSData * data = UIImageJPEGRepresentation(image, 0.5);
+//      
+//      }failureBlock:^(NSError *error){
+//      NSLog(@"couldn't get asset: %@", error);
+//      }
+//      ];
+
+    }
+  }
+  
+  func cutImage(originalImage: UIImage) -> UIImage {
+    let width = originalImage.size.width
+    let height = originalImage.size.height
+    
+    var cutRect: CGRect!
+    if width > height {
+      let newWidth = height * 17 / 9
+      cutRect = CGRect(x: (width - newWidth)/2, y: 0, width: newWidth, height: height)
+      let newImage = originalImage.cutImage(cutRect)
+      return newImage
+    } else {
+      let newHeight = width * 9 / 17
+      cutRect = CGRect(x: (height - newHeight)/2, y: 0, width: newHeight, height: width)
+      let newImage = originalImage.cutImage(cutRect, orientation: UIImageOrientation.Right)
+      return newImage
+    }
+  }
+  
+  func getFirstPhoto(compeletion: (UIImage) -> ()) {
+// 获取相册
+//    let results =  PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .AlbumRegular, options: nil)
+//    let count = results.count
+//    for i in 0 ..< count {
+//      let result = results.objectAtIndex(i) as! PHAssetCollection
+//      debugPrint(result.localizedTitle)
+//    }
+    
+    let options = PHFetchOptions()
+    let sort = NSSortDescriptor(key: "creationDate", ascending: false)
+    options.sortDescriptors = [sort]
+    let result = PHAsset.fetchAssetsWithMediaType(.Image, options: options)
+    let asset = result.objectAtIndex(0) as! PHAsset
+    PHImageManager().requestImageForAsset(asset, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFit, options: nil) { (image, dics) in
+      compeletion(image!)
+    }
   }
 }

@@ -98,4 +98,26 @@ struct HomeNetworkTool {
       completon(result)
     }
   }
+  
+  /**
+   名人名言
+   */
+  static func owFeet(completon:(Promise<OWModel>) ->()) {
+    let url = FeetAPI.Comment.zan
+    
+    func parseJson(json: JSON) -> Promise<OWModel>{
+      if json["code"].intValue == 12000 {
+        let model = OWModel(json: json["data"])
+        return Promise.Success(model)
+      } else {
+        return Promise.Error(MyError(error: json["msg"].stringValue))
+      }
+    }
+    
+    ApiClient.fetch(.POST, URLString: url) { promiseJSON in
+      let result = promiseJSON.then(parseJson)
+      debugPrint(result)
+      completon(result)
+    }
+  }
 }

@@ -10,6 +10,10 @@
 		1735ECE07E8489B937F4C916 /* Pods_Feet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139D01FB0FFE17D7F8D44C6C /* Pods_Feet.framework */; };
 		21050F1D1DF4535500A8FF8E /* SKBirthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21050F1C1DF4535500A8FF8E /* SKBirthPicker.swift */; };
 		210815A11E1BEB9000091193 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210815A01E1BEB9000091193 /* HUD.swift */; };
+		2112E2371E1E4279008600C8 /* OWModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2112E2361E1E4279008600C8 /* OWModel.swift */; };
+		2112E23D1E1E9911008600C8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2112E23C1E1E9911008600C8 /* AVFoundation.framework */; };
+		2112E23E1E1EA145008600C8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2112E2381E1E98C9008600C8 /* AssetsLibrary.framework */; };
+		2112E23F1E1EA512008600C8 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2112E23A1E1E98F1008600C8 /* Photos.framework */; };
 		218EF8801E12B62C0057F1BC /* FeatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EF87F1E12B62C0057F1BC /* FeatureViewController.swift */; };
 		218EF8821E12B8AF0057F1BC /* ControllerTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EF8811E12B8AF0057F1BC /* ControllerTool.swift */; };
 		21D53DAB1DD822DD00B0E309 /* FeetDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */; };
@@ -111,6 +115,10 @@
 		1761F2DCC2BFF102A036EF60 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21050F1C1DF4535500A8FF8E /* SKBirthPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKBirthPicker.swift; sourceTree = "<group>"; };
 		210815A01E1BEB9000091193 /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
+		2112E2361E1E4279008600C8 /* OWModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OWModel.swift; sourceTree = "<group>"; };
+		2112E2381E1E98C9008600C8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		2112E23A1E1E98F1008600C8 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		2112E23C1E1E9911008600C8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		218EF87F1E12B62C0057F1BC /* FeatureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureViewController.swift; sourceTree = "<group>"; };
 		218EF8811E12B8AF0057F1BC /* ControllerTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerTool.swift; sourceTree = "<group>"; };
 		21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeetDetailModel.swift; sourceTree = "<group>"; };
@@ -209,6 +217,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2112E23F1E1EA512008600C8 /* Photos.framework in Frameworks */,
+				2112E23E1E1EA145008600C8 /* AssetsLibrary.framework in Frameworks */,
+				2112E23D1E1E9911008600C8 /* AVFoundation.framework in Frameworks */,
 				47613A7B1D3E609E000C808D /* CoreLocation.framework in Frameworks */,
 				1735ECE07E8489B937F4C916 /* Pods_Feet.framework in Frameworks */,
 			);
@@ -287,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				47250F5A1CFEBF1D00BF2D2D /* FeetModel.swift */,
+				2112E2361E1E4279008600C8 /* OWModel.swift */,
 				4706B6DA1D002F8D00CAC365 /* RealmFeetItem.swift */,
 				21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */,
 			);
@@ -592,6 +604,9 @@
 		9A3950C6EC322D77E243E0B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2112E23C1E1E9911008600C8 /* AVFoundation.framework */,
+				2112E23A1E1E98F1008600C8 /* Photos.framework */,
+				2112E2381E1E98C9008600C8 /* AssetsLibrary.framework */,
 				47613A7A1D3E609E000C808D /* CoreLocation.framework */,
 				1761F2DCC2BFF102A036EF60 /* Pods.framework */,
 				139D01FB0FFE17D7F8D44C6C /* Pods_Feet.framework */,
@@ -941,6 +956,7 @@
 				471589E41DA795A10006E727 /* NameView.swift in Sources */,
 				473AED4E1D28BF91005B3E79 /* LoginNetTool.swift in Sources */,
 				47CB02D11D64B39900471F5C /* FeetDetailHeader.swift in Sources */,
+				2112E2371E1E4279008600C8 /* OWModel.swift in Sources */,
 				473AED471D28BC09005B3E79 /* UITextFieldExtension.swift in Sources */,
 				47250F5B1CFEBF1D00BF2D2D /* FeetModel.swift in Sources */,
 				478A9A1A1D3202980037EE08 /* TimeLabel.swift in Sources */,

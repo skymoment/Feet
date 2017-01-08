@@ -11,7 +11,8 @@ import UIKit
 // eg: //http://115.28.110.10:8080/feet/user/login
 
 let environment: String = {
-  let defalutDomain = "http://115.28.110.10:8080"
+//  let defalutDomain = "http://115.28.110.10:8080"
+  let defalutDomain = "http://www.skymoment.cn"
   return defalutDomain
 }()
 
@@ -53,6 +54,8 @@ struct FeetAPI {
     static let getInfo = Feet.generatePath("getInfo")
     /// 发布 Feet
     static let add = Feet.generatePath("add")
+    /// 名言
+    static let ow = Feet.generatePath("ow")
   }
   
   // MARK: - 评论

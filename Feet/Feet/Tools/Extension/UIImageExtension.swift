@@ -68,10 +68,41 @@ extension UIImage {
    
    - returns: UIImage
    */
-  func cutImage(rect: CGRect) -> UIImage {
+  func cutImage(rect: CGRect, orientation: UIImageOrientation? = nil) -> UIImage {
+    
+//    CGImageRef subImageRef = CGImageCreateWithImageInRect(self.CGImage, rect);
+//    
+//    CGRect smallBounds = CGRectMake(0, 0, CGImageGetWidth(subImageRef), CGImageGetHeight(subImageRef));
+//    
+//    
+//    
+//    UIGraphicsBeginImageContext(smallBounds.size);
+//    
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    
+//    CGContextDrawImage(context, smallBounds, subImageRef);
+//    
+//    UIImage* smallImage = [UIImage imageWithCGImage:subImageRef];
+//    
+//    UIGraphicsEndImageContext();
+    
+//    let newImage = UIImage(CGImage: self.CGImage!, scale: 1.0, orientation: UIImageOrientation.Left)
+//  
+//    let subImageRef = CGImageCreateWithImageInRect(newImage.CGImage!, rect)
+//    let smallBounds = CGRectMake(0, 0, CGFloat(CGImageGetWidth(subImageRef!)), CGFloat(CGImageGetHeight(subImageRef!)))
+//    UIGraphicsBeginImageContext(smallBounds.size)
+//    let context = UIGraphicsGetCurrentContext()
+//    CGContextDrawImage(context!, smallBounds, subImageRef!)
+//    let image = UIImage(CGImage: subImageRef!)
+    
     let cutImage = CGImageCreateWithImageInRect(self.CGImage!, rect)
-    let image = UIImage(CGImage: cutImage!)
-    return image
+    
+    if let orientation = orientation {
+      let image = UIImage(CGImage: cutImage!, scale: 1.0, orientation: orientation)
+      return image
+
+    }
+    return UIImage(CGImage: cutImage!)
   }
   
   func imageRotatedByDegrees(degree: CGFloat) -> UIImage {
