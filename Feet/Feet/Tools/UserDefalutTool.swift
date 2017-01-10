@@ -23,14 +23,14 @@ class UserDefaultsTool {
   }
   
   /// 用户头像
-  static var headerData: NSData {
+  static var headerData: NSData? {
     set{
-      UserDefaultsTool.save(newValue, key: "headerData")
+      UserDefaultsTool.save(newValue!, key: "headerData")
     }
     get{
       let userDefaults = NSUserDefaults.standardUserDefaults()
       userDefaults.dataForKey("headerData")
-      return userDefaults.dataForKey("headerData") ?? UIImageJPEGRepresentation(UIImage(named: "d_header3")!, 1)!
+      return userDefaults.dataForKey("headerData")
     }
   }
   

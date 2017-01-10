@@ -110,7 +110,7 @@ class PostView: UIView {
     
     textView = {
       let t = KMPlaceholderTextView()
-      t.placeholder = "生活不应只有眼前的苟且，还有诗和远方。"
+      t.placeholder = "生活不应只有眼前的苟且，还有诗和远方"
       t.font = UIFont.systemFontOfSize(14)
       t.scrollEnabled = false
       t.delegate = self

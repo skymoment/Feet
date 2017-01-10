@@ -8,8 +8,16 @@
 
 import UIKit
 
+enum  FeetDetail {
+  case feetlist
+  case minelist
+}
+
+
 class DetailViewController: UIViewController {
+  
   var id = "0"
+  var type: FeetDetail = .feetlist
   var model: FeetDetailModel!
   var comments = [CommentInfo]()
   var tableView: UITableView!
@@ -19,9 +27,10 @@ class DetailViewController: UIViewController {
   var heightOfKB: CGFloat = 0
   
   // MARK: - LifeCycle
-  convenience init(id: String) {
+  convenience init(id: String, type: FeetDetail = .feetlist) {
     self.init()
     self.id = id
+    self.type = type
   }
   
   override func viewDidLoad() {
@@ -33,8 +42,6 @@ class DetailViewController: UIViewController {
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-    (tabBarController as! TabBarController).removeGestrue()
-    
 
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHidden), name: UIKeyboardWillHideNotification, object: nil)
@@ -63,12 +70,13 @@ class DetailViewController: UIViewController {
       t.separatorStyle = .None
       t.rowHeight = UITableViewAutomaticDimension
       t.estimatedRowHeight = 100
-  
+      
+      let bottom = type == .feetlist ? -50 : 0
       view.addSubview(t)
       t.snp_makeConstraints(closure: { (make) in
         make.left.right.equalTo(view)
         make.top.equalTo(view).offset(64)
-        make.bottom.equalTo(view.snp_bottom).offset(-50)
+        make.bottom.equalTo(view.snp_bottom).offset(bottom)
       })
       return t
     }()
@@ -84,6 +92,9 @@ class DetailViewController: UIViewController {
         make.bottom.equalTo(view.snp_bottom).priorityMedium()
         make.left.right.equalTo(view)
         make.height.equalTo(50)
+      }
+      if type == .minelist {
+        commentView.hidden = true
       }
       return commentView
     }()
@@ -155,7 +166,9 @@ extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = CommentCell(style: .Default, reuseIdentifier: CommentCell.identifier())
-    cell.commentLabel.delegate = self
+    if type == .feetlist {
+      cell.commentLabel.delegate = self
+    }
     cell.refresh(model.commentInfo[indexPath.row])
     return cell
   }
@@ -204,7 +217,7 @@ extension DetailViewController: CommentDelegate {
   }
   
   func tableContentOffset(y: Int) {
-    GCDTool.delay(0.2) {
+    GCDTool.delay(0.4) {
       let offsetY = CGFloat(y) - (KScreenHeigth - self.heightOfKB)
       if offsetY > 0 {
         let contentY = self.tableView.contentOffset.y

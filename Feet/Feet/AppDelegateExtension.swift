@@ -21,9 +21,9 @@ extension AppDelegate {
 }
 
 
-/// 名人名言
+/// 每日一句
 extension AppDelegate {
-  func owFeet(compeletion: ((OWModel) -> ())? = nil) {
+  func owFeet(compeletion: ((OWModel) -> ())? = nil, fail: (() -> ())? = nil) {
     HomeNetworkTool.owFeet { promiseMode in
       do {
         let _ = try promiseMode.then({ model in
@@ -34,10 +34,41 @@ extension AppDelegate {
           compeletion?(model)
         }).resolve()
       } catch where error is MyError{
+        fail?()
         debugPrint("\(error)")
       } catch{
+        fail?()
         debugPrint("\(error)")
       }
     }
   }
+  
+  func ownImageView() {
+    var imageName = ""
+    let viewSize = kWindow!.bounds.size
+    let imageDic = NSBundle.mainBundle().infoDictionary!["UILaunchImages"] as! NSArray
+
+    for dic in imageDic {
+      let imageSize = CGSizeFromString(dic.valueForKey("UILaunchImages") as! String)
+      if CGSizeEqualToSize(imageSize, viewSize) &&
+        "Portrait" == dic["UILaunchImageOrientation"] as! String {
+        imageName = dic["UILaunchImageName"] as! String
+      }
+    }
+    
+    let imageView = UIImageView(image: UIImage(named: imageName))
+    imageView.frame = kWindow!.bounds
+    kWindow!.addSubview(imageView)
+    
+    let day = UILabel()
+    day.text = "第101天"
+    imageView.addSubview(day)
+    day.snp_makeConstraints { (make) in
+      make.top.equalTo(230)
+      make.centerX.equalTo(imageView)
+    }
+  }
 }
+
+
+

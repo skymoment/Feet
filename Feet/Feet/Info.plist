@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>方正行楷简体.TTF</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -24,36 +28,32 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-  
-  
-  <key>NSAppTransportSecurity</key>
-  <dict>
-    <key>NSAllowsArbitraryLoads</key>
-    <true/>
-    <key>NSExceptionDomains</key>
-    <dict>
-      <key>o8ahkpej6.bkt.clouddn.com</key>
-      <dict>
-        <key>NSIncludesSubdomains</key>
-        <true/>
-        <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-        <true/>
-        <key>NSTemporaryExceptionMinimumTLSVersion</key>
-        <string>TLSv1.1</string>
-      </dict>
-      <key>skymoment.cn</key>
-      <dict>
-        <key>NSIncludesSubdomains</key>
-        <true/>
-        <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-        <true/>
-        <key>NSTemporaryExceptionMinimumTLSVersion</key>
-        <string>TLSv1.1</string>
-      </dict>
-    </dict>
-  </dict>
-  
-  
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>o8ahkpej6.bkt.clouddn.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionMinimumTLSVersion</key>
+				<string>TLSv1.1</string>
+			</dict>
+			<key>skymoment.cn</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionMinimumTLSVersion</key>
+				<string>TLSv1.1</string>
+			</dict>
+		</dict>
+	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Feet想使用你的相机</string>
 	<key>NSLocationAlwaysUsageDescription</key>

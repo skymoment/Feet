@@ -119,6 +119,8 @@ class MineCell: UITableViewCell {
     
     photoImageView = {
       let p = UIImageView(image: UIImage(named: "image1"))
+      p.layer.cornerRadius = 3
+      p.layer.masksToBounds = true
       self.addSubview(p)
       p.snp_makeConstraints(closure: { (make) in
         make.left.equalTo(contentLabel.snp_left)
@@ -145,10 +147,18 @@ class MineCell: UITableViewCell {
   func refresh(model: FeetModel) {
     countLabel.text = "共\(model.pics.count)张"
     contentLabel.text = model.content
+    timeLabel.setAttrText(parseTime(model.time))
+    locationLabel.text = model.city.componentsSeparatedByString("=")[0]
     
     if let url = NSURL(string: model.pics[0]) {
       photoImageView.sd_setImageWithURL(url)
     }
-//    photoImageView.image = UIImag
+  }
+  
+  func parseTime(str: String) -> String {
+    let time1 = str.componentsSeparatedByString(" ")
+    let time2 = time1[0].componentsSeparatedByString("-")
+    let time3 = time2[1] + time2[2] + "月"
+    return time3
   }
 }

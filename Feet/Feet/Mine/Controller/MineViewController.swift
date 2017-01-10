@@ -40,7 +40,9 @@ class MineViewController: UIViewController {
     (tabBarController as! TabBarController).addGestrue()
 
     navigationController?.setNavigationBarHidden(true, animated: false)
-    avatarView.image = UIImage(data: UserDefaultsTool.headerData)
+    if let imageData = UserDefaultsTool.headerData {
+      avatarView.image = UIImage(data: imageData)
+    }
     
     if UserDefaultsTool.userName != "" {
       nameLabel.text = UserDefaultsTool.userName
@@ -71,7 +73,7 @@ class MineViewController: UIViewController {
     view.insertSubview(BackView(), atIndex: 0)
 
     avatarView = {
-      let a = UIImageView(image: UIImage(data: UserDefaultsTool.headerData))
+      let a = UIImageView(image: UIImage(named: "d_header3"))
       a.userInteractionEnabled = true
       a.layer.cornerRadius = 48
       a.layer.masksToBounds = true
@@ -183,6 +185,12 @@ extension MineViewController: UITableViewDelegate,UITableViewDataSource {
     let cell = MineCell(vLine: tabelHeader.vline(),style: .Default, reuseIdentifier: MineCell.identifier())
     cell.refresh(feetModels[indexPath.row])
     return cell
+  }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let id = feetModels[indexPath.row].id
+    let vc = DetailViewController(id: "\(id)", type: .minelist)
+    navigationController?.pushViewController(vc, animated: true)
   }
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

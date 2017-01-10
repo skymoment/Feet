@@ -22,11 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let fileList = ThemeManager.shareInstance.themeImagesPath()
     print("fileList======== \(fileList)")
     
-    owFeet()
-    sleep(1)
-    window = UIWindow(frame: UIScreen.mainScreen().bounds)
-    window?.rootViewController = ControllerTool.chooseRootViewController()
-    window?.makeKeyAndVisible()
+    self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+    self.window?.makeKeyAndVisible()
+    self.window?.rootViewController = DayViewController()
+    //UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+    
     return true
   }
   

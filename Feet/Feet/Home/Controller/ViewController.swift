@@ -13,8 +13,7 @@ class ViewController: UIViewController {
 
   @IBOutlet weak var tableView: UITableView!
   var feetModels = [FeetModel]()
-  
-  //
+  var headerView: UIImageView!
   var currentPage = 1
   
   // MARK: - LifeCycle
@@ -55,6 +54,10 @@ class ViewController: UIViewController {
     if UserDefaultsTool.isLogin() {
       (tabBarController as! TabBarController).addGestrue()
     }
+    
+    if let imageData = UserDefaultsTool.headerData {
+      headerView.image = UIImage(data: imageData)
+    }
   }
   
   override func viewWillDisappear(animated: Bool) {
@@ -75,9 +78,14 @@ class ViewController: UIViewController {
     navigationItem.rightBarButtonItem = UIBarButtonItem(customView: imageView)
     
     let leftImageView = UIImageView(image: UIImage(named: "d_header"))
-    leftImageView.frame = CGRect(x: 0, y: 0, width: 28, height: 28)
+    leftImageView.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+    leftImageView.layer.cornerRadius = 17
+    leftImageView.layer.borderWidth = 1
+    leftImageView.layer.borderColor = UIColor.whiteColor().CGColor
+    leftImageView.layer.masksToBounds = true
     let gestureLeft = UITapGestureRecognizer(target: self, action: #selector(leftBarAction))
     leftImageView.addGestureRecognizer(gestureLeft)
+    headerView = leftImageView
     navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftImageView)
   }
   

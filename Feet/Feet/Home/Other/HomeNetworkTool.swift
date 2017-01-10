@@ -100,7 +100,7 @@ struct HomeNetworkTool {
   }
   
   /**
-   名人名言
+   每日一句
    */
   static func owFeet(completon:(Promise<OWModel>) ->()) {
     let url = FeetAPI.Comment.zan

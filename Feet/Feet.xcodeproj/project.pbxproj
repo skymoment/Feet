@@ -16,6 +16,8 @@
 		2112E23F1E1EA512008600C8 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2112E23A1E1E98F1008600C8 /* Photos.framework */; };
 		218EF8801E12B62C0057F1BC /* FeatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EF87F1E12B62C0057F1BC /* FeatureViewController.swift */; };
 		218EF8821E12B8AF0057F1BC /* ControllerTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EF8811E12B8AF0057F1BC /* ControllerTool.swift */; };
+		21BC15CF1E255B42008642D2 /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC15CE1E255B42008642D2 /* DayViewController.swift */; };
+		21BC15D71E257106008642D2 /* 方正行楷简体.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 21BC15D61E257106008642D2 /* 方正行楷简体.TTF */; };
 		21D53DAB1DD822DD00B0E309 /* FeetDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */; };
 		21F5EFA21DCF5785009E53BD /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5EFA11DCF5785009E53BD /* UserInfoModel.swift */; };
 		21F5EFA61DCF627C009E53BD /* UserNetTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5EFA51DCF627C009E53BD /* UserNetTool.swift */; };
@@ -121,6 +123,8 @@
 		2112E23C1E1E9911008600C8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		218EF87F1E12B62C0057F1BC /* FeatureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureViewController.swift; sourceTree = "<group>"; };
 		218EF8811E12B8AF0057F1BC /* ControllerTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerTool.swift; sourceTree = "<group>"; };
+		21BC15CE1E255B42008642D2 /* DayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayViewController.swift; sourceTree = "<group>"; };
+		21BC15D61E257106008642D2 /* 方正行楷简体.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正行楷简体.TTF"; sourceTree = "<group>"; };
 		21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeetDetailModel.swift; sourceTree = "<group>"; };
 		21F5EFA11DCF5785009E53BD /* UserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		21F5EFA51DCF627C009E53BD /* UserNetTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNetTool.swift; sourceTree = "<group>"; };
@@ -528,6 +532,7 @@
 				4732CB781D20306200A0A32E /* Mine */,
 				476B5D321CFAD3FF003E4636 /* Main.storyboard */,
 				476B5D351CFAD3FF003E4636 /* Assets.xcassets */,
+				21BC15D61E257106008642D2 /* 方正行楷简体.TTF */,
 				476B5D371CFAD3FF003E4636 /* LaunchScreen.storyboard */,
 				476B5D3A1CFAD3FF003E4636 /* Info.plist */,
 				47250F671CFEE55A00BF2D2D /* Feet-Bridging-Header.h */,
@@ -577,6 +582,7 @@
 				47250F631CFEC0B800BF2D2D /* TabBarController.swift */,
 				47E19B321D041E1A0053E984 /* NavigationController.swift */,
 				218EF87F1E12B62C0057F1BC /* FeatureViewController.swift */,
+				21BC15CE1E255B42008642D2 /* DayViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -747,6 +753,7 @@
 				476B5D391CFAD3FF003E4636 /* LaunchScreen.storyboard in Resources */,
 				476B5D361CFAD3FF003E4636 /* Assets.xcassets in Resources */,
 				476B5D341CFAD3FF003E4636 /* Main.storyboard in Resources */,
+				21BC15D71E257106008642D2 /* 方正行楷简体.TTF in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -954,6 +961,7 @@
 				473107F71D7885E30086F055 /* Notifications.swift in Sources */,
 				210815A11E1BEB9000091193 /* HUD.swift in Sources */,
 				471589E41DA795A10006E727 /* NameView.swift in Sources */,
+				21BC15CF1E255B42008642D2 /* DayViewController.swift in Sources */,
 				473AED4E1D28BF91005B3E79 /* LoginNetTool.swift in Sources */,
 				47CB02D11D64B39900471F5C /* FeetDetailHeader.swift in Sources */,
 				2112E2371E1E4279008600C8 /* OWModel.swift in Sources */,

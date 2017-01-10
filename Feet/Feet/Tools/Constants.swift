@@ -7,13 +7,17 @@
 //
 
 import Foundation
+
+/// window
+let kWindow = UIApplication.sharedApplication().delegate?.window!
+
 /// 七牛空间
 let QNHeader = "http://o8ahkpej6.bkt.clouddn.com/"
-
 
 // iPhone 
 let iPhone4 = UIScreen.mainScreen().bounds.height == 480
 let iPhone5 = UIScreen.mainScreen().bounds.height == 568
+let iPhonePlus = UIScreen.mainScreen().bounds.width >= 414
 let smallScreen = UIScreen.mainScreen().bounds.width == 320 ? true : false
 
 
@@ -22,7 +26,9 @@ let MianFontColor = UIColor(hexString: "#282828")
 let LineColor = UIColor(hexString: "#dcdcdc")
 let GreenFontColor = UIColor(hexString: "#11d211")
 
-// UIScreen 
+let FangZheng = "FZXingKai-S04S"
+
+// UIScreen
 let KScreenWidth = UIScreen.mainScreen().bounds.width
 let KScreenHeigth = UIScreen.mainScreen().bounds.height
 
