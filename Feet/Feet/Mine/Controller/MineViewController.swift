@@ -145,7 +145,7 @@ class MineViewController: UIViewController {
           HUD.dismiss()
           self.tableView.mj_footer.hidden = feetModels.lastPage
           self.feetModels.appendContentsOf(feetModels.feets)
-          self.currentPage = feetModels.pageNumber
+          self.currentPage = feetModels.pageNumber + 1
           self.tableView.reloadData()
           self.endRefresh()
         }).resolve()
