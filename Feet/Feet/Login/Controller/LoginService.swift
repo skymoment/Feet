@@ -19,4 +19,17 @@ class LoginService: NSObject {
       next()
     }
   }
+  
+  class func showLogin() {
+    let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("login")
+    dispatch_async(dispatch_get_main_queue()) {
+      if let vc = kWindow?.rootViewController {
+        vc.presentViewController(loginVC, animated: true, completion: nil)
+      }
+    }
+  }
+  
+  class func isLogin() -> Bool {
+    return UserDefaultsTool.isLogin()
+  }
 }

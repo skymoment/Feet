@@ -20,9 +20,9 @@ class DayViewController: UIViewController {
     // Do any additional setup after loading the view.
     owFeet({ (ownModel) in
       self.loadData(ownModel)
-      GCDTool.delay(3, task: {
-        kWindow?.rootViewController = ControllerTool.chooseRootViewController()
-      })
+        GCDTool.delay(3, task: {
+          kWindow?.rootViewController = ControllerTool.chooseRootViewController()
+        })
       }) { 
         kWindow?.rootViewController = ControllerTool.chooseRootViewController()
     }

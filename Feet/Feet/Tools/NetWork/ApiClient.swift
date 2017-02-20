@@ -40,9 +40,13 @@ struct ApiClient {
   static func fetch(type: HttpRequestType, URLString url: String, paramters para: [String: AnyObject]? = nil, promise: (Promise<JSON>) -> ()){
     let method = Method(rawValue: type.rawValue)!
     self.alamofireRequest(method, url, parameters: para).responseJSON { response in
-      
+      debugPrint("url === \(url)")
       if let value = response.result.value {
         let json = JSON(value)
+        let code = json["code"].intValue
+        if code == 24000 {
+          LoginService.showLogin()
+        }
         promise(Promise.Success(json))
         debugPrint(json)
         return

@@ -103,7 +103,7 @@ struct HomeNetworkTool {
    每日一句
    */
   static func owFeet(completon:(Promise<OWModel>) ->()) {
-    let url = FeetAPI.Comment.zan
+    let url = FeetAPI.Feet.ow
     
     func parseJson(json: JSON) -> Promise<OWModel>{
       if json["code"].intValue == 12000 {

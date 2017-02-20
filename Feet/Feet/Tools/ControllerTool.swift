@@ -16,7 +16,7 @@ struct ControllerTool {
         let currentVersion = NSBundle.mainBundle().infoDictionary![String(kCFBundleVersionKey)] as! String
         
         if lastVersion == currentVersion {
-          return FeatureViewController()
+          return TabBarController()
         } else {
           userDefaults.setObject(currentVersion, forKey: String(kCFBundleVersionKey))
           userDefaults.synchronize()

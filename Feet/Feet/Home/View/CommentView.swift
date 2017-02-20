@@ -82,6 +82,10 @@ extension CommentView: UITextFieldDelegate {
   func textFieldShouldReturn(textField: UITextField) -> Bool {
     let content = textField.text!.componentsSeparatedByString(":")
     
+    guard LoginService.isLogin() else {
+      return false
+    }
+    
     guard textField.text?.length() > 0 else {
       debugPrint("评论内容不能为空哦")
       return true
