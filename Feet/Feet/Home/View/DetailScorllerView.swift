@@ -13,14 +13,16 @@ class DetailScorllerView: UIView {
   var imageViews: [UIImageView] = []
   
   convenience init(images: [String]) {
-    self.init(frame: CGRect(x: 0, y: 0, width: KScreenWidth - 30, height: (KScreenWidth-30)*9/16))
+    //    self.init(frame: CGRect(x: 0, y: 0, width: KScreenWidth - 30, height: (KScreenWidth-30)*9/16))
+    self.init(frame: CGRect(x: 0, y: 0, width: KScreenWidth - 30, height: (KScreenWidth-30)))
+    
     self.images = images
     setViews(self.images)
   }
   
   override init(frame:CGRect) {
     super.init(frame: frame)
-//    setViews(images)
+    //    setViews(images)
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -39,7 +41,7 @@ class DetailScorllerView: UIView {
       if value == "image1" {
         imageView =  UIImageView(image: UIImage(named:"\(value)"))
       } else {
-        let url = NSURL(string: value)
+        let url = NSURL(string: value + subString)
         let imageViewURL = UIImageView()
         imageViewURL.sd_setImageWithURL(url)
         imageView = imageViewURL

@@ -31,6 +31,8 @@ let FangZheng = "FZXingKai-S04S"
 // UIScreen
 let KScreenWidth = UIScreen.mainScreen().bounds.width
 let KScreenHeigth = UIScreen.mainScreen().bounds.height
+let subString = "?imageView2/1/w/\(Int(KScreenWidth - 30)*3)/h/\(Int(KScreenWidth - 30)*3)/interlace/1"
+
 
 // APP 版本
 let KAppVersion = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"]!

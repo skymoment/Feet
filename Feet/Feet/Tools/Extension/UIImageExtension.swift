@@ -96,7 +96,7 @@ extension UIImage {
 //    let image = UIImage(CGImage: subImageRef!)
     
     let cutImage = CGImageCreateWithImageInRect(self.CGImage!, rect)
-    
+    self.imageOrientation
     if let orientation = orientation {
       let image = UIImage(CGImage: cutImage!, scale: 1.0, orientation: orientation)
       return image

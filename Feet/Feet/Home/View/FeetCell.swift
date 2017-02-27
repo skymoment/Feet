@@ -53,7 +53,7 @@ class FeetCell: UITableViewCell {
     lookCountLabel.text = String(model.lookCount)
     likeCountLabel.text = String(model.likeCount)
     if model.pics.count > 0 {
-      let url = NSURL(string: model.pics[0])
+      let url = NSURL(string: model.pics[0] + subString)
       mainImage.sd_setImageWithURL(url)
     }
   }
