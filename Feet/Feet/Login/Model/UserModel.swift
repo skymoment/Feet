@@ -14,6 +14,10 @@ class UserModel: NSObject {
   var phone = ""
   var image = ""
   var token = ""
+  var email = ""
+  var gender = 0
+  var info = ""
+  var birthday = ""
   
   init(json: JSON) {
     id = json["data","id"].intValue
@@ -21,5 +25,9 @@ class UserModel: NSObject {
     phone = json["data","phone"].stringValue
     image = json["data","image"].stringValue
     token = json["data","token"].stringValue
+    email = json["data","email"].stringValue
+    gender = json["data","gender"].intValue
+    info = json["data","info"].stringValue
+    birthday = json["data","birthday"].stringValue
   }
 }

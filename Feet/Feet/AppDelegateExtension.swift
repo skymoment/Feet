@@ -42,32 +42,6 @@ extension AppDelegate {
       }
     }
   }
-  
-  func ownImageView() {
-    var imageName = ""
-    let viewSize = kWindow!.bounds.size
-    let imageDic = NSBundle.mainBundle().infoDictionary!["UILaunchImages"] as! NSArray
-
-    for dic in imageDic {
-      let imageSize = CGSizeFromString(dic.valueForKey("UILaunchImages") as! String)
-      if CGSizeEqualToSize(imageSize, viewSize) &&
-        "Portrait" == dic["UILaunchImageOrientation"] as! String {
-        imageName = dic["UILaunchImageName"] as! String
-      }
-    }
-    
-    let imageView = UIImageView(image: UIImage(named: imageName))
-    imageView.frame = kWindow!.bounds
-    kWindow!.addSubview(imageView)
-    
-    let day = UILabel()
-    day.text = "第101天"
-    imageView.addSubview(day)
-    day.snp_makeConstraints { (make) in
-      make.top.equalTo(230)
-      make.centerX.equalTo(imageView)
-    }
-  }
 }
 
 

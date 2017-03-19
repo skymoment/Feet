@@ -32,4 +32,20 @@ class LoginService: NSObject {
   class func isLogin() -> Bool {
     return UserDefaultsTool.isLogin()
   }
+  
+  
+  /// 下载图片并获取图片cookie
+  class func downLoadImage(urlString: String, compeltion: (NSData, String) -> ()) {
+    debugPrint("urlString ====== \(urlString)")
+    let url = NSURL(string: urlString)
+    let request = NSURLRequest(URL: url!)
+    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) in
+      let httpUrlResponse = response as! NSHTTPURLResponse
+      let cookieString = (httpUrlResponse.allHeaderFields as NSDictionary).valueForKey("Set-Cookie") as? String
+      debugPrint("cookieString ======== \(cookieString)")
+      if let cookieString = cookieString {
+        compeltion(data!, cookieString)
+      }
+    }
+  }
 }

@@ -11,9 +11,11 @@ import Alamofire
 
 class LoginViewController: UIViewController {
   
+  
+  @IBOutlet weak var titleLabel: UILabel!
 
   @IBOutlet weak var phoneTextField: UITextField!
-  @IBOutlet weak var codeTextField: UITextField!
+  @IBOutlet weak var password: UITextField!
   @IBOutlet weak var filedBackView: UIView!
   @IBOutlet weak var codeButon: UIButton!
   @IBOutlet weak var loginButton: UIButton!
@@ -21,6 +23,16 @@ class LoginViewController: UIViewController {
   @IBOutlet weak var cancelBtn: UIButton!
   
   @IBOutlet weak var userInfoLabel: UILabel!
+  
+  // 注册
+  @IBOutlet weak var password2: UITextField!
+  @IBOutlet weak var checkCode: UITextField!
+  @IBOutlet weak var codeImageView: UIImageView!
+  
+  
+  // 约束
+  @IBOutlet weak var filedBackViewHeight: NSLayoutConstraint!
+  
   
   // 计时器
   var timer: NSTimer!
@@ -37,6 +49,9 @@ class LoginViewController: UIViewController {
     // Do any additional setup after loading the view.
     
     setViews()
+    
+    // 
+    filedBackViewHeight.constant = 93
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -62,6 +77,33 @@ class LoginViewController: UIViewController {
   
   
   // MARK: - Acction
+  @IBAction func changeAction(sender: UIButton) {
+    if sender.titleLabel?.text == "注册" {
+      sender.setTitle	("登录", forState: .Normal)
+      titleLabel.text = "注册"
+      loginButton.setTitle("注册", forState: .Normal)
+      LoginService.downLoadImage(codeImaegURL, compeltion: { (data, str) in
+        self.codeImageView.image = UIImage(data: data)
+      })
+      
+      view.setNeedsUpdateConstraints()
+      UIView.animateWithDuration(0.3, animations: {
+        self.filedBackViewHeight.constant = 186
+        self.view.layoutIfNeeded()
+      })
+    } else {
+      sender.setTitle("注册", forState: .Normal)
+      titleLabel.text = "登录"
+      loginButton.setTitle("登录", forState: .Normal)
+  
+      view.setNeedsUpdateConstraints()
+      UIView.animateWithDuration(0.3, animations: {
+        self.filedBackViewHeight.constant = 93
+        self.view.layoutIfNeeded()
+      })
+    }
+  }
+  
   @IBAction func dismissVC(sender: UIButton) {
     dismissViewControllerAnimated(true, completion: nil)
   }
@@ -106,20 +148,18 @@ class LoginViewController: UIViewController {
     view.insertSubview(BackView(), atIndex: 0)
 
     filedBackView.layer.cornerRadius = 6
-    filedBackView.layer.borderColor = UIColor.whiteColor().CGColor
+    filedBackView.layer.borderColor = UIColor(hexString: "#FFFFFF", alpha: 0.1).CGColor
     filedBackView.layer.borderWidth = 2
     filedBackView.layer.masksToBounds = true
     filedBackView.backgroundColor = UIColor(hexString: "#FFFFFF", alpha: 0.1)
-    filedBackView.alpha = 0.1
     
     phoneTextField.keyboardType = UIKeyboardType.NumberPad
     phoneTextField.delegate = self
     phoneTextField.addTarget(self, action: #selector(checkInfo), forControlEvents: .EditingChanged)
 
     
-    codeTextField.keyboardType = UIKeyboardType.NumberPad
-    codeTextField.addTarget(self, action: #selector(checkInfo), forControlEvents: .EditingChanged)
-    codeTextField.delegate = self
+    password.addTarget(self, action: #selector(checkInfo), forControlEvents: .EditingChanged)
+    password.delegate = self
     
     loginButton.layer.cornerRadius = 6
     loginButton.layer.masksToBounds = true
@@ -149,7 +189,8 @@ class LoginViewController: UIViewController {
   }
   
   func checkInfo() {
-    if phoneTextField.length != 0 && codeTextField.length != 0 {
+    phoneTextField.numberOnly()
+    if phoneTextField.length != 0 && password.length != 0 {
       changeLoginBtnColor(true)
     } else {
       changeLoginBtnColor(false)
@@ -161,31 +202,59 @@ class LoginViewController: UIViewController {
   }
   
   func loginAction() {
-    let param = [
-      "phone": phoneTextField.text!.deleteBlankSpace(),
-      "smsCode": codeTextField.text!
+    let loginParam = [
+      "nickname": phoneTextField.text!.deleteBlankSpace(),
+      "pwd": password.text!
     ]
     
-    LoginNetTool.logIn(param) { promiseModel in
-      do {
-        let _ = try promiseModel.then({model in
-          UserDefaultsTool.userToken = model.token
-          UserDefaultsTool.userName = model.nickName
-          UserDefaultsTool.userMobile = model.phone
-          if model.image != "" {
-            ApiClient.downLoadImage(model.image, compeletion: { (data, cookieString) in
-              UserDefaultsTool.headerData = data!
+    let registParam = [
+      "nickname": phoneTextField.text!.deleteBlankSpace(),
+      "pwd": password.text!,
+      "pwdAgain": password2.text ?? "",
+      "capcode": checkCode.text ?? ""
+    ]
+    
+    if loginButton.titleLabel?.text == "登录" {
+      LoginNetTool.newLogin(loginParam) { promiseModel in
+        do {
+          let _ = try promiseModel.then({model in
+            UserDefaultsTool.saveInfo(model)
+            if model.image != "" {
+              ApiClient.downLoadImage(model.image, compeletion: { (data, cookieString) in
+                UserDefaultsTool.headerData = data!
+                self.dismissViewControllerAnimated(true, completion: nil)
+              })
+            } else {
               self.dismissViewControllerAnimated(true, completion: nil)
-            })
-          } else {
-            self.dismissViewControllerAnimated(true, completion: nil)
-          }
-        }).resolve()
-      } catch where error is MyError{
-        debugPrint("\(error)")
-        HUD.showError(status: "\(error)")
-      } catch{
-        debugPrint("网络错误")
+            }
+          }).resolve()
+        } catch where error is MyError{
+          debugPrint("\(error)")
+          HUD.showError(status: "\(error)")
+        } catch{
+          debugPrint("网络错误")
+        }
+      }
+    } else {
+      LoginNetTool.regist(registParam) { promiseModel in
+        do {
+          let _ = try promiseModel.then({model in
+            UserDefaultsTool.saveInfo(model)
+            if model.image != "" {
+              ApiClient.downLoadImage(model.image, compeletion: { (data, cookieString) in
+                UserDefaultsTool.headerData = data!
+                self.dismissViewControllerAnimated(true, completion: nil)
+              })
+            } else {
+              self.dismissViewControllerAnimated(true, completion: nil)
+            }
+          }).resolve()
+        } catch where error is MyError{
+          debugPrint("\(error)")
+          HUD.showError(status: "\(error)")
+        } catch{
+          debugPrint("网络错误")
+        }
       }
     }
   }
@@ -195,12 +264,9 @@ class LoginViewController: UIViewController {
 // MARK: - UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
   func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-    
-    if textField ==  phoneTextField {
-      return textField.insertBlankSpace(textField, range: range, string: string)
-    } else	 {
-      return textField.textMaxLength(textField, range: range, string: string, maxLength: 6)
+    if textField == phoneTextField {
+      return textField.textMaxLength(textField, range: range, string: string, maxLength: 11)
     }
-    
+    return true
   }
 }

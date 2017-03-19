@@ -10,6 +10,44 @@ import UIKit
 
 extension UITextField {
   
+  func numberOnly() {
+    let number = self.text!
+    if number.length() > 0 {
+      
+      let text = number.characters.filter({ (c) -> Bool in
+        if "0123456789".containsString(String(c)) {
+          return true
+        } else {
+          return false
+        }
+      })
+      self.text! = String(text)
+      
+//            if (self.text?.length)! > 0 {
+//              let str = (String(text) as NSString ).substring(with: NSRange(location: 0, length: 1))
+//              if str == "0" {
+//                self.text! = ""
+//              }
+//            }
+    }
+  }
+  
+  func parseString(spaceStr: String?, numArray: NSArray) -> String? {// 添加空格
+    if spaceStr == nil {
+      return nil
+    }
+    let mStr = NSMutableString(string: (spaceStr?.stringByReplacingOccurrencesOfString(" ", withString: ""))!)
+    // 遍历数组间隔位数
+    for space in numArray {
+      if mStr.length > Int(space as! NSNumber) {
+        mStr.insertString(" ", atIndex: Int(space as! NSNumber))
+      }
+    }
+    return mStr as String
+  }
+
+  
+  
   /// text长度
   var length: Int {
     return self.text!.characters.count
@@ -31,7 +69,6 @@ extension UITextField {
     }
     return true
   }
-  
   
   /**
    

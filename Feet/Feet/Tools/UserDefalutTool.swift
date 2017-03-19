@@ -67,7 +67,7 @@ class UserDefaultsTool {
     }
   }
   
-  /// 性别
+  /// 生日
   static var birthday: String {
     set{
       UserDefaultsTool.save(newValue, key: "birthday")
@@ -148,6 +148,18 @@ class UserDefaultsTool {
     userDefaults.removeObjectForKey("userName")
     userDefaults.removeObjectForKey("headerData")
     userDefaults.removeObjectForKey("userMobile")
+    userDefaults.removeObjectForKey("email")
+    userDefaults.removeObjectForKey("birthday")
+    userDefaults.removeObjectForKey("info")
+  }
+  
+  static func saveInfo(model: UserModel) {
+    userToken = model.token
+    userName = model.nickName
+    userMobile = model.phone
+    email = model.email
+    sex = model.gender
+    birthday = model.birthday
   }
   
   static func isLogin() -> Bool {

@@ -16,6 +16,8 @@ let environment: String = {
   return defalutDomain
 }()
 
+let codeImaegURL = environment + "/feet/captcha"
+
 protocol Subpath {
   static func generatePath(path: String) -> String
 }
@@ -40,6 +42,14 @@ struct FeetAPI {
     static let updateUserInfo = User.generatePath("updateUserInfo")
   }
   
+  // MAKR: - 新版登录接口
+  struct NewUser: Subpath {
+    // 登录接口
+    static let login = NewUser.generatePath("login")
+    // 注册人接口
+    static let regist = NewUser.generatePath("regist")
+  }
+  
   // MARK: - 七牛令牌
   struct ImgToken: Subpath {
     static let index = ImgToken.generatePath("index")
@@ -56,6 +66,8 @@ struct FeetAPI {
     static let add = Feet.generatePath("add")
     /// 名言
     static let ow = Feet.generatePath("ow")
+    /// 图形验证码
+    static let captcha =  Feet.generatePath("captcha")
   }
   
   // MARK: - 评论
