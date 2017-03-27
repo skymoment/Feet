@@ -21,6 +21,7 @@ class LoginService: NSObject {
   }
   
   class func showLogin() {
+    UserDefaultsTool.cleanUserInfo()
     let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("login")
     dispatch_async(dispatch_get_main_queue()) {
       if let vc = kWindow?.rootViewController {

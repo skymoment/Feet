@@ -80,9 +80,21 @@ extension ProfileViewController: ProfileDelegate {
   }
   
   func logOutAction() {
-    UserDefaultsTool.cleanUserInfo()
-    tabBarController?.selectedIndex = 1
-    navigationController?.popViewControllerAnimated(true)
+    HUD.show()
+    LoginNetTool.logOut { promiseString in
+      do {
+        HUD.dismiss()
+        let _ = try promiseString.then({ string in
+          UserDefaultsTool.cleanUserInfo()
+          self.tabBarController?.selectedIndex = 1
+          self.navigationController?.popViewControllerAnimated(true)
+        }).resolve()
+      } catch where error is MyError {
+        HUD.showError(status: "\(error)")
+      } catch {
+        HUD.showError(status: "\(error)")
+      }
+    }
   }
   
   func changeAvatar(view: UIImageView) {

@@ -12,6 +12,29 @@ import SwiftyJSON
 struct LoginNetTool {
   
   /**
+   退出登录
+   
+   - parameter params:     参数
+   - parameter completion: 回调
+   */
+  static func logOut(completion: (Promise<String>)->()) {
+    let url = FeetAPI.NewUser.logOut
+    
+    func parseJson(json: JSON) -> Promise<String> {
+      if json["code"].intValue == 12000 {
+        return Promise.Success(String("退出登录成功"))
+      } else {
+        return Promise.Error(MyError(error: "退出登录失败"))
+      }
+    }
+    
+    ApiClient.fetch(.POST, URLString: url) { promiseJSON in
+      let result = promiseJSON.then(parseJson)
+      completion(result)
+    }
+  }
+  
+  /**
    获取短信验证码
    
    - parameter params:     参数

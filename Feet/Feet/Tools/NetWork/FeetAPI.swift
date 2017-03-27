@@ -48,6 +48,8 @@ struct FeetAPI {
     static let login = NewUser.generatePath("login")
     // 注册人接口
     static let regist = NewUser.generatePath("regist")
+    // 退出登录
+    static let logOut = NewUser.generatePath("logout")
   }
   
   // MARK: - 七牛令牌

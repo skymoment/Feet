@@ -44,14 +44,16 @@ struct ApiClient {
       if let value = response.result.value {
         let json = JSON(value)
         let code = json["code"].intValue
-        if code == 24000 {
+        if code == 14000 {
           LoginService.showLogin()
+          let msg = json["msg"].stringValue
+          HUD.showError(status: msg)
+          return
         }
         promise(Promise.Success(json))
         debugPrint(json)
         return
       }
-      
       promise(Promise.Error(response.result.error!))
     }
   }

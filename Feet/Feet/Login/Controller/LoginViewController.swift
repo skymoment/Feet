@@ -159,6 +159,10 @@ class LoginViewController: UIViewController {
 
     
     password.addTarget(self, action: #selector(checkInfo), forControlEvents: .EditingChanged)
+    password.clearButtonMode = .WhileEditing
+    password.secureTextEntry = true
+    password2.clearButtonMode = .WhileEditing
+    password2.secureTextEntry = true
     password.delegate = self
     
     loginButton.layer.cornerRadius = 6

@@ -21,7 +21,7 @@ class UserModel: NSObject {
   
   init(json: JSON) {
     id = json["data","id"].intValue
-    nickName = json["data","nickName"].stringValue
+    nickName = json["data","nickname"].stringValue
     phone = json["data","phone"].stringValue
     image = json["data","image"].stringValue
     token = json["data","token"].stringValue

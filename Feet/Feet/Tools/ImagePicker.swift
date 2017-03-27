@@ -69,13 +69,18 @@ extension ImagePicker: UIActionSheetDelegate {
       // 判断相机是否可用
       if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
         imagePicker.sourceType = .Camera
-        viewController.presentViewController(imagePicker, animated: true, completion: nil)
+        GCDTool.delay(0.2, task: { 
+          self.viewController.presentViewController(self.imagePicker, animated: true, completion: nil)
+        })
       } else {
         HUD.showError(status: "未获取到相机")
       }
     } else if buttonIndex == 1 {
       imagePicker.sourceType = .SavedPhotosAlbum
-      viewController.presentViewController(imagePicker, animated: true, completion: nil)
+      
+      GCDTool.delay(0.2, task: { 
+        self.viewController.presentViewController(self.imagePicker, animated: true, completion: nil)
+      })
     }
   }
 }

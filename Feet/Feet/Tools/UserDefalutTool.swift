@@ -154,12 +154,12 @@ class UserDefaultsTool {
   }
   
   static func saveInfo(model: UserModel) {
-    userToken = model.token
-    userName = model.nickName
-    userMobile = model.phone
-    email = model.email
-    sex = model.gender
-    birthday = model.birthday
+    UserDefaultsTool.userToken = model.token
+    UserDefaultsTool.userName = model.nickName
+    UserDefaultsTool.userMobile = model.phone
+    UserDefaultsTool.email = model.email
+    UserDefaultsTool.sex = model.gender
+    UserDefaultsTool.birthday = model.birthday
   }
   
   static func isLogin() -> Bool {
