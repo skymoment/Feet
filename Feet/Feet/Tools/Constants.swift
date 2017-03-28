@@ -17,9 +17,9 @@ let QNHeader = "http://o8ahkpej6.bkt.clouddn.com/"
 // iPhone 
 let iPhone4 = UIScreen.mainScreen().bounds.height == 480
 let iPhone5 = UIScreen.mainScreen().bounds.height == 568
-let iPhonePlus = UIScreen.mainScreen().bounds.width >= 414
+let iPhonePlus = UIScreen.mainScreen().bounds.height == 736
 let smallScreen = UIScreen.mainScreen().bounds.width == 320 ? true : false
-
+let iPad = UIScreen.mainScreen().bounds.height > 736
 
 // Colors
 let MianFontColor = UIColor(hexString: "#282828")

@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>方正行楷简体.TTF</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -64,6 +60,10 @@
 	<string>Feet想使用你的麦克风</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Feet想使用你的相册</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>方正行楷简体.TTF</string>
+	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

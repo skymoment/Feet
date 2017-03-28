@@ -73,6 +73,8 @@ class DayViewController: UIViewController {
       top = 130
     } else if iPhonePlus {
       top = 260
+    } else if iPad {
+      top = 400
     } else {
       top = 220
     }
@@ -105,11 +107,11 @@ class DayViewController: UIViewController {
   
   // MARK: - Method
   func loadData(model: OWModel) {
-    day.text = "第1天"
+    day.text =  "第 \(model.day) 天" // "第1天"
       //model.day
-    content.text = "生活不应只有眼前的苟且，还有诗和远方。请跟随你的脚步，直到远方！"
+    content.text =  model.content //"生活不应只有眼前的苟且，还有诗和远方。请跟随你的脚步，直到远方！"
       //model.content
-    name.text = "- by Feet"
+    name.text = "- \(model.name)" //"- by Feet"
       //model.name
   }
   

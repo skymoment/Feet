@@ -82,8 +82,13 @@ class LoginViewController: UIViewController {
       sender.setTitle	("登录", forState: .Normal)
       titleLabel.text = "注册"
       loginButton.setTitle("注册", forState: .Normal)
-      LoginService.downLoadImage(codeImaegURL, compeltion: { (data, str) in
-        self.codeImageView.image = UIImage(data: data)
+//      LoginService.downLoadImage(codeImaegURL, compeltion: { (data, str) in
+//        self.codeImageView.image = UIImage(data: data)
+//      })
+      ApiClient.downLoadImage(codeImaegURL, compeletion: { (data, str) in
+        if let data = data {
+          self.codeImageView.image = UIImage(data: data)
+        }
       })
       
       view.setNeedsUpdateConstraints()
