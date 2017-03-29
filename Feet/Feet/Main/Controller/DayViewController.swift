@@ -117,6 +117,9 @@ class DayViewController: UIViewController {
   
   func getLaunchImage(viewSize: CGSize) -> String? {
     let imageDic = (NSBundle.mainBundle().infoDictionary! as NSDictionary).valueForKey("UILaunchImages") as! NSArray
+    guard !iPad else {
+      return "2048x2732"
+    }
     for dic in imageDic {
       let dict = dic as! NSDictionary
       let size = CGSizeFromString(dict["UILaunchImageSize"] as! String) as CGSize
