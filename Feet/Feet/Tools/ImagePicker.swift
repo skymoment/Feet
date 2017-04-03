@@ -54,8 +54,8 @@ class ImagePicker: NSObject {
 //    imagePicker.editing = true
 //    imagePicker.allowsEditing = true
     imagePicker.delegate = self
-    imagePicker.navigationBar.barTintColor = UIColor.whiteColor()
-    imagePicker.navigationBar.tintColor = .whiteColor() // Cancel button ~ any UITabBarButton items
+    imagePicker.navigationBar.barTintColor = GreenFontColor
+    imagePicker.navigationBar.tintColor = UIColor.whiteColor() // Cancel button ~ any UITabBarButton items
     imagePicker.navigationBar.titleTextAttributes = [
       NSForegroundColorAttributeName : UIColor.whiteColor()
     ]

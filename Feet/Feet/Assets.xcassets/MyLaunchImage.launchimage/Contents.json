@@ -22,7 +22,7 @@
       "extent" : "full-screen",
       "idiom" : "ipad",
       "subtype" : "1366h",
-      "filename" : "2048x2732.png",
+      "filename" : "iPadPro.png",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
       "scale" : "2x"
@@ -47,7 +47,7 @@
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
-      "filename" : "768x1024.png",
+      "filename" : "iPad768.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "scale" : "1x"
@@ -55,7 +55,7 @@
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
-      "filename" : "1526x2048.png",
+      "filename" : "iPad1526.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "scale" : "2x"
