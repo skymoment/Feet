@@ -21,7 +21,11 @@ class FeatureViewController: UIViewController {
     scrollView.frame = view.bounds
     view.addSubview(scrollView)
     
-    let imagePrefix = iPhone4 ? "small_" : "big_"
+    var imagePrefix = iPhone4 ? "small_" : "big_"
+    if iPad {
+      imagePrefix = "iPad_"
+    }
+    
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAction))
     for i in 1...3 {
       let imageName = "\(imagePrefix)\(i)"
