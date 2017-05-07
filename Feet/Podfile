@@ -17,7 +17,7 @@ target 'Feet' do
   pod 'UMengSocialCOM'
   pod 'SVProgressHUD'
   pod 'MJRefresh'
-
+  pod 'Then', '~> 2.1'
   target 'FeetTests' do
     inherit! :search_paths
     # Pods for testing
