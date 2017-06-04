@@ -18,6 +18,8 @@ target 'Feet' do
   pod 'SVProgressHUD'
   pod 'MJRefresh'
   pod 'Then', '~> 2.1'
+  pod 'IQKeyboardManagerSwift', '4.0.8'
+
   target 'FeetTests' do
     inherit! :search_paths
     # Pods for testing
