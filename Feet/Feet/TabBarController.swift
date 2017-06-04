@@ -9,9 +9,9 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-  private var panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer()
-  private let tabBarVCDelegate = TabBarVCDelegate()
-  private var subViewControllerCount: Int{
+  fileprivate var panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer()
+  fileprivate let tabBarVCDelegate = TabBarVCDelegate()
+  fileprivate var subViewControllerCount: Int{
     let count = viewControllers != nil ? viewControllers!.count : 0
     return count
   }
@@ -19,9 +19,9 @@ class TabBarController: UITabBarController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.tabBar.tintColor = UIColor.greenColor()
-    self.tabBar.hidden = true
-    let feetVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ViewController") as! ViewController
+    self.tabBar.tintColor = UIColor.green
+    self.tabBar.isHidden = true
+    let feetVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
     let navFeet = NavigationController(rootViewController: feetVC)
     
     let mineVC = MineViewController()
@@ -34,7 +34,7 @@ class TabBarController: UITabBarController {
     delegate = tabBarVCDelegate
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
   }
   
@@ -52,14 +52,14 @@ class TabBarController: UITabBarController {
     // Dispose of any resources that can be recreated.
   }
   
-  func handlePan(panGesture: UIPanGestureRecognizer){
-    let translationX =  panGesture.translationInView(view).x
+  func handlePan(_ panGesture: UIPanGestureRecognizer){
+    let translationX =  panGesture.translation(in: view).x
     let translationAbs = translationX > 0 ? translationX : -translationX
     let progress = translationAbs / view.frame.width
     switch panGesture.state{
-    case .Began:
+    case .began:
       tabBarVCDelegate.interactive = true
-      let velocityX = panGesture.velocityInView(view).x
+      let velocityX = panGesture.velocity(in: view).x
       if velocityX < 0{
         if selectedIndex < subViewControllerCount - 1{
           selectedIndex += 1
@@ -69,9 +69,9 @@ class TabBarController: UITabBarController {
           selectedIndex -= 1
         }
       }
-    case .Changed:
-      tabBarVCDelegate.interactionController.updateInteractiveTransition(progress)
-    case .Cancelled, .Ended:
+    case .changed:
+      tabBarVCDelegate.interactionController.update(progress)
+    case .cancelled, .ended:
       /*这里有个小问题，转场结束或是取消时有很大几率出现动画不正常的问题。在8.1以上版本的模拟器中都有发现，7.x 由于缺乏条件尚未测试，
        但在我的 iOS 9.2 的真机设备上没有发现，而且似乎只在 UITabBarController 的交互转场中发现了这个问题。在 NavigationController 暂且没发现这个问题，
        Modal 转场尚未测试，因为我在 Demo 里没给它添加交互控制功能。
@@ -82,11 +82,11 @@ class TabBarController: UITabBarController {
        */
       if progress > 0.3{
         tabBarVCDelegate.interactionController.completionSpeed = 0.99
-        tabBarVCDelegate.interactionController.finishInteractiveTransition()
+        tabBarVCDelegate.interactionController.finish()
       }else{
         //转场取消后，UITabBarController 自动恢复了 selectedIndex 的值，不需要我们手动恢复。
         tabBarVCDelegate.interactionController.completionSpeed = 0.99
-        tabBarVCDelegate.interactionController.cancelInteractiveTransition()
+        tabBarVCDelegate.interactionController.cancel()
       }
       tabBarVCDelegate.interactive = false
     default: break

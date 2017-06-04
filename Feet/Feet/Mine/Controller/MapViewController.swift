@@ -25,7 +25,7 @@ class MapViewController: UIViewController {
     }()
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.setNavigationBarHidden(false, animated: false)
 
@@ -33,7 +33,7 @@ class MapViewController: UIViewController {
     (tabBarController as! TabBarController).removeGestrue()
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
     // 标注 就是带气泡的那种
@@ -46,31 +46,31 @@ class MapViewController: UIViewController {
     mapView.addAnnotation(annotation)
   }
   
-  override func viewWillDisappear(animated: Bool) {
+  override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     mapView.delegate = nil
     (tabBarController as! TabBarController).addGestrue()
   }
   
-  override func viewDidDisappear(animated: Bool) {
+  override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
   }
 }
 
 extension MapViewController: BMKMapViewDelegate{
-  func mapView(mapView: BMKMapView!, viewForAnnotation annotation: BMKAnnotation!) -> BMKAnnotationView! {
-    if annotation.isKindOfClass(BMKPointAnnotation) {
+  func mapView(_ mapView: BMKMapView!, viewFor annotation: BMKAnnotation!) -> BMKAnnotationView! {
+    if annotation.isKind(of: BMKPointAnnotation.self) {
       let newAnnotationView = BMKPinAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
-      newAnnotationView.pinColor = UInt(BMKPinAnnotationColorRed)
-      newAnnotationView.animatesDrop = true
-      newAnnotationView.draggable = true
-      newAnnotationView.image = UIImage(named: "location")
+      newAnnotationView?.pinColor = UInt(BMKPinAnnotationColorRed)
+      newAnnotationView?.animatesDrop = true
+      newAnnotationView?.isDraggable = true
+      newAnnotationView?.image = UIImage(named: "location")
       return newAnnotationView
     }
     return nil
   }
   
-  func mapView(mapView: BMKMapView!, annotationView view: BMKAnnotationView!, didChangeDragState newState: UInt, fromOldState oldState: UInt) {
+  func mapView(_ mapView: BMKMapView!, annotationView view: BMKAnnotationView!, didChangeDragState newState: UInt, fromOldState oldState: UInt) {
     print("newState=======\(newState)")
     print("newState=======\(oldState)")
   }

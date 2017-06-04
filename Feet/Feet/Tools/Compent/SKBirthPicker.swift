@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SKBirthPickerDelegate: class {
-  func pickerChanged(date: String)
+  func pickerChanged(_ date: String)
 }
 
 class SKBirthPicker: UIView {
@@ -30,27 +30,27 @@ class SKBirthPicker: UIView {
   
   // MARK: - SetViews
   func setViews() {
-    backgroundColor = UIColor.clearColor()
+    backgroundColor = UIColor.clear
     picker = {
       let p = UIDatePicker()
       addSubview(p)
-      p.snp_makeConstraints(closure: { (make) in
+      p.snp.makeConstraints({ (make) in
         make.left.right.bottom.equalTo(self)
         make.height.equalTo(162)
       })
-      p.setValue(UIColor.whiteColor(), forKey: "textColor")
-      p.datePickerMode = .Date
-      p.locale = NSLocale(localeIdentifier: "zh")
-      p.addTarget(self, action: #selector(datePickerChanged), forControlEvents: .ValueChanged)
+      p.setValue(UIColor.white, forKey: "textColor")
+      p.datePickerMode = .date
+      p.locale = Locale(identifier: "zh")
+      p.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
       return p
     }()
   }
   
   // MARK: - Method
-  func datePickerChanged(picker: UIDatePicker) {
-    let formatter = NSDateFormatter()
+  func datePickerChanged(_ picker: UIDatePicker) {
+    let formatter = DateFormatter()
     formatter.dateFormat = "yyyy年MM月dd日"
-    let date = formatter.stringFromDate(picker.date)
+    let date = formatter.string(from: picker.date)
     delegate?.pickerChanged(date)
   }
 }

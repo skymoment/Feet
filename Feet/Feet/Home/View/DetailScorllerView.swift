@@ -29,21 +29,21 @@ class DetailScorllerView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func setViews(images: [String]) {
+  func setViews(_ images: [String]) {
     let scorllerView = UIScrollView(frame: self.frame)
-    scorllerView.pagingEnabled = true
+    scorllerView.isPagingEnabled = true
     scorllerView.frame = self.frame
     self.addSubview(scorllerView)
     
-    for (index,value) in images.enumerate() {
+    for (index,value) in images.enumerated() {
       let size = CGSize(width: self.width, height: self.height)
       var imageView: UIImageView!
       if value == "image1" {
         imageView =  UIImageView(image: UIImage(named:"\(value)"))
       } else {
-        let url = NSURL(string: value + subString)
+        let url = URL(string: value + subString)
         let imageViewURL = UIImageView()
-        imageViewURL.sd_setImageWithURL(url)
+        imageViewURL.sd_setImage(with: url)
         imageView = imageViewURL
       }
       imageView.frame = CGRect(origin: CGPoint(x: CGFloat(index) * self.width, y: 0), size: size)

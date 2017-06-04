@@ -13,7 +13,7 @@ class ThemeManager: NSObject {
     var themeImage = UIImage(named: "summmer")
     
     
-    private override init() {
+    fileprivate override init() {
         
     }
     
@@ -23,10 +23,10 @@ class ThemeManager: NSObject {
     
     func themeImagesPath() -> [String]{
         let folderPath = documentPath + "/ThemeImages"
-        let fileManager = NSFileManager.defaultManager()
+        let fileManager = FileManager.default
         var fileList: [String] = []
         do {
-            let files = try fileManager.contentsOfDirectoryAtPath(folderPath)
+            let files = try fileManager.contentsOfDirectory(atPath: folderPath)
             for file in files {
                 debugPrint("file ====== \(folderPath + "/" + file)")
                 fileList.append("\(folderPath + "/" + file)")
@@ -38,7 +38,7 @@ class ThemeManager: NSObject {
         return fileList
     }
     
-    func changeThemeImage(imagePath: String) {
+    func changeThemeImage(_ imagePath: String) {
         themeImage = UIImage(contentsOfFile: imagePath)
     }
 }

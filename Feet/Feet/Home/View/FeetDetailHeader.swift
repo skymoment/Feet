@@ -45,7 +45,7 @@ class FeetDetailHeader: UIView {
   func setViews() {
     contentView = {
       let c = UIView()
-      c.backgroundColor = UIColor.whiteColor()
+      c.backgroundColor = UIColor.white
       c.layer.cornerRadius = 8
       c.layer.masksToBounds = true
       addSubview(c)
@@ -62,15 +62,15 @@ class FeetDetailHeader: UIView {
     
     avatarView = {
       let a = UIImageView(image: UIImage(named: "d_header"))
-      let url = NSURL(string: model.feetInfo.image)
+      let url = URL(string: model.feetInfo.image)
       if let url = url {
-        a.sd_setImageWithURL(url)
+        a.sd_setImage(with: url)
       }
       a.cornerRadiusImageView(12)
       contentView.addSubview(a)
-      a.snp_makeConstraints { (make) in
-        make.top.equalTo(detailScroller.snp_bottom).offset(15)
-        make.left.equalTo(contentView.snp_left).offset(12)
+      a.snp.makeConstraints { (make) in
+        make.top.equalTo(detailScroller.snp.bottom).offset(15)
+        make.left.equalTo(contentView.snp.left).offset(12)
         make.width.height.equalTo(24)
       }
       return a
@@ -80,10 +80,10 @@ class FeetDetailHeader: UIView {
       let n = UILabel()
       n.text = model.feetInfo.nickname
       n.textColor = UIColor(hexString: "#11d211")
-      n.font = UIFont.systemFontOfSize(15)
+      n.font = UIFont.systemFont(ofSize: 15)
       contentView.addSubview(n)
-      n.snp_makeConstraints { (make) in
-        make.left.equalTo(avatarView.snp_right).offset(6)
+      n.snp.makeConstraints { (make) in
+        make.left.equalTo(avatarView.snp.right).offset(6)
         make.centerY.equalTo(avatarView)
       }
       return n
@@ -92,27 +92,27 @@ class FeetDetailHeader: UIView {
     timeAndCity = {
       let l = UILabel()
       l.text = model.feetInfo.time
-      l.font = UIFont.systemFontOfSize(12)
+      l.font = UIFont.systemFont(ofSize: 12)
       l.textColor = UIColor(hexString: "#646464")
       contentView.addSubview(l)
-      l.snp_makeConstraints { (make) in
+      l.snp.makeConstraints { (make) in
         make.centerY.equalTo(nameLable)
-        make.right.equalTo(contentView.snp_right).offset(-12)
+        make.right.equalTo(contentView.snp.right).offset(-12)
       }
       return l
     }()
     
     contentLabel = {
       let c = UILabel()
-      c.font = UIFont.systemFontOfSize(15)
+      c.font = UIFont.systemFont(ofSize: 15)
       c.textColor = MianFontColor
       c.numberOfLines = 0
       c.text = model.feetInfo.content
       contentView.addSubview(c)
-      c.snp_makeConstraints { (make) in
-        make.top.equalTo(avatarView.snp_bottom).offset(6)
-        make.left.equalTo(avatarView.snp_left)
-        make.right.equalTo(timeAndCity.snp_right)
+      c.snp.makeConstraints { (make) in
+        make.top.equalTo(avatarView.snp.bottom).offset(6)
+        make.left.equalTo(avatarView.snp.left)
+        make.right.equalTo(timeAndCity.snp.right)
       }
       return c
     }()
@@ -120,9 +120,9 @@ class FeetDetailHeader: UIView {
     watchView = {
       let i = UIImageView(image: UIImage(named: "looks"))
       contentView.addSubview(i)
-      i.snp_makeConstraints { (make) in
-        make.top.equalTo(contentLabel.snp_bottom).offset(15)
-        make.left.equalTo(avatarView.snp_left)
+      i.snp.makeConstraints { (make) in
+        make.top.equalTo(contentLabel.snp.bottom).offset(15)
+        make.left.equalTo(avatarView.snp.left)
         make.width.equalTo(18)
         make.height.equalTo(18)
       }
@@ -133,11 +133,11 @@ class FeetDetailHeader: UIView {
       let l = UILabel()
       l.text = "\(model.feetInfo.lookCount)"
       l.textColor = MianFontColor
-      l.font = UIFont.systemFontOfSize(15)
+      l.font = UIFont.systemFont(ofSize: 15)
       contentView.addSubview(l)
-      l.snp_makeConstraints { (make) in
+      l.snp.makeConstraints { (make) in
         make.centerY.equalTo(watchView)
-        make.left.equalTo(watchView.snp_right).offset(4)
+        make.left.equalTo(watchView.snp.right).offset(4)
       }
       return l
     }()
@@ -146,11 +146,11 @@ class FeetDetailHeader: UIView {
       let l = UILabel()
       l.text = "\(model.feetInfo.likeCount)"
       l.textColor = MianFontColor
-      l.font = UIFont.systemFontOfSize(15)
+      l.font = UIFont.systemFont(ofSize: 15)
       contentView.addSubview(l)
-      l.snp_makeConstraints { (make) in
+      l.snp.makeConstraints { (make) in
         make.centerY.equalTo(watchView)
-        make.right.equalTo(timeAndCity.snp_right)
+        make.right.equalTo(timeAndCity.snp.right)
       }
       return l
     }()
@@ -163,8 +163,8 @@ class FeetDetailHeader: UIView {
         i.image = UIImage(named: "loves")
       }
       contentView.addSubview(i)
-      i.snp_makeConstraints { (make) in
-        make.right.equalTo(likeLabel.snp_left).offset(-4)
+      i.snp.makeConstraints { (make) in
+        make.right.equalTo(likeLabel.snp.left).offset(-4)
         make.centerY.equalTo(watchView)
         make.width.equalTo(18)
         make.height.equalTo(18)
@@ -173,10 +173,10 @@ class FeetDetailHeader: UIView {
     }()
     
     let likeControl = UIControl()
-    likeControl.addTarget(self, action: #selector(likeAction), forControlEvents: .TouchDown)
+    likeControl.addTarget(self, action: #selector(likeAction), for: .touchDown)
     contentView.addSubview(likeControl)
-    likeControl.snp_makeConstraints { (make) in
-      make.right.equalTo(timeAndCity.snp_right).offset(4)
+    likeControl.snp.makeConstraints { (make) in
+      make.right.equalTo(timeAndCity.snp.right).offset(4)
       make.centerY.equalTo(watchView)
       make.width.equalTo(80)
       make.height.equalTo(38)
@@ -186,30 +186,30 @@ class FeetDetailHeader: UIView {
       let l = UILabel()
       l.backgroundColor = LineColor
       contentView.addSubview(l)
-      l.snp_makeConstraints { (make) in
-        make.top.equalTo(likeView.snp_bottom).offset(10)
-        make.left.equalTo(contentView.snp_left)
-        make.right.equalTo(contentView.snp_right)
+      l.snp.makeConstraints { (make) in
+        make.top.equalTo(likeView.snp.bottom).offset(10)
+        make.left.equalTo(contentView.snp.left)
+        make.right.equalTo(contentView.snp.right)
         make.height.equalTo(0.5)
       }
       return l
     }()
     
-    contentView.snp_makeConstraints { (make) in
+    contentView.snp.makeConstraints { (make) in
       make.left.equalTo(15)
-      make.right.equalTo(detailScroller.snp_right)
+      make.right.equalTo(detailScroller.snp.right)
       make.top.equalTo(0)
-      make.bottom.equalTo(linelabel.snp_bottom).offset(5)
+      make.bottom.equalTo(linelabel.snp.bottom).offset(5)
     }
     contentView.layoutIfNeeded()
     self.frame = CGRect(x: 15, y: 0, width: KScreenWidth-30, height: contentView.height)
     
     if model.commentInfo.count > 0 {
       let whiteView = UIView(frame: CGRect(x: self.x + 0.5,y: self.y+8,width: self.width - 1,height: self.height))
-      whiteView.backgroundColor = UIColor.whiteColor()
+      whiteView.backgroundColor = UIColor.white
       insertSubview(whiteView, belowSubview: contentView)
     } else {
-      linelabel.backgroundColor = UIColor.clearColor()
+      linelabel.backgroundColor = UIColor.clear
     }
 
   }

@@ -18,8 +18,8 @@ extension UIColor {
    
    */
   convenience init(hexString: String, alpha: CGFloat = 1) {
-    var hex = hexString.lowercaseString.stringByReplacingOccurrencesOfString("#", withString: "")
-    hex = hex.stringByReplacingOccurrencesOfString("0x", withString: "")
+    var hex = hexString.lowercased().replacingOccurrences(of: "#", with: "")
+    hex = hex.replacingOccurrences(of: "0x", with: "")
     
     guard hex.characters.count == 6 else {
       self.init(red: 0, green: 0, blue: 0, alpha: alpha)
@@ -27,22 +27,22 @@ extension UIColor {
     }
 //    assert(hex.characters.count == 6, "使用不合法的字符串")
     
-    let redIndex = hex.startIndex.advancedBy(2)
-    let redString = hex.substringToIndex(redIndex)
+    let redIndex = hex.characters.index(hex.startIndex, offsetBy: 2)
+    let redString = hex.substring(to: redIndex)
     
-    let greenRange = Range(hex.startIndex.advancedBy(2)..<hex.startIndex.advancedBy(4))
-    let greenString = hex.substringWithRange(greenRange)
+    let greenRange = Range(hex.characters.index(hex.startIndex, offsetBy: 2)..<hex.characters.index(hex.startIndex, offsetBy: 4))
+    let greenString = hex.substring(with: greenRange)
     
-    let blueIndex = hex.endIndex.advancedBy(-2)
-    let blueString = hex.substringFromIndex(blueIndex)
+    let blueIndex = hex.characters.index(hex.endIndex, offsetBy: -2)
+    let blueString = hex.substring(from: blueIndex)
     
     
     var red:UInt32 = 0
     var green:UInt32 = 0
     var blue:UInt32 = 0
-    NSScanner(string: redString).scanHexInt(&red)
-    NSScanner(string: greenString).scanHexInt(&green)
-    NSScanner(string: blueString).scanHexInt(&blue)
+    Scanner(string: redString).scanHexInt32(&red)
+    Scanner(string: greenString).scanHexInt32(&green)
+    Scanner(string: blueString).scanHexInt32(&blue)
     
     self.init(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: alpha)
     

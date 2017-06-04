@@ -13,20 +13,20 @@ struct PostNetTool {
   /**
    获取七牛Token
    */
-  static func qiuNiuToken(compeltion: (() -> ())? = nil){
+  static func qiuNiuToken(_ compeltion: (() -> ())? = nil){
     let url = FeetAPI.ImgToken.a
     
-    func parseJson(json: JSON) -> Promise<String>{
+    func parseJson(_ json: JSON) -> Promise<String>{
       if json["code"].intValue == 12000 {
         UserDefaultsTool.qiniuToken = json["data","token"].stringValue
         debugPrint("================" + json["data","token"].stringValue)
-        return Promise.Success("获取成功")
+        return Promise.success("获取成功")
       } else {
-        return Promise.Error(MyError(error: json["msg"].stringValue))
+        return Promise.error(MyError(error: json["msg"].stringValue))
       }
     }
     
-    ApiClient.fetch(.POST, URLString: url,paramters: ["feetToken": UserDefaultsTool.userToken]) { promiseJSON in
+    ApiClient.fetch(.POST, URLString: url,paramters: ["feetToken": UserDefaultsTool.userToken as AnyObject]) { promiseJSON in
       let result = promiseJSON.then(parseJson)
       debugPrint(result)
       if let c = compeltion {
@@ -42,21 +42,21 @@ struct PostNetTool {
    - parameter params:    参数
    - parameter completon: 回调
    */
-  static func post(params: [String: String],completon:(Promise<String>) ->()) {
+  static func post(_ params: [String: String],completon:@escaping (Promise<String>) ->()) {
     
     debugPrint(params["feeToken"])
 //    let url = "http://115.28.110.10:8080/feet/feet/add"
     let url = FeetAPI.Feet.add
     
-    func parseJson(json: JSON) -> Promise<String>{
+    func parseJson(_ json: JSON) -> Promise<String>{
       if json["code"].intValue == 12000 {
-        return Promise.Success("发送成功")
+        return Promise.success("发送成功")
       } else {
-        return Promise.Error(MyError(error: json["msg"].stringValue))
+        return Promise.error(MyError(error: json["msg"].stringValue))
       }
     }
     
-    ApiClient.fetch(.POST, URLString: url,paramters: params) { promiseJSON in
+    ApiClient.fetch(.POST, URLString: url,paramters: params as [String : AnyObject]?) { promiseJSON in
       let result = promiseJSON.then(parseJson)
       debugPrint(result)
       completon(result)

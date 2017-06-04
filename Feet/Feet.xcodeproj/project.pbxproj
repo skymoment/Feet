@@ -16,6 +16,7 @@
 		2112E23F1E1EA512008600C8 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2112E23A1E1E98F1008600C8 /* Photos.framework */; };
 		218EF8801E12B62C0057F1BC /* FeatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EF87F1E12B62C0057F1BC /* FeatureViewController.swift */; };
 		218EF8821E12B8AF0057F1BC /* ControllerTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EF8811E12B8AF0057F1BC /* ControllerTool.swift */; };
+		219B05941EBF5175005C1FFE /* FeetMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219B05931EBF5175005C1FFE /* FeetMapViewController.swift */; };
 		21BC15CF1E255B42008642D2 /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC15CE1E255B42008642D2 /* DayViewController.swift */; };
 		21BC15D71E257106008642D2 /* 方正行楷简体.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 21BC15D61E257106008642D2 /* 方正行楷简体.TTF */; };
 		21D53DAB1DD822DD00B0E309 /* FeetDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */; };
@@ -122,6 +123,7 @@
 		2112E23C1E1E9911008600C8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		218EF87F1E12B62C0057F1BC /* FeatureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureViewController.swift; sourceTree = "<group>"; };
 		218EF8811E12B8AF0057F1BC /* ControllerTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerTool.swift; sourceTree = "<group>"; };
+		219B05931EBF5175005C1FFE /* FeetMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeetMapViewController.swift; sourceTree = "<group>"; };
 		21BC15CE1E255B42008642D2 /* DayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayViewController.swift; sourceTree = "<group>"; };
 		21BC15D61E257106008642D2 /* 方正行楷简体.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正行楷简体.TTF"; sourceTree = "<group>"; };
 		21D53DAA1DD822DD00B0E309 /* FeetDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeetDetailModel.swift; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 				4732CB7C1D20307A00A0A32E /* MineViewController.swift */,
 				474271AF1D4DDA8300F354C1 /* ProfileViewController.swift */,
 				4756F1CE1D4E4920006100BE /* SetUserInfoViewController.swift */,
+				219B05931EBF5175005C1FFE /* FeetMapViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -710,15 +713,17 @@
 					476B5D2A1CFAD3FF003E4636 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 62B895F59W;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					476B5D3E1CFAD3FF003E4636 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0820;
 						TestTargetID = 476B5D2A1CFAD3FF003E4636;
 					};
 					476B5D491CFAD3FF003E4636 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0820;
 						TestTargetID = 476B5D2A1CFAD3FF003E4636;
 					};
 				};
@@ -783,7 +788,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		3907A02F1B769280A9796B7E /* [CP] Copy Pods Resources */ = {
@@ -828,7 +833,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		917DC771BC6A5D6C579BC690 /* [CP] Embed Pods Frameworks */ = {
@@ -888,7 +893,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		D19FF020E3EB464A53E1FD6A /* [CP] Embed Pods Frameworks */ = {
@@ -972,6 +977,7 @@
 				47FD45A51D37DD000097D794 /* UIViewExtension.swift in Sources */,
 				4732CB771D20305300A0A32E /* LoginViewController.swift in Sources */,
 				472DD4E71D2EA6AA00D35DD3 /* StringExtension.swift in Sources */,
+				219B05941EBF5175005C1FFE /* FeetMapViewController.swift in Sources */,
 				47250F601CFEBFC000BF2D2D /* ImageFilter.swift in Sources */,
 				474271B21D4DDB9600F354C1 /* ProfileView.swift in Sources */,
 				4756F1D11D4E4AF2006100BE /* DetailViewController.swift in Sources */,
@@ -1161,7 +1167,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Feet/Feet-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1203,7 +1209,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Feet/Feet-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1217,7 +1223,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = skymoment.FeetTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Feet.app/Feet";
 			};
 			name = Debug;
@@ -1231,7 +1237,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = skymoment.FeetTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Feet.app/Feet";
 			};
 			name = Release;
@@ -1244,7 +1250,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = skymoment.FeetUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Feet;
 			};
 			name = Debug;
@@ -1257,7 +1263,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = skymoment.FeetUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Feet;
 			};
 			name = Release;

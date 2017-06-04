@@ -23,7 +23,7 @@ class MineViewController: UIViewController {
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    navigationController?.navigationBar.hidden = true
+    navigationController?.navigationBar.isHidden = true
     // Do any additional setup after loading the view.
     
     setViews()
@@ -35,13 +35,13 @@ class MineViewController: UIViewController {
     loadData()
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     (tabBarController as! TabBarController).addGestrue()
 
     navigationController?.setNavigationBarHidden(true, animated: false)
     if let imageData = UserDefaultsTool.headerData {
-      avatarView.image = UIImage(data: imageData)
+      avatarView.image = UIImage(data: imageData as Data)
     }
     
     if UserDefaultsTool.userName != "" {
@@ -55,7 +55,7 @@ class MineViewController: UIViewController {
     }
   }
   
-  override func viewWillDisappear(animated: Bool) {
+  override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     navigationController?.setNavigationBarHidden(false, animated: false)
     
@@ -70,18 +70,18 @@ class MineViewController: UIViewController {
   
   // MARK: - SetViews
   func setViews() {
-    view.insertSubview(BackView(), atIndex: 0)
+    view.insertSubview(BackView(), at: 0)
 
     avatarView = {
       let a = UIImageView(image: UIImage(named: "d_header3"))
-      a.userInteractionEnabled = true
+      a.isUserInteractionEnabled = true
       a.layer.cornerRadius = 48
       a.layer.masksToBounds = true
       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(avatarTaped))
       a.addGestureRecognizer(tapGesture)
       view.addSubview(a)
       
-      a.snp_makeConstraints(closure: { (make) in
+      a.snp.makeConstraints({ (make) in
         make.top.equalTo(30)
         make.width.height.equalTo(96)
         make.centerX.equalTo(view)
@@ -92,12 +92,12 @@ class MineViewController: UIViewController {
     nameLabel = {
       let l = UILabel()
       l.text = "Your Name"
-      l.font = UIFont.systemFontOfSize(16)
-      l.textColor = UIColor.whiteColor()
+      l.font = UIFont.systemFont(ofSize: 16)
+      l.textColor = UIColor.white
       view.addSubview(l)
       
-      l.snp_makeConstraints(closure: { (make) in
-        make.top.equalTo(avatarView.snp_bottom).offset(6)
+      l.snp.makeConstraints({ (make) in
+        make.top.equalTo(avatarView.snp.bottom).offset(6)
         make.centerX.equalTo(avatarView)
       })
       return l
@@ -106,8 +106,8 @@ class MineViewController: UIViewController {
     sexImageView = {
       let s = UIImageView(image: UIImage(named: "m_woman"))
       view.addSubview(s)
-      s.snp_makeConstraints(closure: { (make) in
-        make.top.equalTo(nameLabel.snp_bottom).offset(6)
+      s.snp.makeConstraints({ (make) in
+        make.top.equalTo(nameLabel.snp.bottom).offset(6)
         make.centerX.equalTo(nameLabel)
         make.width.height.equalTo(18)
       })
@@ -115,16 +115,16 @@ class MineViewController: UIViewController {
     }()
     
     tableView = {
-      let t = UITableView(frame: CGRectZero, style: .Plain)
+      let t = UITableView(frame: CGRect.zero, style: .plain)
       t.backgroundColor = UIColor(hexString: "#000000", alpha: 0.2)
 
       t.delegate = self
       t.dataSource = self
-      t.separatorStyle = .None
+      t.separatorStyle = .none
   
       view.addSubview(t)
-      t.snp_makeConstraints(closure: { (make) in
-        make.top.equalTo(sexImageView.snp_bottom).offset(15)
+      t.snp.makeConstraints({ (make) in
+        make.top.equalTo(sexImageView.snp.bottom).offset(15)
         make.left.right.bottom.equalTo(view)
       })
       return t
@@ -132,7 +132,7 @@ class MineViewController: UIViewController {
   }
   
   // MARK: - LoadData
-  func loadData(page: Int = 1) {
+  func loadData(_ page: Int = 1) {
     let params = [
       "pageNumber": "\(page)",
       "type": "1"
@@ -145,18 +145,18 @@ class MineViewController: UIViewController {
             self.feetModels.removeAll()
           }
           HUD.dismiss()
-          self.tableView.mj_footer.hidden = feetModels.lastPage
-          self.feetModels.appendContentsOf(feetModels.feets)
+          self.tableView.mj_footer.isHidden = feetModels.lastPage
+          self.feetModels.append(contentsOf: feetModels.feets)
           self.currentPage = feetModels.pageNumber + 1
           self.tableView.reloadData()
           self.endRefresh()
         }).resolve()
       } catch where error is MyError{
-        HUD.showError(status: "\(error)")
+        HUD.showError("\(error)")
         self.endRefresh()
       } catch{
         self.endRefresh()
-        HUD.showError(status: "网络错误")
+        HUD.showError("网络错误")
       }
     }
   }
@@ -177,35 +177,35 @@ class MineViewController: UIViewController {
 
 // MAKR: - UITableViewDelegate,UITableViewDataSource
 extension MineViewController: UITableViewDelegate,UITableViewDataSource {
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return feetModels.count
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = MineCell(vLine: tabelHeader.vline(),style: .Default, reuseIdentifier: MineCell.identifier())
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = MineCell(vLine: tabelHeader.vline(),style: .default, reuseIdentifier: MineCell.identifier())
     cell.refresh(feetModels[indexPath.row])
     return cell
   }
   
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let id = feetModels[indexPath.row].id
     let vc = DetailViewController(id: "\(id)", type: .minelist)
     navigationController?.pushViewController(vc, animated: true)
   }
   
-  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 150
   }
   
-  func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     return tabelHeader
   }
   
-  func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 40
   }
   
-  func scrollViewDidScroll(scrollView: UIScrollView) {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if scrollView.contentOffset.y <= -100 {
       loadData()
     }

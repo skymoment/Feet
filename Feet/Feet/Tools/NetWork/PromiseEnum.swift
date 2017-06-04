@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MyError: ErrorType {
+struct MyError: Error {
   var error: String = ""
 }
 
@@ -19,23 +19,23 @@ extension MyError: CustomStringConvertible {
 }
 
 enum Promise<T> {
-  case Success(T)
-  case Error(ErrorType)
+  case success(T)
+  case error(Error)
 }
 
 // T 和 U 都表示类型
 extension Promise {
-  func then<U>(f: T -> U) -> Promise<U> {
+  func then<U>(_ f: (T) -> U) -> Promise<U> {
     switch self {
-    case .Success(let t): return .Success(f(t))
-    case .Error(let err): return .Error(err)
+    case .success(let t): return .success(f(t))
+    case .error(let err): return .error(err)
     }
   }
   
-  func then<U>(f: T -> Promise<U>) -> Promise<U> {
+  func then<U>(_ f: (T) -> Promise<U>) -> Promise<U> {
     switch self {
-    case .Success(let t): return f(t)
-    case .Error(let err): return .Error(err)
+    case .success(let t): return f(t)
+    case .error(let err): return .error(err)
     }
   }
 }
@@ -43,17 +43,17 @@ extension Promise {
 extension Promise {
   func resolve() throws -> T {
     switch self {
-    case Promise.Success(let value): return value
-    case Promise.Error(let error): throw error
+    case Promise.success(let value): return value
+    case Promise.error(let error): throw error
     }
   }
   
-  init(@noescape _ throwingExpr: Void throws -> T) {
+  init(_ throwingExpr: (Void) throws -> T) {
     do{
       let value = try throwingExpr()
-      self = Promise.Success(value)
+      self = Promise.success(value)
     } catch {
-      self = Promise.Error(error)
+      self = Promise.error(error)
     }
   }
 }

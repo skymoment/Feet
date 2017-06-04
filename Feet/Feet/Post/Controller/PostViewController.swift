@@ -30,7 +30,7 @@ class PostViewController: UIViewController {
   // MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = UIColor.whiteColor()
+    view.backgroundColor = UIColor.white
     setViews()
     gainQiNiuToken()
     
@@ -43,18 +43,18 @@ class PostViewController: UIViewController {
     }
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.setNavigationBarHidden(true, animated: false)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillChangeFrame), name: UIKeyboardWillShowNotification, object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(dismissKeyBoard), name: UIKeyboardWillHideNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(dismissKeyBoard), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     (tabBarController as! TabBarController).removeGestrue()
   }
   
-  override func viewDidDisappear(animated: Bool) {
+  override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-    NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 
   }
   
@@ -62,17 +62,17 @@ class PostViewController: UIViewController {
   func setViews() {
     view.addSubview(BackView())
     
-    view.userInteractionEnabled = true
+    view.isUserInteractionEnabled = true
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
     view.addGestureRecognizer(tapGesture)
     
     cancelBtn = {
-      let btn = UIButton(type: .System)
-      btn.setImage(UIImage(named: "l_close"), forState: .Normal)
-      btn.tintColor = UIColor.whiteColor()
-      btn.addTarget(self, action: #selector(popAction), forControlEvents: .TouchUpInside)
+      let btn = UIButton(type: .system)
+      btn.setImage(UIImage(named: "l_close"), for: UIControlState())
+      btn.tintColor = UIColor.white
+      btn.addTarget(self, action: #selector(popAction), for: .touchUpInside)
       view.addSubview(btn)
-      btn.snp_makeConstraints(closure: { (make) in
+      btn.snp.makeConstraints({ (make) in
         make.top.equalTo(22)
         make.left.equalTo(15)
         make.width.height.equalTo(28)
@@ -82,10 +82,10 @@ class PostViewController: UIViewController {
     
     postBtn = {
       let btn = BorderButton()
-      btn.setTitle("发 布", forState: .Normal)
-      btn.addTarget(self, action: #selector(postAction), forControlEvents: .TouchUpInside)
+      btn.setTitle("发 布", for: UIControlState())
+      btn.addTarget(self, action: #selector(postAction), for: .touchUpInside)
       view.addSubview(btn)
-      btn.snp_makeConstraints(closure: { (make) in
+      btn.snp.makeConstraints({ (make) in
         make.centerY.equalTo(cancelBtn)
         make.right.equalTo(-15)
         make.width.equalTo(50)
@@ -96,7 +96,7 @@ class PostViewController: UIViewController {
     
     scrollerView = {
       let s = UIScrollView()
-      s.backgroundColor = UIColor.clearColor()
+      s.backgroundColor = UIColor.clear
       s.frame = CGRect(x: 0, y: 64, width: KScreenWidth, height: KScreenHeigth - 64)
       s.delegate = self
       view.addSubview(s)
@@ -116,36 +116,36 @@ class PostViewController: UIViewController {
   // MARK: - Methods
   func dismissKeyBoard() {
     view.endEditing(true)
-    UIView.animateWithDuration(0.3) { 
+    UIView.animate(withDuration: 0.3, animations: { 
       self.scrollerView.contentOffset.y = 0
-    }
+    }) 
   }
   
   func popAction() {
-    navigationController?.popViewControllerAnimated(true)
+    navigationController?.popViewController(animated: true)
   }
   
-  func keyboardWillChangeFrame(notification: NSNotification) {
-    let rect = notification.userInfo![UIKeyboardFrameEndUserInfoKey]!.CGRectValue
+  func keyboardWillChangeFrame(_ notification: Notification) {
+    let rect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue
     var ty:CGFloat = 0
     // 64 tableView的偏移量，第三方建盘与 y为286，原始键盘y为 352相差 66
-    ty = postView.frame.origin.y + postView.frame.size.height - rect.origin.y + 64
+    ty = postView.frame.origin.y + postView.frame.size.height - (rect?.origin.y)! + 64
     scorllerOffsetY = ty
-    UIView.animateWithDuration(0.3, animations: {
+    UIView.animate(withDuration: 0.3, animations: {
       self.scrollerView.contentOffset.y = ty
     })
   }
   
   func postAction() {
     debugPrint("正在发布发布")
-    HUD.show(title: "正在上传...")
+    HUD.show("正在上传...")
     QiniuTool.upLoadImages(imagesPaths, completion: { (progress, keys) in
       debugPrint("上传进度 \(progress)")
       if progress == 1 {
         self.postToServer(keys)
       }
     }) {
-      HUD.showError(status: "图片上传失败")
+      HUD.showError("图片上传失败")
       debugPrint("上传失败")
     }
   }
@@ -156,14 +156,14 @@ class PostViewController: UIViewController {
   
   
   // 上传 feet 到 自己服务器上
-  func postToServer(paths: [String]) {
+  func postToServer(_ paths: [String]) {
     
     let newPaths = paths.map { s in
       return QNHeader + s
     }
     
     var imgs = ""
-    for (index,path) in newPaths.enumerate() {
+    for (index,path) in newPaths.enumerated() {
       if index == paths.count {
         imgs = imgs + path
       } else {
@@ -183,12 +183,12 @@ class PostViewController: UIViewController {
     PostNetTool.post(params) { promiseString in
       do {
         let _ = try promiseString.then({str in
-          HUD.showSuccess(status: "已发布")
+          HUD.showSuccess("已发布")
           debugPrint("发布结果 ===== \(str)")
           self.popAction()
         }).resolve()
       } catch where error is MyError{
-        HUD.showError(status: "\(error)")
+        HUD.showError("\(error)")
         debugPrint("\(error)")
       } catch{
         debugPrint("网络错误")
@@ -199,7 +199,7 @@ class PostViewController: UIViewController {
 
 // MARK: - PostViewDelegate
 extension PostViewController: PostViewDelegate {
-  func viewAddImage(isMain: Bool) {
+  func viewAddImage(_ isMain: Bool) {
     dismissKeyBoard()
     self.imagePicker = ImagePicker(viewController: self)
     self.imagePicker.delegate = self
@@ -219,7 +219,7 @@ extension PostViewController: PostViewDelegate {
 //    navigationController?.pushViewController(vc, animated: true)
   }
   
-  func viewUpdateHeight(height: Int, hx: Int) {
+  func viewUpdateHeight(_ height: Int, hx: Int) {
     if postViewUpdateHeight != height {
       let offsetY = height - postViewUpdateHeight
       postViewUpdateHeight = height
@@ -227,16 +227,16 @@ extension PostViewController: PostViewDelegate {
       debugPrint("offsetY: === \(offsetY)")
       
       // 16 为一行文字的高度
-      UIView.animateWithDuration(0.5) {
+      UIView.animate(withDuration: 0.5, animations: {
         self.postView.frame = rect
         self.scrollerView.contentSize = CGSize(width: rect.width,height: rect.height)
         self.scrollerView.contentOffset.y = self.scorllerOffsetY + CGFloat(offsetY)
         self.scorllerOffsetY = self.scrollerView.contentOffset.y
-      }
+      }) 
     }
   }
   
-  func viewLittleImageViewTapped(imageViewTag: Int) {
+  func viewLittleImageViewTapped(_ imageViewTag: Int) {
     dismissKeyBoard()
 
   }
@@ -244,16 +244,16 @@ extension PostViewController: PostViewDelegate {
 
 // MARK: - ImagePickerDelegate
 extension PostViewController: ImagePickerDelegate {
-  func imagePickerDidFinishPickingImage(image: UIImage) {
+  func imagePickerDidFinishPickingImage(_ image: UIImage) {
     let folderPath = cacheFolderPath + "/imageCaches"
     let imagePath = folderPath + "/\(timeStampInt).jpg"
     
     let data = UIImageJPEGRepresentation(image, 0.5)
     
-    debugPrint("imageDataSize: === \((data?.length)!/1024)")
+    debugPrint("imageDataSize: === \((data?.count)!/1024)")
     do {
-      try NSFileManager.defaultManager().createDirectoryAtPath(folderPath, withIntermediateDirectories: true, attributes: nil)
-      data?.writeToFile(imagePath, atomically: true)
+      try FileManager.default.createDirectory(atPath: folderPath, withIntermediateDirectories: true, attributes: nil)
+      try? data?.write(to: URL(fileURLWithPath: imagePath), options: [.atomic])
     } catch _ {}
     
     let newSize = CGSize(width: KScreenWidth - 30, height: KScreenWidth*image.size.height/image.size.width)
@@ -274,7 +274,7 @@ extension PostViewController: ImagePickerDelegate {
 
 // MARK: - LocationToolDelegate
 extension PostViewController: LocationToolDelegate {
-  func locationWithState(location: CLLocation, state: String) {
+  func locationWithState(_ location: CLLocation, state: String) {
     locationXY = "\(state)=\(location.coordinate.latitude,location.coordinate.longitude)"
     postView.locationLabel.text = state
   }
@@ -287,10 +287,10 @@ extension PostViewController: LocationToolDelegate {
 
 // MARK: - UIScrollViewDelegate
 extension PostViewController: UIScrollViewDelegate {
-  func scrollViewDidScroll(scrollView: UIScrollView) {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
   }
   
-  func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
     dismissKeyBoard()
   }
 }

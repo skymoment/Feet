@@ -7,6 +7,19 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 extension UITextField {
   
@@ -15,7 +28,7 @@ extension UITextField {
     if number.length() > 0 {
       
       let text = number.characters.filter({ (c) -> Bool in
-        if "0123456789".containsString(String(c)) {
+        if "0123456789".contains(String(c)) {
           return true
         } else {
           return false
@@ -32,15 +45,15 @@ extension UITextField {
     }
   }
   
-  func parseString(spaceStr: String?, numArray: NSArray) -> String? {// 添加空格
+  func parseString(_ spaceStr: String?, numArray: NSArray) -> String? {// 添加空格
     if spaceStr == nil {
       return nil
     }
-    let mStr = NSMutableString(string: (spaceStr?.stringByReplacingOccurrencesOfString(" ", withString: ""))!)
+    let mStr = NSMutableString(string: (spaceStr?.replacingOccurrences(of: " ", with: ""))!)
     // 遍历数组间隔位数
     for space in numArray {
       if mStr.length > Int(space as! NSNumber) {
-        mStr.insertString(" ", atIndex: Int(space as! NSNumber))
+        mStr.insert(" ", at: Int(space as! NSNumber))
       }
     }
     return mStr as String
@@ -63,7 +76,7 @@ extension UITextField {
    
    - returns: Bool
    */
-  func textMaxLength(textField: UITextField, range: NSRange, string: String, maxLength: Int = 18) -> Bool {
+  func textMaxLength(_ textField: UITextField, range: NSRange, string: String, maxLength: Int = 18) -> Bool {
     if textField.text!.characters.count + string.characters.count > maxLength {
       return false
     }
@@ -80,29 +93,29 @@ extension UITextField {
    
    - returns: Bool
    */
-  func insertBlankSpace(textField: UITextField, range: NSRange, string: String, isMobile: Bool = true, maxLegth: Int = 11) -> Bool {
+  func insertBlankSpace(_ textField: UITextField, range: NSRange, string: String, isMobile: Bool = true, maxLegth: Int = 11) -> Bool {
     
     // 插入空格
-    func praseMobileText(tampArray: [String], textField: UITextField) {
+    func praseMobileText(_ tampArray: [String], textField: UITextField) {
       var tamp = tampArray.filter { c in
         return c != " "
       }
       
       if tamp.count >= 3 {
-        tamp.insert(" ", atIndex: 3)
+        tamp.insert(" ", at: 3)
       }
       
       if tamp.count >= 9 {
-        tamp.insert(" ", atIndex: 8)
+        tamp.insert(" ", at: 8)
       }
 
       
-      textField.text = tamp.reduce("", combine: { (str, c) -> String in
+      textField.text = tamp.reduce("", { (str, c) -> String in
         return str + "\(c)"
       })
     }
     
-    func praseBankCardText(tampArray: [String], textField: UITextField) {
+    func praseBankCardText(_ tampArray: [String], textField: UITextField) {
       var tamp = tampArray.filter { c in
         return c != " "
       }
@@ -112,14 +125,14 @@ extension UITextField {
         let insertInex = i * 4
         if tamp.count >= insertInex + i{
           if insertInex == 4 {
-            tamp.insert(" ", atIndex: insertInex)
+            tamp.insert(" ", at: insertInex)
           } else if insertInex > 4{
-            tamp.insert(" ", atIndex: insertInex + i - 1)
+            tamp.insert(" ", at: insertInex + i - 1)
           }
         }
       }
       
-      textField.text = tamp.reduce("", combine: { (str, c) -> String in
+      textField.text = tamp.reduce("", { (str, c) -> String in
         return str + "\(c)"
       })
     }
@@ -129,7 +142,7 @@ extension UITextField {
       var tampArray = textField.text!.characters.map({ (c) -> String in
         "\(c)"
       })
-      tampArray.removeAtIndex(range.location)
+      tampArray.remove(at: range.location)
       
       if isMobile {
         praseMobileText(tampArray, textField: textField)
@@ -143,15 +156,15 @@ extension UITextField {
       
       // 当删除到空格位置的时候，是无法删除的，因为的上面的算法会自动补全空格，因此 targetposition的位置会在 textfield 的长度多一个位，光标在往前多移动一位
       if targerPosition - textField.text!.characters.count == 1 {
-        let position = textField.positionFromPosition(textField.beginningOfDocument, offset: targerPosition - 1)
-        let range = textField.textRangeFromPosition(position!, toPosition: position!)
+        let position = textField.position(from: textField.beginningOfDocument, offset: targerPosition - 1)
+        let range = textField.textRange(from: position!, to: position!)
         textField.selectedTextRange = range
         
         return false
       }
       
-      let position = textField.positionFromPosition(textField.beginningOfDocument, offset: targerPosition)
-      let range = textField.textRangeFromPosition(position!, toPosition: position!)
+      let position = textField.position(from: textField.beginningOfDocument, offset: targerPosition)
+      let range = textField.textRange(from: position!, to: position!)
       textField.selectedTextRange = range
       
       return false
@@ -198,8 +211,8 @@ extension UITextField {
         targerPosition = targerPosition + 1
       }
       
-      let position = textField.positionFromPosition(textField.beginningOfDocument, offset: targerPosition)
-      let range = textField.textRangeFromPosition(position!, toPosition: position!)
+      let position = textField.position(from: textField.beginningOfDocument, offset: targerPosition)
+      let range = textField.textRange(from: position!, to: position!)
       textField.selectedTextRange = range
       
       return false

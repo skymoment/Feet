@@ -16,12 +16,12 @@ class ProfileViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = UIColor.whiteColor()
+    view.backgroundColor = UIColor.white
     setViews()
     // Do any additional setup after loading the view.
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     (tabBarController as! TabBarController).removeGestrue()
     profileView.updateProfie()
@@ -37,7 +37,7 @@ class ProfileViewController: UIViewController {
       let p = ProfileView()
       p.delegate = self
       view.addSubview(p)
-      p.snp_makeConstraints { (make) in
+      p.snp.makeConstraints { (make) in
         make.left.right.top.bottom.equalTo(0)
       }
       return p
@@ -45,7 +45,7 @@ class ProfileViewController: UIViewController {
   }
   
   // MARK: - Method
-  func avatarUpLoad(path: String) {
+  func avatarUpLoad(_ path: String) {
     HUD.show()
     PostNetTool.qiuNiuToken { 
       QiniuTool.upLoadImage(path) { (img) in
@@ -57,7 +57,7 @@ class ProfileViewController: UIViewController {
                 if let data = data {
                   UserDefaultsTool.headerData = data
                   self.avatar.image = UIImage(data: data)
-                  HUD.showSuccess(status: "上传成功")
+                  HUD.showSuccess("上传成功")
                 }
               })
             }).resolve()
@@ -74,7 +74,7 @@ class ProfileViewController: UIViewController {
 
 // MARK: -  ProfileDelegate
 extension ProfileViewController: ProfileDelegate {
-  func pushToInfoView(type: InfoViews) {
+  func pushToInfoView(_ type: InfoViews) {
     let vc = SetUserInfoViewController(type: type)
     navigationController?.pushViewController(vc, animated: true)
   }
@@ -87,17 +87,17 @@ extension ProfileViewController: ProfileDelegate {
         let _ = try promiseString.then({ string in
           UserDefaultsTool.cleanUserInfo()
           self.tabBarController?.selectedIndex = 1
-          self.navigationController?.popViewControllerAnimated(true)
+          self.navigationController?.popViewController(animated: true)
         }).resolve()
       } catch where error is MyError {
-        HUD.showError(status: "\(error)")
+        HUD.showError("\(error)")
       } catch {
-        HUD.showError(status: "\(error)")
+        HUD.showError("\(error)")
       }
     }
   }
   
-  func changeAvatar(view: UIImageView) {
+  func changeAvatar(_ view: UIImageView) {
     avatar = view
     self.imagePicker = ImagePicker(viewController: self)
     self.imagePicker.delegate = self
@@ -106,15 +106,15 @@ extension ProfileViewController: ProfileDelegate {
 
 // MARK: - ImagePickerDelegate
 extension ProfileViewController: ImagePickerDelegate {
-  func imagePickerDidFinishPickingImage(image: UIImage) {
+  func imagePickerDidFinishPickingImage(_ image: UIImage) {
     let folderPath = cacheFolderPath + "/imageCaches"
     let imagePath = folderPath + "/header.jpg"
     
     let data = UIImageJPEGRepresentation(image, 0.5)
-    debugPrint("imageDataSize: === \((data?.length)!/1024)")
+    debugPrint("imageDataSize: === \((data?.count)!/1024)")
     do {
-      try NSFileManager.defaultManager().createDirectoryAtPath(folderPath, withIntermediateDirectories: true, attributes: nil)
-      data?.writeToFile(imagePath, atomically: true)
+      try FileManager.default.createDirectory(atPath: folderPath, withIntermediateDirectories: true, attributes: nil)
+      try? data?.write(to: URL(fileURLWithPath: imagePath), options: [.atomic])
     } catch _ {}
     
 //    avatar.image = image.imageWithSize(CGSize(width: 160, height: 160))

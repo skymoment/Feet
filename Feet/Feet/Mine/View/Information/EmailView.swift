@@ -29,7 +29,7 @@ class EmailView: UIView {
   func setViews() {
     let h = TransparentView()
     self.addSubview(h)
-    h.snp_makeConstraints { (make) in
+    h.snp.makeConstraints { (make) in
       make.top.equalTo(64 + 15)
       make.left.equalTo(15)
       make.right.equalTo(-15)
@@ -38,7 +38,7 @@ class EmailView: UIView {
     
     let emailImage = UIImageView(image: UIImage(named:"email"))
     h.addSubview(emailImage)
-    emailImage.snp_makeConstraints(closure: { (make) in
+    emailImage.snp.makeConstraints({ (make) in
       make.top.equalTo(15)
       make.centerX.equalTo(h)
       make.width.height.equalTo(28)
@@ -48,10 +48,10 @@ class EmailView: UIView {
       let b = BorderTextField()
       b.placeHolder = "侬给邮箱是啥？"
       h.addSubview(b)
-      b.snp_makeConstraints { (make) in
-        make.top.equalTo(emailImage.snp_bottom).offset(50)
-        make.left.equalTo(h.snp_left).offset(20)
-        make.right.equalTo(h.snp_right).offset(-20)
+      b.snp.makeConstraints { (make) in
+        make.top.equalTo(emailImage.snp.bottom).offset(50)
+        make.left.equalTo(h.snp.left).offset(20)
+        make.right.equalTo(h.snp.right).offset(-20)
         make.height.equalTo(40)
       }
       return b

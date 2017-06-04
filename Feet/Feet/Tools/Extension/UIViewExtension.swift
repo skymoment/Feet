@@ -32,7 +32,7 @@ extension UIView {
   
   
   // initViewFromXIB
-  func initViewFromXIB(xibName: String) -> AnyObject {
-    return UINib(nibName: xibName, bundle: nil).instantiateWithOwner(self, options: nil).first!
+  func initViewFromXIB(_ xibName: String) -> AnyObject {
+    return UINib(nibName: xibName, bundle: nil).instantiate(withOwner: self, options: nil).first! as AnyObject
   }
 }

@@ -9,9 +9,9 @@
 import UIKit
 
 protocol ProfileDelegate: class {
-  func pushToInfoView(type: InfoViews)
+  func pushToInfoView(_ type: InfoViews)
   func logOutAction()
-  func changeAvatar(view: UIImageView)
+  func changeAvatar(_ view: UIImageView)
 }
 
 class ProfileView: UIView {
@@ -54,7 +54,7 @@ class ProfileView: UIView {
       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(transparentViewTaped))
       h.addGestureRecognizer(tapGesture)
       self.addSubview(h)
-      h.snp_makeConstraints { (make) in
+      h.snp.makeConstraints { (make) in
         make.top.equalTo(15 + 64)
         make.left.equalTo(15)
         make.right.equalTo(-15)
@@ -63,7 +63,7 @@ class ProfileView: UIView {
       // 头像 需要替换
       var image: UIImage!
       if let imageData = UserDefaultsTool.headerData {
-        image = UIImage(data: imageData)
+        image = UIImage(data: imageData as Data)
       } else {
         image = UIImage(named: "d_header2")
       }
@@ -71,7 +71,7 @@ class ProfileView: UIView {
       avatar.layer.cornerRadius = 23
       avatar.layer.masksToBounds = true
       h.addSubview(avatar)
-      avatar.snp_makeConstraints(closure: { (make) in
+      avatar.snp.makeConstraints({ (make) in
         make.center.equalTo(h)
         make.width.height.equalTo(46)
       })
@@ -87,27 +87,27 @@ class ProfileView: UIView {
       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(transparentViewTaped))
       h.addGestureRecognizer(tapGesture)
       self.addSubview(h)
-      h.snp_makeConstraints { (make) in
-        make.top.equalTo(headerView.snp_bottom).offset(10)
+      h.snp.makeConstraints { (make) in
+        make.top.equalTo(headerView.snp.bottom).offset(10)
         make.left.right.equalTo(headerView)
         make.height.equalTo(75)
       }
       
       let imageView = UIImageView(image: UIImage(named: "sign"))
       h.addSubview(imageView)
-      imageView.snp_makeConstraints(closure: { (make) in
+      imageView.snp.makeConstraints({ (make) in
         make.centerX.equalTo(h)
         make.top.equalTo(10)
       })
       
       let label = UILabel()
       h.addSubview(label)
-      label.textColor = UIColor.whiteColor()
+      label.textColor = UIColor.white
       label.text = "彰显个性，留下签名"
-      label.font = UIFont.systemFontOfSize(15)
-      label.snp_makeConstraints(closure: { (make) in
+      label.font = UIFont.systemFont(ofSize: 15)
+      label.snp.makeConstraints({ (make) in
         make.centerX.equalTo(imageView)
-        make.top.equalTo(imageView.snp_bottom).offset(10)
+        make.top.equalTo(imageView.snp.bottom).offset(10)
       })
       signLabel = label
       return h
@@ -119,28 +119,28 @@ class ProfileView: UIView {
       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(transparentViewTaped))
       h.addGestureRecognizer(tapGesture)
       self.addSubview(h)
-      h.snp_makeConstraints { (make) in
-        make.top.equalTo(signView.snp_bottom).offset(10)
+      h.snp.makeConstraints { (make) in
+        make.top.equalTo(signView.snp.bottom).offset(10)
         make.left.equalTo(signView)
-        make.right.equalTo(signView.snp_centerX).offset(-10)
+        make.right.equalTo(signView.snp.centerX).offset(-10)
         make.height.equalTo(75)
       }
       
       let imageView = UIImageView(image: UIImage(named: "name"))
       h.addSubview(imageView)
-      imageView.snp_makeConstraints(closure: { (make) in
+      imageView.snp.makeConstraints({ (make) in
         make.centerX.equalTo(h)
         make.top.equalTo(10)
       })
       
       let label = UILabel()
       h.addSubview(label)
-      label.textColor = UIColor.whiteColor()
+      label.textColor = UIColor.white
       label.text = "昵称"
-      label.font = UIFont.systemFontOfSize(15)
-      label.snp_makeConstraints(closure: { (make) in
+      label.font = UIFont.systemFont(ofSize: 15)
+      label.snp.makeConstraints({ (make) in
         make.centerX.equalTo(imageView)
-        make.top.equalTo(imageView.snp_bottom).offset(10)
+        make.top.equalTo(imageView.snp.bottom).offset(10)
       })
       nameLabel = label
       return h
@@ -152,19 +152,19 @@ class ProfileView: UIView {
       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(transparentViewTaped))
       h.addGestureRecognizer(tapGesture)
       self.addSubview(h)
-      h.snp_makeConstraints { (make) in
-        make.top.equalTo(signView.snp_bottom).offset(10)
+      h.snp.makeConstraints { (make) in
+        make.top.equalTo(signView.snp.bottom).offset(10)
         make.right.equalTo(signView)
-        make.left.equalTo(signView.snp_centerX).offset(10)
+        make.left.equalTo(signView.snp.centerX).offset(10)
         make.height.equalTo(75)
       }
       
       let label = UILabel()
       h.addSubview(label)
-      label.textColor = UIColor.whiteColor()
+      label.textColor = UIColor.white
       label.text = "性别"
-      label.font = UIFont.systemFontOfSize(15)
-      label.snp_makeConstraints(closure: { (make) in
+      label.font = UIFont.systemFont(ofSize: 15)
+      label.snp.makeConstraints({ (make) in
         make.centerX.equalTo(h)
         make.top.equalTo(20)
       })
@@ -172,9 +172,9 @@ class ProfileView: UIView {
       
       let imageView = UIImageView(image: UIImage(named: "sex_m"))
       h.addSubview(imageView)
-      imageView.snp_makeConstraints(closure: { (make) in
+      imageView.snp.makeConstraints({ (make) in
         make.centerX.equalTo(label)
-        make.top.equalTo(label.snp_bottom).offset(10)
+        make.top.equalTo(label.snp.bottom).offset(10)
       })
       sexImageView = imageView
       return h
@@ -187,8 +187,8 @@ class ProfileView: UIView {
       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(transparentViewTaped))
       h.addGestureRecognizer(tapGesture)
       self.addSubview(h)
-      h.snp_makeConstraints { (make) in
-        make.top.equalTo(nameView.snp_bottom).offset(10)
+      h.snp.makeConstraints { (make) in
+        make.top.equalTo(nameView.snp.bottom).offset(10)
         make.left.equalTo(nameView)
         make.right.equalTo(nameView)
         make.height.equalTo(75)
@@ -197,19 +197,19 @@ class ProfileView: UIView {
       
       let imageView = UIImageView(image: UIImage(named: "brithday"))
       h.addSubview(imageView)
-      imageView.snp_makeConstraints(closure: { (make) in
+      imageView.snp.makeConstraints({ (make) in
         make.centerX.equalTo(h)
         make.top.equalTo(10)
       })
       
       let label = UILabel()
       h.addSubview(label)
-      label.textColor = UIColor.whiteColor()
+      label.textColor = UIColor.white
       label.text = "请选择生日"
-      label.font = UIFont.systemFontOfSize(15)
-      label.snp_makeConstraints(closure: { (make) in
+      label.font = UIFont.systemFont(ofSize: 15)
+      label.snp.makeConstraints({ (make) in
         make.centerX.equalTo(imageView)
-        make.top.equalTo(imageView.snp_bottom).offset(10)
+        make.top.equalTo(imageView.snp.bottom).offset(10)
       })
       birthdayLabel = label
       return h
@@ -222,8 +222,8 @@ class ProfileView: UIView {
       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(transparentViewTaped))
       h.addGestureRecognizer(tapGesture)
       self.addSubview(h)
-      h.snp_makeConstraints { (make) in
-        make.top.equalTo(sexView.snp_bottom).offset(10)
+      h.snp.makeConstraints { (make) in
+        make.top.equalTo(sexView.snp.bottom).offset(10)
         make.left.equalTo(sexView)
         make.right.equalTo(sexView)
         make.height.equalTo(75)
@@ -232,23 +232,23 @@ class ProfileView: UIView {
       
       let imageView = UIImageView(image: UIImage(named: "email"))
       h.addSubview(imageView)
-      imageView.snp_makeConstraints(closure: { (make) in
+      imageView.snp.makeConstraints({ (make) in
         make.centerX.equalTo(h)
         make.top.equalTo(10)
       })
       
       let label = UILabel()
       h.addSubview(label)
-      label.textColor = UIColor.whiteColor()
+      label.textColor = UIColor.white
       label.text = "请输入您的邮箱"
       if smallScreen {
-        label.font = UIFont.systemFontOfSize(12)
+        label.font = UIFont.systemFont(ofSize: 12)
       } else {
-        label.font = UIFont.systemFontOfSize(15)
+        label.font = UIFont.systemFont(ofSize: 15)
       }
-      label.snp_makeConstraints(closure: { (make) in
+      label.snp.makeConstraints({ (make) in
         make.centerX.equalTo(imageView)
-        make.top.equalTo(imageView.snp_bottom).offset(10)
+        make.top.equalTo(imageView.snp.bottom).offset(10)
       })
       mailLabel = label
       return h
@@ -262,8 +262,8 @@ class ProfileView: UIView {
       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(transparentViewTaped))
       h.addGestureRecognizer(tapGesture)
       self.addSubview(h)
-      h.snp_makeConstraints { (make) in
-        make.top.equalTo(mailView.snp_bottom).offset(10)
+      h.snp.makeConstraints { (make) in
+        make.top.equalTo(mailView.snp.bottom).offset(10)
         make.left.equalTo(signView)
         make.right.equalTo(signView)
         make.height.equalTo(45)
@@ -272,26 +272,26 @@ class ProfileView: UIView {
       
       let imageView = UIImageView(image: UIImage(named: "logOut"))
       h.addSubview(imageView)
-      imageView.snp_makeConstraints(closure: { (make) in
+      imageView.snp.makeConstraints({ (make) in
         make.centerX.equalTo(h).offset(-30)
         make.centerY.equalTo(h)
       })
       
       let label = UILabel()
       h.addSubview(label)
-      label.textColor = UIColor.whiteColor()
+      label.textColor = UIColor.white
       label.text = "退出登录"
-      label.font = UIFont.systemFontOfSize(15)
-      label.snp_makeConstraints(closure: { (make) in
+      label.font = UIFont.systemFont(ofSize: 15)
+      label.snp.makeConstraints({ (make) in
         make.centerY.equalTo(imageView)
-        make.left.equalTo(imageView.snp_right).offset(8)
+        make.left.equalTo(imageView.snp.right).offset(8)
       })
       
       return h
     }()
   }
   
-  func transparentViewTaped(sender: UITapGestureRecognizer) {
+  func transparentViewTaped(_ sender: UITapGestureRecognizer) {
     let tag = sender.view?.tag
     debugPrint("InfoViewTag: \(tag)")
     

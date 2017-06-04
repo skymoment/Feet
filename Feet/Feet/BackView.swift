@@ -13,7 +13,7 @@ class BackView: UIView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(loadBackImage), name: KChangeThemeNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(loadBackImage), name: NSNotification.Name(rawValue: KChangeThemeNotification), object: nil)
     self.frame = CGRect(x: 0, y: 0, width: KScreenWidth, height: KScreenHeigth)
     setBackView()
   }
@@ -24,7 +24,7 @@ class BackView: UIView {
 
   func setBackView() {
     
-    let newImage = UIImage(named: "summer")?.blurImageWithRadius(10)
+    let newImage = UIImage(named: "summer")?.blurImage(withRadius: 10)
     let imageView = UIImageView(image: newImage)
     imageView.frame = CGRect(x: 0, y: 0, width: KScreenWidth, height: KScreenHeigth)
 

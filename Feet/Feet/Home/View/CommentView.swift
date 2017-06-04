@@ -7,6 +7,30 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 protocol CommentViewDelegate: class {
   func commented()
@@ -38,23 +62,23 @@ class CommentView: UIView {
     let topLine = UIView()
     topLine.backgroundColor = UIColor(hexString: "#b4b4b4")
     self.addSubview(topLine)
-    topLine.snp_makeConstraints { (make) in
-      make.top.equalTo(self.snp_top)
+    topLine.snp.makeConstraints { (make) in
+      make.top.equalTo(self.snp.top)
       make.left.right.equalTo(self)
       make.height.equalTo(1)
     }
     
     borderText = {
       let b = BorderTextField()
-      b.textField.textColor = UIColor.blackColor()
+      b.textField.textColor = UIColor.black
       b.borderColor = UIColor(hexString: "#b4b4b4")
       b.textField.delegate = self
       b.placeHolder = "抢个沙发吧 ~"
       self.addSubview(b)
-      b.snp_makeConstraints { (make) in
+      b.snp.makeConstraints { (make) in
         make.centerY.equalTo(self)
         make.left.equalTo(15)
-        make.right.equalTo(self.snp_right).offset(-15)
+        make.right.equalTo(self.snp.right).offset(-15)
         make.height.equalTo(32)
       }
       return b
@@ -62,7 +86,7 @@ class CommentView: UIView {
   }
   
   // MARK: - LoadData
-  func loadData(userId: String, feetId: String) {
+  func loadData(_ userId: String, feetId: String) {
     self.userId = userId
     self.feetId = feetId
   }
@@ -79,8 +103,8 @@ class CommentView: UIView {
 
 // MAKR: - UITextFieldDelegate
 extension CommentView: UITextFieldDelegate {
-  func textFieldShouldReturn(textField: UITextField) -> Bool {
-    let content = textField.text!.componentsSeparatedByString(":")
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    let content = textField.text!.components(separatedBy: ":")
     
     guard LoginService.isLogin() else {
       return false

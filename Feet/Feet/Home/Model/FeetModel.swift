@@ -61,8 +61,8 @@ class FeetModel: NSObject {
     let pictrues = json["pics"].stringValue
     
     if !pictrues.isEmpty {
-      let p = pictrues.componentsSeparatedByString(",")
-      pics.appendContentsOf(p)
+      let p = pictrues.components(separatedBy: ",")
+      pics.append(contentsOf: p)
     }
     
     content = json["content"].stringValue

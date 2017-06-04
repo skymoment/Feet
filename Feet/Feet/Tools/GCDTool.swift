@@ -8,55 +8,55 @@
 
 import Foundation
 
-typealias Task = (cancel: Bool) -> Void
-
-struct GCDTool {
-  static func delay(time: NSTimeInterval, task:() -> ()) -> Task? {
-    
-    func dispatch_later(block: ()->()) {
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), block)
-    }
-    
-    var closure: dispatch_block_t? = task
-    var result: Task?
-    
-    let delayedClosure: Task = { cancel in
-      if let internalClosure = closure {
-        if (cancel == false) {
-          dispatch_async(dispatch_get_main_queue(), internalClosure);
-        }
-      }
-      closure = nil
-      result = nil
-    }
-    
-    result = delayedClosure
-    
-    dispatch_later {
-      if let delayedClosure = result {
-        delayedClosure(cancel: false)
-      }
-    }
-    return result
-  }
-  
-  func cancel(task: Task?) {
-    task?(cancel: true)
-  }
-  
-  static func mainQueue(task: () -> Void){
-    dispatch_async(dispatch_get_main_queue(), task)
-  }
-  
-  static func backQueue(task: () -> ()){
-    dispatch_async(dispatch_get_global_queue(0,0),task)
-  }
-  
-  static func onceQueue(task: () -> ()){
-    var onceToken: dispatch_once_t = 0
-    dispatch_once(&onceToken,task)
-  }
-}
+//typealias Task = (_ cancel: Bool) -> Void
+//
+//struct GCDTool {
+//  static func delay(_ time: TimeInterval, task:@escaping () -> ()) -> Task? {
+//    
+//    func dispatch_later(_ block: @escaping ()->()) {
+//      DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: block)
+//    }
+//    
+//    var closure: ()->()? = task
+//    var result: Task?
+//    
+//    let delayedClosure: Task = { cancel in
+//      if let internalClosure = closure {
+//        if (cancel == false) {
+//          DispatchQueue.main.async(execute: internalClosure);
+//        }
+//      }
+//      closure = nil
+//      result = nil
+//    }
+//    
+//    result = delayedClosure
+//    
+//    dispatch_later {
+//      if let delayedClosure = result {
+//        delayedClosure(false)
+//      }
+//    }
+//    return result
+//  }
+//  
+//  func cancel(_ task: Task?) {
+//    task?(true)
+//  }
+//  
+//  static func mainQueue(_ task: @escaping () -> Void){
+//    DispatchQueue.main.async(execute: task)
+//  }
+//  
+//  static func backQueue(_ task: () -> ()){
+//    DispatchQueue.global(priority: 0).async(execute: task)
+//  }
+//  
+//  static func onceQueue(_ task: () -> ()){
+//    var onceToken: Int = 0
+//    dispatch_once(&onceToken,task)
+//  }
+//}
 
 
 

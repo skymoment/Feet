@@ -20,10 +20,10 @@ class DayViewController: UIViewController {
     // Do any additional setup after loading the view.
     owFeet({ (ownModel) in
       self.loadData(ownModel)
-        GCDTool.delay(3, task: {
+//        GCDTool.delay(3, task: {
           kWindow?.rootViewController = ControllerTool.chooseRootViewController()
-        })
-      }) { 
+//        })
+      }) {
         kWindow?.rootViewController = ControllerTool.chooseRootViewController()
     }
   }
@@ -45,13 +45,13 @@ class DayViewController: UIViewController {
     
     let day = UILabel()
     day.text = ""
-    day.textColor = UIColor.whiteColor()
+    day.textColor = UIColor.white
     day.font = UIFont(name: FangZheng, size: 17)
     imageView.addSubview(day)
     self.day = day
     
     let content = UILabel()
-    content.textColor = UIColor.whiteColor()
+    content.textColor = UIColor.white
     content.numberOfLines = 0
     content.font = UIFont(name: FangZheng, size: 20)
     content.text = ""
@@ -60,9 +60,9 @@ class DayViewController: UIViewController {
     
     let name = UILabel()
     name.text = ""
-    name.textColor = UIColor.whiteColor()
+    name.textColor = UIColor.white
     name.font = UIFont(name: FangZheng, size: 20)
-    name.textAlignment = .Right
+    name.textAlignment = .right
     imageView.addSubview(name)
     self.name = name
     
@@ -79,7 +79,7 @@ class DayViewController: UIViewController {
       top = 220
     }
     
-    day.snp_makeConstraints { (make) in
+    day.snp.makeConstraints { (make) in
       make.top.equalTo(top)
       make.centerX.equalTo(imageView)
     }
@@ -91,22 +91,22 @@ class DayViewController: UIViewController {
       width = 60
     }
     
-    content.snp_makeConstraints { (make) in
-      make.top.equalTo(day.snp_bottom).offset(10)
+    content.snp.makeConstraints { (make) in
+      make.top.equalTo(day.snp.bottom).offset(10)
       make.centerX.equalTo(day)
       make.left.equalTo(width)
-      make.right.equalTo(view.snp_right).offset(-width)
+      make.right.equalTo(view.snp.right).offset(-width)
     }
     
-    name.snp_makeConstraints { (make) in
-      make.top.equalTo(content.snp_bottom).offset(10)
-      make.right.equalTo(content.snp_right)
+    name.snp.makeConstraints { (make) in
+      make.top.equalTo(content.snp.bottom).offset(10)
+      make.right.equalTo(content.snp.right)
     }
   }
   
   
   // MARK: - Method
-  func loadData(model: OWModel) {
+  func loadData(_ model: OWModel) {
     day.text =  "第 \(model.day) 天" // "第1天"
       //model.day
     content.text =  model.content //"生活不应只有眼前的苟且，还有诗和远方。请跟随你的脚步，直到远方！"
@@ -115,15 +115,15 @@ class DayViewController: UIViewController {
       //model.name
   }
   
-  func getLaunchImage(viewSize: CGSize) -> String? {
-    let imageDic = (NSBundle.mainBundle().infoDictionary! as NSDictionary).valueForKey("UILaunchImages") as! NSArray
+  func getLaunchImage(_ viewSize: CGSize) -> String? {
+    let imageDic = (Bundle.main.infoDictionary! as NSDictionary).value(forKey: "UILaunchImages") as! NSArray
     guard !iPad else {
       return "2048x2732"
     }
     for dic in imageDic {
       let dict = dic as! NSDictionary
       let size = CGSizeFromString(dict["UILaunchImageSize"] as! String) as CGSize
-      if CGSizeEqualToSize(size, viewSize) && "Portrait" == dict["UILaunchImageOrientation"] as! String {
+      if size.equalTo(viewSize) && "Portrait" == dict["UILaunchImageOrientation"] as! String {
         return dict["UILaunchImageName"] as? String
       }
     }
@@ -131,7 +131,7 @@ class DayViewController: UIViewController {
   }
   
   
-  func owFeet(compeletion: ((OWModel) -> ())? = nil, fail: (() -> ())? = nil) {
+  func owFeet(_ compeletion: ((OWModel) -> ())? = nil, fail: (() -> ())? = nil) {
     HomeNetworkTool.owFeet { promiseMode in
       do {
         let _ = try promiseMode.then({ model in

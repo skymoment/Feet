@@ -11,10 +11,10 @@ import UIKit
 
 @objc
 protocol PostViewDelegate: class {
-  func viewAddImage(isMain: Bool)
+  func viewAddImage(_ isMain: Bool)
   func viewSelectLocation()
-  func viewUpdateHeight(height: Int,hx: Int)
-  func viewLittleImageViewTapped(imageViewTag: Int)
+  func viewUpdateHeight(_ height: Int,hx: Int)
+  func viewLittleImageViewTapped(_ imageViewTag: Int)
 }
 
 class PostView: UIView {
@@ -49,7 +49,7 @@ class PostView: UIView {
     
     backView = {
       let v = UIView()
-      v.backgroundColor = UIColor.whiteColor()
+      v.backgroundColor = UIColor.white
       v.layer.cornerRadius = 6
       v.layer.masksToBounds = true
       self.addSubview(v)
@@ -58,11 +58,11 @@ class PostView: UIView {
     
     cameraView = {
       let v = UIView()
-      v.userInteractionEnabled = true
+      v.isUserInteractionEnabled = true
       let gesture = UITapGestureRecognizer(target: self,action: #selector(addImage))
       v.addGestureRecognizer(gesture)
       backView.addSubview(v)
-      v.snp_makeConstraints { (make) in
+      v.snp.makeConstraints { (make) in
         make.top.left.right.equalTo(0)
         make.height.equalTo((KScreenWidth-30)*9/17)
       }
@@ -71,7 +71,7 @@ class PostView: UIView {
     
     let imageView = UIImageView(image: UIImage(named: "camera"))
     cameraView.addSubview(imageView)
-    imageView.snp_makeConstraints(closure: { (make) in
+    imageView.snp.makeConstraints({ (make) in
       make.center.equalTo(cameraView)
     })
     
@@ -79,46 +79,46 @@ class PostView: UIView {
     imageView1 = {
       let v = UIImageView()
       v.tag = 1 + 1000
-      v.userInteractionEnabled = true
+      v.isUserInteractionEnabled = true
       let gesture = UITapGestureRecognizer(target: self,action: #selector(addImage))
       v.addGestureRecognizer(gesture)
       backView.addSubview(v)
-      v.snp_makeConstraints(closure: { (make) in
+      v.snp.makeConstraints({ (make) in
         make.top.left.right.equalTo(0)
         make.height.equalTo((KScreenWidth-30)*9/17)
       })
-      v.hidden = true
+      v.isHidden = true
       return v
     }()
     
     addImageView = {
-      let v = SmallImageView(frame: CGRectZero)
+      let v = SmallImageView(frame: CGRect.zero)
       v.image = UIImage(named: "image1")
       v.tag = 2
-      v.userInteractionEnabled = true
+      v.isUserInteractionEnabled = true
 //      let gesture = UITapGestureRecognizer(target: self,action: #selector(addImage))
 //      v.addGestureRecognizer(gesture)
       imageView1.addSubview(v)
-      v.snp_makeConstraints(closure: { (make) in
+      v.snp.makeConstraints({ (make) in
         make.left.equalTo(8).priorityMedium()
-        make.bottom.equalTo(imageView1.snp_bottom).offset(-6)
+        make.bottom.equalTo(imageView1.snp.bottom).offset(-6)
         make.height.width.equalTo(40)
       })
-      v.hidden = true
+      v.isHidden = true
       return v
     }()
     
     textView = {
       let t = KMPlaceholderTextView()
       t.placeholder = "生活不应只有眼前的苟且，还有诗和远方"
-      t.font = UIFont.systemFontOfSize(14)
-      t.scrollEnabled = false
+      t.font = UIFont.systemFont(ofSize: 14)
+      t.isScrollEnabled = false
       t.delegate = self
       backView.addSubview(t)
-      t.snp_makeConstraints(closure: { (make) in
-        make.top.equalTo(imageView1.snp_bottom).offset(8)
-        make.left.equalTo(imageView1.snp_left).offset(8)
-        make.right.equalTo(imageView1.snp_right).offset(-8)
+      t.snp.makeConstraints({ (make) in
+        make.top.equalTo(imageView1.snp.bottom).offset(8)
+        make.left.equalTo(imageView1.snp.left).offset(8)
+        make.right.equalTo(imageView1.snp.right).offset(-8)
         make.height.equalTo(35).priorityMedium()
       })
     
@@ -128,9 +128,9 @@ class PostView: UIView {
     locationImage = {
       let l = UIImageView(image: UIImage(named: "p_location"))
       backView.addSubview(l)
-      l.snp_makeConstraints(closure: { (make) in
-        make.top.equalTo(textView.snp_bottom).offset(8)
-        make.left.equalTo(textView.snp_left)
+      l.snp.makeConstraints({ (make) in
+        make.top.equalTo(textView.snp.bottom).offset(8)
+        make.left.equalTo(textView.snp.left)
         make.width.height.equalTo(16)
       })
       return l
@@ -138,35 +138,35 @@ class PostView: UIView {
     
     locationLabel = {
       let l = UILabel()
-      l.userInteractionEnabled = true
+      l.isUserInteractionEnabled = true
       l.text = "正在定位..."
-      l.font = UIFont.systemFontOfSize(12)
+      l.font = UIFont.systemFont(ofSize: 12)
       l.textColor = mainTextColor
       let gesture = UITapGestureRecognizer(target: self,action: #selector(selectLocation))
       l.addGestureRecognizer(gesture)
       backView.addSubview(l)
-      l.snp_makeConstraints(closure: { (make) in
+      l.snp.makeConstraints({ (make) in
         make.centerY.equalTo(locationImage)
-        make.left.equalTo(locationImage.snp_right).offset(4)
+        make.left.equalTo(locationImage.snp.right).offset(4)
       })
       return l
     }()
     
     moodButton1 = {
-      let btn = UIButton(type: .Custom)
-      btn.backgroundColor = UIColor.greenColor()
-      btn.addTarget(self, action: #selector(moodSelected), forControlEvents: .TouchUpInside)
+      let btn = UIButton(type: .custom)
+      btn.backgroundColor = UIColor.green
+      btn.addTarget(self, action: #selector(moodSelected), for: .touchUpInside)
       backView.addSubview(btn)
-      btn.snp_makeConstraints(closure: { (make) in
-        make.top.equalTo(locationLabel.snp_bottom).offset(15)
+      btn.snp.makeConstraints({ (make) in
+        make.top.equalTo(locationLabel.snp.bottom).offset(15)
         make.centerX.equalTo(self)
         make.height.width.equalTo(16)
       })
-      btn.hidden = true
+      btn.isHidden = true
       return btn
     }()
     
-    backView.snp_makeConstraints(closure: { (make) in
+    backView.snp.makeConstraints({ (make) in
       make.top.equalTo(0)
       make.left.equalTo(15)
       make.right.equalTo(-15)
@@ -175,12 +175,12 @@ class PostView: UIView {
   }
   
   // MARK: - Action
-  func moodSelected(button: UIButton){
+  func moodSelected(_ button: UIButton){
     debugPrint("选择心情")
   }
   
-  func addImage(gestrue: UITapGestureRecognizer) {
-    imageView1.hidden = false
+  func addImage(_ gestrue: UITapGestureRecognizer) {
+    imageView1.isHidden = false
 //    if gestrue.view!.tag == 1001 {
     delegate.viewAddImage(true)
 //    } else {
@@ -192,59 +192,59 @@ class PostView: UIView {
     delegate.viewSelectLocation()
   }
   
-  func littleImageViewTapped(gestrue: UITapGestureRecognizer) {
+  func littleImageViewTapped(_ gestrue: UITapGestureRecognizer) {
     let imageViewTag = gestrue.view!.tag % 100
     delegate.viewLittleImageViewTapped(imageViewTag)
   }
   
   // 添加 四张图片在的主图上面
-  func addImageViews(images: [UIImage]) {
+  func addImageViews(_ images: [UIImage]) {
     imageViews.removeAll()
-    for (index,value) in images.enumerate() {
+    for (index,value) in images.enumerated() {
       let imageView = UIImageView(image: value)
       imageView.tag = imageTagA + index
       imageView1.addSubview(imageView)
       let tapGestrue = UITapGestureRecognizer(target: self, action: #selector(littleImageViewTapped))
       imageView.addGestureRecognizer(tapGestrue)
       let left = index * imageWidthHeight + 8 + index * 8
-      imageView.snp_makeConstraints(closure: { (make) in
+      imageView.snp.makeConstraints({ (make) in
           make.left.equalTo(left)
-          make.bottom.equalTo(imageView1.snp_bottom).offset(-6)
+          make.bottom.equalTo(imageView1.snp.bottom).offset(-6)
           make.height.width.equalTo(40)
       })
     }
     
     let addImageViewLeft = 8 + (images.count * 8) + images.count * imageWidthHeight
-    addImageView.snp_updateConstraints(closure: { (make) in
+    addImageView.snp.updateConstraints({ (make) in
       make.left.equalTo(addImageViewLeft)
     })
   }
 }
 
 extension PostView:UITextViewDelegate {
-  func textViewDidChange(textView: UITextView) {
+  func textViewDidChange(_ textView: UITextView) {
     //计算 text view 的高度
     
-    let attrs = [NSFontAttributeName: UIFont.systemFontOfSize(14)]
-    let rect = textView.text.boundingRectWithSize(CGSize(width: KScreenWidth - 60, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attrs, context: nil)
+    let attrs = [NSFontAttributeName: UIFont.systemFont(ofSize: 14)]
+    let rect = textView.text.boundingRect(with: CGSize(width: KScreenWidth - 60, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attrs, context: nil)
     
     let hx = Int(rect.height/14)
     let height = 290 - 176 + (KScreenWidth - 30)*9/17 - 16
     if hx >= 1 {
-      textView.snp_updateConstraints { (make) -> Void in
+      textView.snp.updateConstraints { (make) -> Void in
         let height = 35+(17*(hx - 1))
         make.height.equalTo(height)
         self.delegate.viewUpdateHeight(height,hx: hx)
       }
       
-      backView.snp_updateConstraints(closure: { (make) in
+      backView.snp.updateConstraints({ (make) in
         let h = Int(height)+(17*(hx - 1))
         make.height.equalTo(h)
       })
     }
     
-    UIView.animateWithDuration(0.5) { 
+    UIView.animate(withDuration: 0.5, animations: { 
       self.layoutIfNeeded()
-    }
+    }) 
   }
 }

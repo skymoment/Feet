@@ -17,7 +17,7 @@ class FeatureViewController: UIViewController {
     let scrollView = UIScrollView()
     scrollView.showsHorizontalScrollIndicator = false
     scrollView.bounces = false
-    scrollView.pagingEnabled = true
+    scrollView.isPagingEnabled = true
     scrollView.frame = view.bounds
     view.addSubview(scrollView)
     
@@ -35,7 +35,7 @@ class FeatureViewController: UIViewController {
       scrollView.addSubview(imgView)
       
       if i == 3 {
-        imgView.userInteractionEnabled = true
+        imgView.isUserInteractionEnabled = true
         imgView.addGestureRecognizer(tapGesture)
       }
     }
@@ -49,6 +49,6 @@ class FeatureViewController: UIViewController {
   
   func tapAction() {
     debugPrint("最后一张")
-    UIApplication.sharedApplication().keyWindow?.rootViewController = TabBarController()
+    UIApplication.shared.keyWindow?.rootViewController = TabBarController()
   }
 }

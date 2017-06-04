@@ -32,7 +32,7 @@ class SignView: UIView {
   func setViews() {
     let h = TransparentView()
     self.addSubview(h)
-    h.snp_makeConstraints { (make) in
+    h.snp.makeConstraints { (make) in
       make.top.equalTo(64 + 15)
       make.left.equalTo(15)
       make.right.equalTo(-15)
@@ -42,7 +42,7 @@ class SignView: UIView {
     
     let imageView = UIImageView(image: UIImage(named:"sign"))
     h.addSubview(imageView)
-    imageView.snp_makeConstraints(closure: { (make) in
+    imageView.snp.makeConstraints({ (make) in
       make.top.equalTo(15)
       make.centerX.equalTo(h)
       make.width.height.equalTo(28)
@@ -54,10 +54,10 @@ class SignView: UIView {
       b.placeHolder = "侬能写点东西吗？"
       b.textField.becomeFirstResponder()
       h.addSubview(b)
-      b.snp_makeConstraints { (make) in
-        make.top.equalTo(imageView.snp_bottom).offset(50)
-        make.left.equalTo(h.snp_left).offset(20)
-        make.right.equalTo(h.snp_right).offset(-20)
+      b.snp.makeConstraints { (make) in
+        make.top.equalTo(imageView.snp.bottom).offset(50)
+        make.left.equalTo(h.snp.left).offset(20)
+        make.right.equalTo(h.snp.right).offset(-20)
         make.height.equalTo(40)
       }
       return b

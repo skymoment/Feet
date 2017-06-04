@@ -22,11 +22,11 @@ class ViewController: UIViewController {
 
     // Do any additional setup after loading the view, typically from a nib.
     title = "Feet"
-    view.backgroundColor = UIColor.whiteColor()
+    view.backgroundColor = UIColor.white
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 300
-    tableView.backgroundColor = UIColor.clearColor()
-    tableView.separatorStyle = .None
+    tableView.backgroundColor = UIColor.clear
+    tableView.separatorStyle = .none
     
     // header
     tableView.mj_header = MJRefreshStateHeader {
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
 //    zhugeTrack()
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     navigationController?.setNavigationBarHidden(false, animated: false)
     super.viewWillAppear(animated)
     if UserDefaultsTool.isLogin() {
@@ -56,11 +56,11 @@ class ViewController: UIViewController {
     }
     
     if let imageData = UserDefaultsTool.headerData {
-      headerView.image = UIImage(data: imageData)
+      headerView.image = UIImage(data: imageData as Data)
     }
   }
   
-  override func viewWillDisappear(animated: Bool) {
+  override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
   }
 
@@ -81,7 +81,7 @@ class ViewController: UIViewController {
     leftImageView.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
     leftImageView.layer.cornerRadius = 17
     leftImageView.layer.borderWidth = 1
-    leftImageView.layer.borderColor = UIColor.whiteColor().CGColor
+    leftImageView.layer.borderColor = UIColor.white.cgColor
     leftImageView.layer.masksToBounds = true
     let gestureLeft = UITapGestureRecognizer(target: self, action: #selector(leftBarAction))
     leftImageView.addGestureRecognizer(gestureLeft)
@@ -112,7 +112,7 @@ class ViewController: UIViewController {
   
   
   // 默认 10 条
-  func loadData(page: Int = 1) {
+  func loadData(_ page: Int = 1) {
     let params = [
       "pageNumber": "\(page)"
     ]
@@ -123,19 +123,19 @@ class ViewController: UIViewController {
           if feetModels.pageNumber == 1 {
             self.feetModels.removeAll()
           }
-          self.tableView.mj_footer.hidden = feetModels.lastPage
-          self.feetModels.appendContentsOf(feetModels.feets)
+          self.tableView.mj_footer.isHidden = feetModels.lastPage
+          self.feetModels.append(contentsOf: feetModels.feets)
           self.currentPage = feetModels.pageNumber + 1
           self.tableView.reloadData()
           self.endRefresh()
         }).resolve()
       } catch where error is MyError{
-        HUD.showError(status: "\(error)")
+        HUD.showError("\(error)")
         self.endRefresh()
         debugPrint("\(error)")
       } catch{
         self.endRefresh()
-        HUD.showError(status: "网络错误")
+        HUD.showError("网络错误")
       }
     }
   }
@@ -149,19 +149,19 @@ class ViewController: UIViewController {
 //MARK: - UITableViewDelegate,UITableViewDataSource
 extension ViewController: UITableViewDelegate,UITableViewDataSource {
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return feetModels.count
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
   
-    let cell = tableView.dequeueReusableCellWithIdentifier("feetCell") as! FeetCell
+    let cell = tableView.dequeueReusableCell(withIdentifier: "feetCell") as! FeetCell
     cell.refresh(feetModels[indexPath.row])
     return cell
   }
   
   
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let vc = DetailViewController(id: "\(feetModels[indexPath.row].id)")
     navigationController?.pushViewController(vc, animated: true)
   }

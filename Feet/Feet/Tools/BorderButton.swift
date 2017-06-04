@@ -20,12 +20,12 @@ class BorderButton: UIButton {
   }
   
   func setViews() {
-    setTitle("保 存", forState: .Normal)
-    setTitleColor(UIColor.whiteColor(), forState: .Normal)
-    titleLabel?.font = UIFont.systemFontOfSize(15)
-    tintColor = UIColor.whiteColor()
+    setTitle("保 存", for: UIControlState())
+    setTitleColor(UIColor.white, for: UIControlState())
+    titleLabel?.font = UIFont.systemFont(ofSize: 15)
+    tintColor = UIColor.white
     layer.borderWidth = 1
-    layer.borderColor = UIColor.whiteColor().CGColor
+    layer.borderColor = UIColor.white.cgColor
     layer.cornerRadius = 3
   }
 }

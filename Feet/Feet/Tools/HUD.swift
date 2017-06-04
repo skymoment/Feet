@@ -18,15 +18,15 @@ class HUD {
     SVProgressHUD.dismiss()
   }
   
-  static func show(title title: String) {
-    SVProgressHUD.showWithStatus(title)
+  static func show(_ title: String) {
+    SVProgressHUD.show(withStatus: title)
   }
   
-  static func showError(status status: String) {
-    SVProgressHUD.showErrorWithStatus(status)
+  static func showError(_ status: String) {
+    SVProgressHUD.showError(withStatus: status)
   }
   
-  static func showSuccess(status status: String) {
-    SVProgressHUD.showSuccessWithStatus(status)
+  static func showSuccess(_ status: String) {
+    SVProgressHUD.showSuccess(withStatus: status)
   }
 }

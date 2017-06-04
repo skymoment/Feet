@@ -40,17 +40,17 @@ class DetailViewController: UIViewController {
     // Do any additional setup after loading the view.
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHidden), name: UIKeyboardWillHideNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHidden), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     (tabBarController as! TabBarController).removeGestrue()
   }
   
-  override func viewDidDisappear(animated: Bool) {
+  override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    NSNotificationCenter.defaultCenter().removeObserver(self)
+    NotificationCenter.default.removeObserver(self)
   }
   
   override func didReceiveMemoryWarning() {
@@ -60,23 +60,23 @@ class DetailViewController: UIViewController {
   
   // MARK: - SetViews
   func setViews() {
-    view.backgroundColor = UIColor.whiteColor()
+    view.backgroundColor = UIColor.white
     
     tableView = {
       let t = UITableView()
-      t.backgroundColor = UIColor.clearColor()
+      t.backgroundColor = UIColor.clear
       t.delegate = self
       t.dataSource = self
-      t.separatorStyle = .None
+      t.separatorStyle = .none
       t.rowHeight = UITableViewAutomaticDimension
       t.estimatedRowHeight = 100
       
       let bottom = type == .feetlist ? -50 : 0
       view.addSubview(t)
-      t.snp_makeConstraints(closure: { (make) in
+      t.snp.makeConstraints({ (make) in
         make.left.right.equalTo(view)
         make.top.equalTo(view).offset(64)
-        make.bottom.equalTo(view.snp_bottom).offset(bottom)
+        make.bottom.equalTo(view.snp.bottom).offset(bottom)
       })
       return t
     }()
@@ -88,13 +88,13 @@ class DetailViewController: UIViewController {
       let commentView = CommentView()
       commentView.delegate = self
       view.addSubview(commentView)
-      commentView.snp_makeConstraints { (make) in
-        make.bottom.equalTo(view.snp_bottom).priorityMedium()
+      commentView.snp.makeConstraints { (make) in
+        make.bottom.equalTo(view.snp.bottom).priorityMedium()
         make.left.right.equalTo(view)
         make.height.equalTo(50)
       }
       if type == .minelist {
-        commentView.hidden = true
+        commentView.isHidden = true
       }
       return commentView
     }()
@@ -115,40 +115,40 @@ class DetailViewController: UIViewController {
         }).resolve()
       } catch where error is MyError {
         debugPrint("\(error)")
-        HUD.showError(status: "\(error)")
+        HUD.showError("\(error)")
       } catch {
-        HUD.showError(status: "网络错误")
+        HUD.showError("网络错误")
       }
     }
   }
   
   // MARK: - Keyborad Notification Method
-  func keyboardWillShow(notification: NSNotification) {
-    let rect = notification.userInfo![UIKeyboardFrameEndUserInfoKey]!.CGRectValue
-    let time = notification.userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
-    let height = rect.height
-    heightOfKB = height + 50
-    commentView.snp_updateConstraints { (make) in
-      make.bottom.equalTo(view.snp_bottom).offset(-height)
+  func keyboardWillShow(_ notification: Notification) {
+    let rect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue
+    let time = notification.userInfo![UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
+    let height = rect?.height
+    heightOfKB = height! + 50
+    commentView.snp.updateConstraints { (make) in
+//      make.bottom.equalTo(view.snp.bottom).offset((-height)!)
     }
-    
+  
     view.setNeedsUpdateConstraints()
-    UIView.animateWithDuration(time) {
+    UIView.animate(withDuration: time, animations: {
       self.commentView.hight()
       self.view.layoutIfNeeded()
-    }
+    }) 
   }
   
-  func keyboardWillHidden(notification: NSNotification) {
+  func keyboardWillHidden(_ notification: Notification) {
     heightOfKB = 0
-    commentView.snp_updateConstraints { (make) in
-      make.bottom.equalTo(view.snp_bottom)
+    commentView.snp.updateConstraints { (make) in
+      make.bottom.equalTo(view.snp.bottom)
     }
     view.setNeedsUpdateConstraints()
-    UIView.animateWithDuration(0.3) {
+    UIView.animate(withDuration: 0.3, animations: {
       self.commentView.normal()
       self.view.layoutIfNeeded()
-    }
+    }) 
   }
 }
 
@@ -156,7 +156,7 @@ class DetailViewController: UIViewController {
 // MARK: - UITableViewDelegate,UITableViewDataSource
 extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if let model = model {
       return model.commentInfo.count
     } else {
@@ -164,8 +164,8 @@ extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
     }
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = CommentCell(style: .Default, reuseIdentifier: CommentCell.identifier())
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = CommentCell(style: .default, reuseIdentifier: CommentCell.identifier())
     if type == .feetlist {
       cell.commentLabel.delegate = self
     }
@@ -173,15 +173,15 @@ extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
     return cell
   }
   
-  func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
     return 0.1
   }
   
-  func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 0.1
   }
   
-  func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
     view.endEditing(true)
   }
 }
@@ -189,7 +189,7 @@ extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
 
 // MARK: - CommentDelegate
 extension DetailViewController: CommentDelegate {
-  func commentNameselected(name: CommentInfo, y: Int) {
+  func commentNameselected(_ name: CommentInfo, y: Int) {
     debugPrint(name)
     commentView.loadData("\(name.userId)", feetId: "\(name.feetId)")
     commentView.borderText.textField.becomeFirstResponder()
@@ -198,7 +198,7 @@ extension DetailViewController: CommentDelegate {
     tableContentOffset(y)
   }
   
-  func commentOtherNameSelected(otherName: CommentInfo, y: Int) {
+  func commentOtherNameSelected(_ otherName: CommentInfo, y: Int) {
     debugPrint(otherName)
     commentView.loadData("\(otherName.replyUserId)", feetId: "\(otherName.feetId)")
     commentView.borderText.textField.becomeFirstResponder()
@@ -207,7 +207,7 @@ extension DetailViewController: CommentDelegate {
     tableContentOffset(y)
   }
   
-  func commentContentSelected(name: CommentInfo, y: Int) {
+  func commentContentSelected(_ name: CommentInfo, y: Int) {
     debugPrint(name)
     commentView.loadData("\(name.replyUserId)", feetId: "\(name.feetId)")
     commentView.borderText.textField.becomeFirstResponder()
@@ -216,14 +216,14 @@ extension DetailViewController: CommentDelegate {
     tableContentOffset(y)
   }
   
-  func tableContentOffset(y: Int) {
-    GCDTool.delay(0.4) {
+  func tableContentOffset(_ y: Int) {
+//    GCDTool.delay(0.4) {
       let offsetY = CGFloat(y) - (KScreenHeigth - self.heightOfKB)
       if offsetY > 0 {
         let contentY = self.tableView.contentOffset.y
         self.tableView.setContentOffset(CGPoint(x: 0, y: contentY + offsetY), animated: true)
       }
-    }
+//    }
   }
 }
 

@@ -11,10 +11,10 @@ import Zhugeio
 
 class ZhuGeio: NSObject {
   
-  static func zhugeStratWithAppKey(launchOptions : [NSObject: AnyObject]?) {
+  static func zhugeStratWithAppKey(_ launchOptions : [AnyHashable: Any]?) {
     
      setSDKObserverSetting()
- Zhuge.sharedInstance().startWithAppKey("57d5b00d099845e78eb8c1263654c38a",
+ Zhuge.sharedInstance().start(withAppKey: "57d5b00d099845e78eb8c1263654c38a",
                                            launchOptions: launchOptions)
      setUserIdentify()
   }
@@ -31,7 +31,7 @@ class ZhuGeio: NSObject {
     zhugeConfig.debug = true
     
     // 可视化事件布点手势监听开关（耗电）
-    zhuge.openGestureBindingUI()
+//    zhuge.openGestureBindingUI()
     
     // 自定义渠道
     zhugeConfig.channel = "豆瓣"
@@ -62,7 +62,7 @@ class ZhuGeio: NSObject {
    - parameter track:     用户事件
    - parameter trackInfo: 事件描述
    */
-  static func RecordUserTrack(track: String, trackInfo: [String: String]) {
+  static func RecordUserTrack(_ track: String, trackInfo: [String: String]) {
     Zhuge.sharedInstance().track(track, properties: trackInfo)
   }
 }

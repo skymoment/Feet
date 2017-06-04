@@ -6,12 +6,12 @@ target 'Feet' do
   use_frameworks!
 
   # Pods for Feet
-  pod 'SnapKit’,'~>0.22.0'
+  pod 'SnapKit', '~> 3.0.2'
   pod 'Zhugeio'
-  pod 'Alamofire','~>3.5.0'
+  pod 'Alamofire', '~> 4.2.0'
   pod 'SDWebImage'
   pod 'BaiduMapKit'
-  pod 'SwiftyJSON','~>2.4.0'
+  pod 'SwiftyJSON'
 #  pod 'RealmSwift'
   pod 'Qiniu'
   pod 'UMengSocialCOM'

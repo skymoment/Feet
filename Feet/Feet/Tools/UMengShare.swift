@@ -10,28 +10,28 @@ import Foundation
 
 enum ShareDataType {
   // QQ
-  case QQ
+  case qq
   // 微信
-  case WC
+  case wc
   // 朋友圈
-  case WCT
+  case wct
   // 微博
-  case WB
+  case wb
 }
 
 struct UmengShare {
   
-  static func share(title: String, content: String,url: String, imageURL: String, type: String, dataType: ShareDataType) {
+  static func share(_ title: String, content: String,url: String, imageURL: String, type: String, dataType: ShareDataType) {
     
-    UMSocialData.defaultData().extConfig.title = title
+    UMSocialData.default().extConfig.title = title
     
     switch dataType {
-    case .QQ:
-      UMSocialData.defaultData().extConfig.qqData.url = url
-    case .WC:
-      UMSocialData.defaultData().extConfig.wechatSessionData.url  = url
-    case .WCT:
-      UMSocialData.defaultData().extConfig.wechatTimelineData.url = url
+    case .qq:
+      UMSocialData.default().extConfig.qqData.url = url
+    case .wc:
+      UMSocialData.default().extConfig.wechatSessionData.url  = url
+    case .wct:
+      UMSocialData.default().extConfig.wechatTimelineData.url = url
     default:
       break
     }

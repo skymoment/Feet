@@ -14,19 +14,19 @@ struct UserNetworkTool {
   /**
     * 用户信息：更新、获取
     */
-  static func userInfo(params: [String: String], completion: (Promise<UserInfoModel>) -> ()) {
+  static func userInfo(_ params: [String: String], completion: @escaping (Promise<UserInfoModel>) -> ()) {
     let url = "http://115.28.110.10:8080/feet/user/updateUserInfo" //FeetAPI.User.updateUserInfo
     
-    func parseJson(json: JSON) -> Promise<UserInfoModel> {
+    func parseJson(_ json: JSON) -> Promise<UserInfoModel> {
       if json["code"].intValue == 12000 {
         let model = UserInfoModel(json: json)
-        return Promise.Success(model)
+        return Promise.success(model)
       } else {
-        return Promise.Error(MyError(error: json["msg"].stringValue))
+        return Promise.error(MyError(error: json["msg"].stringValue))
       }
     }
     
-    ApiClient.fetch(.POST, URLString: url, paramters: params) { (promiseJSON) in
+    ApiClient.fetch(.POST, URLString: url, paramters: params as [String : AnyObject]?) { (promiseJSON) in
       let result = promiseJSON.then(parseJson)
       debugPrint(result)
       completion(result)

@@ -53,7 +53,7 @@ class SetUserInfoViewController: UIViewController {
     subView = returnView()
     //
     let btn = BorderButton(frame: CGRect(x: 0, y: 0, width: 50, height: 24))
-    btn.addTarget(self, action: #selector(saveAciton), forControlEvents: .TouchUpInside)
+    btn.addTarget(self, action: #selector(saveAciton), for: .touchUpInside)
     let rightBarItem = UIBarButtonItem(customView: btn)
     navigationItem.rightBarButtonItem = rightBarItem
   }
@@ -83,13 +83,13 @@ class SetUserInfoViewController: UIViewController {
     }
     
     view.addSubview(v)
-    v.snp_makeConstraints { (make) in
+    v.snp.makeConstraints { (make) in
       make.top.left.bottom.right.equalTo(view)
     }
     return v
   }
   
-  func createView<T: UIView>(type: T.Type) -> T{
+  func createView<T: UIView>(_ type: T.Type) -> T{
     let t = T()
     return t
   }
@@ -137,7 +137,7 @@ extension SetUserInfoViewController {
     }
   }
 
-  func save(param: [String: String]) {
+  func save(_ param: [String: String]) {
      UserNetworkTool.userInfo(param) { (promiseModel) in
       do {
         let _  = try promiseModel.then({model in
@@ -147,7 +147,7 @@ extension SetUserInfoViewController {
           UserDefaultsTool.birthday = model.birthday
           UserDefaultsTool.email = model.email
           UserDefaultsTool.userName = model.nickname
-          self.navigationController?.popViewControllerAnimated(true)
+          self.navigationController?.popViewController(animated: true)
         }).resolve()
       } catch where error is MyError{
         debugPrint("\(error)")

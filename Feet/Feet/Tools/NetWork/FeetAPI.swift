@@ -19,12 +19,12 @@ let environment: String = {
 let codeImaegURL = environment + "/feet/captcha"
 
 protocol Subpath {
-  static func generatePath(path: String) -> String
+  static func generatePath(_ path: String) -> String
 }
 
 extension Subpath {
-  static func generatePath(path: String) -> String {
-    let path = "\(environment)/feet/\(String(self).lowercaseString)/\(path)"
+  static func generatePath(_ path: String) -> String {
+    let path = "\(environment)/feet/\(String(describing: self).lowercased())/\(path)"
     return path
   }
 }

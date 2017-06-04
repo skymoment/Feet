@@ -21,8 +21,8 @@ class SmallImageView: UIImageView {
   
   func setLayer() {
     self.layer.borderWidth = 0
-    self.layer.borderColor = UIColor.blackColor().CGColor
-    self.layer.shadowColor = UIColor.blackColor().CGColor //shadowColor阴影颜色
+    self.layer.borderColor = UIColor.black.cgColor
+    self.layer.shadowColor = UIColor.black.cgColor //shadowColor阴影颜色
     self.layer.shadowOffset = CGSize(width: 2,height: 2);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
     self.layer.shadowOpacity = 0.3;//阴影透明度，默认0
     self.layer.shadowRadius = 2;

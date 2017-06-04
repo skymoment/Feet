@@ -45,10 +45,10 @@ class BorderTextField: UIView {
   
   var borderColor: UIColor {
     set {
-      self.layer.borderColor = newValue.CGColor
+      self.layer.borderColor = newValue.cgColor
     }
     get {
-      return UIColor(CGColor: self.layer.borderColor!)
+      return UIColor(cgColor: self.layer.borderColor!)
     }
   }
   
@@ -65,18 +65,18 @@ class BorderTextField: UIView {
   
   // MARK: - setViews
   func setViews() {
-    self.layer.borderColor = UIColor.whiteColor().CGColor
+    self.layer.borderColor = UIColor.white.cgColor
     self.layer.borderWidth = 1
     self.layer.cornerRadius = 3
     
     textField = {
       let t = UITextField()
-      t.borderStyle = .None
-      t.font = UIFont.systemFontOfSize(15)
-      t.textAlignment = .Center
-      t.textColor = UIColor.whiteColor()
+      t.borderStyle = .none
+      t.font = UIFont.systemFont(ofSize: 15)
+      t.textAlignment = .center
+      t.textColor = UIColor.white
       addSubview(t)
-      t.snp_makeConstraints { (make) in
+      t.snp.makeConstraints { (make) in
         make.center.equalTo(self)
         make.left.equalTo(12)
         make.right.equalTo(-12)

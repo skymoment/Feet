@@ -9,22 +9,22 @@
 import UIKit
 
 enum SDETransitionType{
-    case NavigationTransition(UINavigationControllerOperation)
-    case TabTransition(TabOperationDirection)
-    case ModalTransition(ModalOperation)
+    case navigationTransition(UINavigationControllerOperation)
+    case tabTransition(TabOperationDirection)
+    case modalTransition(ModalOperation)
 }
 
 enum TabOperationDirection{
-    case Left, Right
+    case left, right
 }
 
 enum ModalOperation{
-    case Presentation, Dismissal
+    case presentation, dismissal
 }
 
 class SlideAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
 
-    private var transitionType: SDETransitionType
+    fileprivate var transitionType: SDETransitionType
 
     init(type: SDETransitionType) {
         transitionType = type
@@ -45,57 +45,57 @@ class SlideAnimationController: NSObject, UIViewControllerAnimatedTransitioning 
 //    }
 
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.3
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else{
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        guard let fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from), let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) else{
             return  
         }
         
         let fromView = fromVC.view
         let toView = toVC.view
-        let containerView = transitionContext.containerView()
+        let containerView = transitionContext.containerView
         var translation = containerView.frame.width
-        var toViewTransform = CGAffineTransformIdentity
-        var fromViewTransform = CGAffineTransformIdentity
+        var toViewTransform = CGAffineTransform.identity
+        var fromViewTransform = CGAffineTransform.identity
         
         switch transitionType{
-        case .NavigationTransition(let operation):
-            translation = operation == .Push ? translation : -translation
-            toViewTransform = CGAffineTransformMakeTranslation(translation, 0)
-            fromViewTransform = CGAffineTransformMakeTranslation(-translation, 0)
-        case .TabTransition(let direction):
-            translation = direction == .Left ? translation : -translation
-            fromViewTransform = CGAffineTransformMakeTranslation(translation, 0)
-            toViewTransform = CGAffineTransformMakeTranslation(-translation, 0)
-        case .ModalTransition(let operation):
+        case .navigationTransition(let operation):
+            translation = operation == .push ? translation : -translation
+            toViewTransform = CGAffineTransform(translationX: translation, y: 0)
+            fromViewTransform = CGAffineTransform(translationX: -translation, y: 0)
+        case .tabTransition(let direction):
+            translation = direction == .left ? translation : -translation
+            fromViewTransform = CGAffineTransform(translationX: translation, y: 0)
+            toViewTransform = CGAffineTransform(translationX: -translation, y: 0)
+        case .modalTransition(let operation):
             translation =  containerView.frame.height
-            toViewTransform = CGAffineTransformMakeTranslation(0, (operation == .Presentation ? translation : 0))
-            fromViewTransform = CGAffineTransformMakeTranslation(0, (operation == .Presentation ? 0 : translation))
+            toViewTransform = CGAffineTransform(translationX: 0, y: (operation == .presentation ? translation : 0))
+            fromViewTransform = CGAffineTransform(translationX: 0, y: (operation == .presentation ? 0 : translation))
         }
 
         switch transitionType{
-        case .ModalTransition(let operation):
+        case .modalTransition(let operation):
             switch operation{
-            case .Presentation: containerView.addSubview(toView)
+            case .presentation: containerView.addSubview(toView!)
                 //在 dismissal 转场中，不要添加 toView，否则黑屏
-            case .Dismissal: break
+            case .dismissal: break
             }
-        default: containerView.addSubview(toView)
+        default: containerView.addSubview(toView!)
         }
         
-        toView.transform = toViewTransform
+        toView?.transform = toViewTransform
         
-        UIView.animateWithDuration(transitionDuration(transitionContext), animations: {
-            fromView.transform = fromViewTransform
-            toView.transform = CGAffineTransformIdentity
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
+            fromView?.transform = fromViewTransform
+            toView?.transform = CGAffineTransform.identity
             }, completion: { finished in
-                fromView.transform = CGAffineTransformIdentity
-                toView.transform = CGAffineTransformIdentity
+                fromView?.transform = CGAffineTransform.identity
+                toView?.transform = CGAffineTransform.identity
                 
-                let isCancelled = transitionContext.transitionWasCancelled()
+                let isCancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!isCancelled)
         })
     }

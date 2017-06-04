@@ -31,7 +31,7 @@ class BirthdayView: UIView {
   func setViews() {
     let h = TransparentView()
     self.addSubview(h)
-    h.snp_makeConstraints { (make) in
+    h.snp.makeConstraints { (make) in
       make.top.equalTo(64 + 15)
       make.left.equalTo(15)
       make.right.equalTo(-15)
@@ -40,7 +40,7 @@ class BirthdayView: UIView {
     
     let birthImage = UIImageView(image: UIImage(named:"brithday"))
     h.addSubview(birthImage)
-    birthImage.snp_makeConstraints(closure: { (make) in
+    birthImage.snp.makeConstraints({ (make) in
       make.top.equalTo(15)
       make.centerX.equalTo(h)
       make.width.height.equalTo(28)
@@ -59,10 +59,10 @@ class BirthdayView: UIView {
       b.textField.inputView = birthdayPicker
       b.textField.delegate = self
       h.addSubview(b)
-      b.snp_makeConstraints { (make) in
-        make.top.equalTo(birthImage.snp_bottom).offset(50)
-        make.left.equalTo(h.snp_left).offset(20)
-        make.right.equalTo(h.snp_right).offset(-20)
+      b.snp.makeConstraints { (make) in
+        make.top.equalTo(birthImage.snp.bottom).offset(50)
+        make.left.equalTo(h.snp.left).offset(20)
+        make.right.equalTo(h.snp.right).offset(-20)
         make.height.equalTo(40)
       }
       return b
@@ -71,13 +71,13 @@ class BirthdayView: UIView {
 }
 
 extension BirthdayView: SKBirthPickerDelegate {
-  func pickerChanged(date: String) {
+  func pickerChanged(_ date: String) {
     boderField.text = date
   }
 }
 
 extension BirthdayView: UITextFieldDelegate {
-  func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     return false
   }
 }

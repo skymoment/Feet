@@ -35,7 +35,7 @@ class LoginViewController: UIViewController {
   
   
   // 计时器
-  var timer: NSTimer!
+  var timer: Timer!
   var leftTime = 60
   
   
@@ -54,11 +54,11 @@ class LoginViewController: UIViewController {
     filedBackViewHeight.constant = 93
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
   }
   
-  override func viewDidDisappear(animated: Bool) {
+  override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
     
     if let _ = timer {
@@ -71,17 +71,17 @@ class LoginViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return UIStatusBarStyle.LightContent
+  override var preferredStatusBarStyle : UIStatusBarStyle {
+    return UIStatusBarStyle.lightContent
   }
   
   
   // MARK: - Acction
-  @IBAction func changeAction(sender: UIButton) {
+  @IBAction func changeAction(_ sender: UIButton) {
     if sender.titleLabel?.text == "注册" {
-      sender.setTitle	("登录", forState: .Normal)
+      sender.setTitle	("登录", for: UIControlState())
       titleLabel.text = "注册"
-      loginButton.setTitle("注册", forState: .Normal)
+      loginButton.setTitle("注册", for: UIControlState())
 //      LoginService.downLoadImage(codeImaegURL, compeltion: { (data, str) in
 //        self.codeImageView.image = UIImage(data: data)
 //      })
@@ -92,35 +92,35 @@ class LoginViewController: UIViewController {
       })
       
       view.setNeedsUpdateConstraints()
-      UIView.animateWithDuration(0.3, animations: {
+      UIView.animate(withDuration: 0.3, animations: {
         self.filedBackViewHeight.constant = 186
         self.view.layoutIfNeeded()
       })
     } else {
-      sender.setTitle("注册", forState: .Normal)
+      sender.setTitle("注册", for: UIControlState())
       titleLabel.text = "登录"
-      loginButton.setTitle("登录", forState: .Normal)
+      loginButton.setTitle("登录", for: UIControlState())
   
       view.setNeedsUpdateConstraints()
-      UIView.animateWithDuration(0.3, animations: {
+      UIView.animate(withDuration: 0.3, animations: {
         self.filedBackViewHeight.constant = 93
         self.view.layoutIfNeeded()
       })
     }
   }
   
-  @IBAction func dismissVC(sender: UIButton) {
-    dismissViewControllerAnimated(true, completion: nil)
+  @IBAction func dismissVC(_ sender: UIButton) {
+    dismiss(animated: true, completion: nil)
   }
   
-  @IBAction func timerAciton(sender: UIButton) {
+  @IBAction func timerAciton(_ sender: UIButton) {
     // 开启定时器
     view.endEditing(true)
-    codeButon.enabled = false
+    codeButon.isEnabled = false
 
     leftTime = 60
-    timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(check), userInfo: nil, repeats: true)
-    self.timer.fireDate = NSDate.distantPast()
+    timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(check), userInfo: nil, repeats: true)
+    self.timer.fireDate = Date.distantPast
     debugPrint("phone: \(phoneTextField.text!.deleteBlankSpace())")
     LoginNetTool.gainCode(["phone": phoneTextField.text!.deleteBlankSpace()]) { (promiseString) in
       do {
@@ -136,64 +136,64 @@ class LoginViewController: UIViewController {
   
   func check() {
     leftTime = leftTime - 1
-    codeButon.setTitle("\(leftTime)", forState: .Normal)
+    codeButon.setTitle("\(leftTime)", for: UIControlState())
     
     if leftTime == 0 {
       leftTime = 60
       // 关闭定时器
-      timer.fireDate = NSDate.distantFuture()
-      codeButon.enabled = true
-      codeButon.setTitle("重新获取", forState: .Normal)
+      timer.fireDate = Date.distantFuture
+      codeButon.isEnabled = true
+      codeButon.setTitle("重新获取", for: UIControlState())
     }
   }
   
   
   // MARK: - SetViews
   func setViews() {
-    view.insertSubview(BackView(), atIndex: 0)
+    view.insertSubview(BackView(), at: 0)
 
     filedBackView.layer.cornerRadius = 6
-    filedBackView.layer.borderColor = UIColor(hexString: "#FFFFFF", alpha: 0.1).CGColor
+    filedBackView.layer.borderColor = UIColor(hexString: "#FFFFFF", alpha: 0.1).cgColor
     filedBackView.layer.borderWidth = 2
     filedBackView.layer.masksToBounds = true
     filedBackView.backgroundColor = UIColor(hexString: "#FFFFFF", alpha: 0.1)
     
-    phoneTextField.keyboardType = UIKeyboardType.NumberPad
+    phoneTextField.keyboardType = UIKeyboardType.numberPad
     phoneTextField.delegate = self
-    phoneTextField.addTarget(self, action: #selector(checkInfo), forControlEvents: .EditingChanged)
+    phoneTextField.addTarget(self, action: #selector(checkInfo), for: .editingChanged)
 
     
-    password.addTarget(self, action: #selector(checkInfo), forControlEvents: .EditingChanged)
-    password.clearButtonMode = .WhileEditing
-    password.secureTextEntry = true
-    password2.clearButtonMode = .WhileEditing
-    password2.secureTextEntry = true
+    password.addTarget(self, action: #selector(checkInfo), for: .editingChanged)
+    password.clearButtonMode = .whileEditing
+    password.isSecureTextEntry = true
+    password2.clearButtonMode = .whileEditing
+    password2.isSecureTextEntry = true
     password.delegate = self
     
     loginButton.layer.cornerRadius = 6
     loginButton.layer.masksToBounds = true
     changeLoginBtnColor(false)
-    loginButton.addTarget(self, action: #selector(loginAction), forControlEvents: .TouchUpInside)
+    loginButton.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
     
     let text = NSMutableAttributedString(string: "点击登录，即表示您已同意《Feet用户协议》")
     text.addAttribute(NSForegroundColorAttributeName, value: UIColor(hexString: "#11d211"), range: NSMakeRange(13, 8))
     userInfoLabel.attributedText = text
-    userInfoLabel.userInteractionEnabled = true
+    userInfoLabel.isUserInteractionEnabled = true
     let tapGestrue = UITapGestureRecognizer(target: self, action: #selector(pushToUserInfo))
     userInfoLabel.addGestureRecognizer(tapGestrue)
   }
 
   
   // MARK: - Method
-  func changeLoginBtnColor(bool: Bool) {
+  func changeLoginBtnColor(_ bool: Bool) {
     if bool {
-      loginButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+      loginButton.setTitleColor(UIColor.white, for: UIControlState())
       loginButton.backgroundColor = UIColor(hexString: "#11d211")
     } else {
       let normalColor = UIColor(hexString: "#646464")
-      let normalBackColor = UIColor.whiteColor()
+      let normalBackColor = UIColor.white
       loginButton.backgroundColor = normalBackColor
-      loginButton.setTitleColor(normalColor, forState: .Normal)
+      loginButton.setTitleColor(normalColor, for: UIControlState())
     }
   }
   
@@ -231,15 +231,15 @@ class LoginViewController: UIViewController {
             if model.image != "" {
               ApiClient.downLoadImage(model.image, compeletion: { (data, cookieString) in
                 UserDefaultsTool.headerData = data!
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
               })
             } else {
-              self.dismissViewControllerAnimated(true, completion: nil)
+              self.dismiss(animated: true, completion: nil)
             }
           }).resolve()
         } catch where error is MyError{
           debugPrint("\(error)")
-          HUD.showError(status: "\(error)")
+          HUD.showError("\(error)")
         } catch{
           debugPrint("网络错误")
         }
@@ -252,15 +252,15 @@ class LoginViewController: UIViewController {
             if model.image != "" {
               ApiClient.downLoadImage(model.image, compeletion: { (data, cookieString) in
                 UserDefaultsTool.headerData = data!
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
               })
             } else {
-              self.dismissViewControllerAnimated(true, completion: nil)
+              self.dismiss(animated: true, completion: nil)
             }
           }).resolve()
         } catch where error is MyError{
           debugPrint("\(error)")
-          HUD.showError(status: "\(error)")
+          HUD.showError("\(error)")
         } catch{
           debugPrint("网络错误")
         }
@@ -272,7 +272,7 @@ class LoginViewController: UIViewController {
 
 // MARK: - UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
-  func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     if textField == phoneTextField {
       return textField.textMaxLength(textField, range: range, string: string, maxLength: 11)
     }

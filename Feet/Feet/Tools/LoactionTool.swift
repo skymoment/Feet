@@ -11,7 +11,7 @@ import CoreLocation
 
 @objc
 protocol LocationToolDelegate:class {
-  func locationWithState(location: CLLocation, state: String)
+  func locationWithState(_ location: CLLocation, state: String)
   func locationFail()
 }
 
@@ -20,7 +20,7 @@ class LoactionTool: NSObject {
   let locationManager = CLLocationManager()
   weak var delegate: LocationToolDelegate?
   
-  private override init() {
+  fileprivate override init() {
     
   }
   
@@ -39,7 +39,7 @@ class LoactionTool: NSObject {
 
 
 extension LoactionTool: CLLocationManagerDelegate {
-  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     let location = locations.last
     
     let coor = location?.coordinate
@@ -50,7 +50,7 @@ extension LoactionTool: CLLocationManagerDelegate {
     CLGeocoderAction(location!)
   }
   
-  func CLGeocoderAction(location: CLLocation) {
+  func CLGeocoderAction(_ location: CLLocation) {
     let geocoder = CLGeocoder()
     geocoder.reverseGeocodeLocation(location) { (marks, error) in
       

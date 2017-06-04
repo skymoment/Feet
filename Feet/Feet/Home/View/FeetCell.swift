@@ -20,17 +20,17 @@ class FeetCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     // Initialization code
-    self.backgroundColor = UIColor.clearColor()
-    self.selectionStyle = .None
+    self.backgroundColor = UIColor.clear
+    self.selectionStyle = .none
     setBackView()
   }
   
   
   // setViews
-  func setImageView(imageView: UIImageView) {
+  func setImageView(_ imageView: UIImageView) {
     imageView.layer.borderWidth = 0
-    imageView.layer.borderColor = UIColor.blackColor().CGColor
-    imageView.layer.shadowColor = UIColor.blackColor().CGColor //shadowColor阴影颜色
+    imageView.layer.borderColor = UIColor.black.cgColor
+    imageView.layer.shadowColor = UIColor.black.cgColor //shadowColor阴影颜色
     imageView.layer.shadowOffset = CGSize(width: 2,height: 2);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
     imageView.layer.shadowOpacity = 0.3;//阴影透明度，默认0
     imageView.layer.shadowRadius = 2;
@@ -41,11 +41,11 @@ class FeetCell: UITableViewCell {
     backView.layer.masksToBounds = true
   }
   
-  func refresh(model: FeetModel) {
+  func refresh(_ model: FeetModel) {
     contentLabel.text = model.content
     var city = ""
-    if model.city.containsString("=") {
-      city = model.city.componentsSeparatedByString("=")[0]
+    if model.city.contains("=") {
+      city = model.city.components(separatedBy: "=")[0]
     } else {
       city = model.city
     }
@@ -53,8 +53,8 @@ class FeetCell: UITableViewCell {
     lookCountLabel.text = String(model.lookCount)
     likeCountLabel.text = String(model.likeCount)
     if model.pics.count > 0 {
-      let url = NSURL(string: model.pics[0] + subString)
-      mainImage.sd_setImageWithURL(url)
+      let url = URL(string: model.pics[0] + subString)
+      mainImage.sd_setImage(with: url)
     }
   }
 }

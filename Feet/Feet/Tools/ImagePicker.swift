@@ -13,7 +13,7 @@ import Photos
 
 @objc
 protocol ImagePickerDelegate {
-  optional func imagePickerDidFinishPickingImage(image: UIImage)
+  @objc optional func imagePickerDidFinishPickingImage(_ image: UIImage)
 }
 
 /// 照片选取类
@@ -43,11 +43,11 @@ class ImagePicker: NSObject {
   
   func initActionSheet() {
     actionSheet.delegate = self
-    actionSheet.addButtonWithTitle("拍照")
-    actionSheet.addButtonWithTitle("从手机相册选择")
-    actionSheet.addButtonWithTitle("取消")
+    actionSheet.addButton(withTitle: "拍照")
+    actionSheet.addButton(withTitle: "从手机相册选择")
+    actionSheet.addButton(withTitle: "取消")
     actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1
-    actionSheet.showInView(viewController.view)
+    actionSheet.show(in: viewController.view)
   }
   
   func initImagePicker() {
@@ -55,32 +55,32 @@ class ImagePicker: NSObject {
 //    imagePicker.allowsEditing = true
     imagePicker.delegate = self
     imagePicker.navigationBar.barTintColor = GreenFontColor
-    imagePicker.navigationBar.tintColor = UIColor.whiteColor() // Cancel button ~ any UITabBarButton items
+    imagePicker.navigationBar.tintColor = UIColor.white // Cancel button ~ any UITabBarButton items
     imagePicker.navigationBar.titleTextAttributes = [
-      NSForegroundColorAttributeName : UIColor.whiteColor()
+      NSForegroundColorAttributeName : UIColor.white
     ]
   }
 }
 
 // MARK: - UIActionSheetDelegate
 extension ImagePicker: UIActionSheetDelegate {
-  func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+  func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
     if buttonIndex == 0 {
       // 判断相机是否可用
-      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-        imagePicker.sourceType = .Camera
-        GCDTool.delay(0.2, task: { 
-          self.viewController.presentViewController(self.imagePicker, animated: true, completion: nil)
-        })
+      if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+        imagePicker.sourceType = .camera
+//        GCDTool.delay(0.2, task: { 
+          self.viewController.present(self.imagePicker, animated: true, completion: nil)
+//        })
       } else {
-        HUD.showError(status: "未获取到相机")
+        HUD.showError("未获取到相机")
       }
     } else if buttonIndex == 1 {
-      imagePicker.sourceType = .SavedPhotosAlbum
+      imagePicker.sourceType = .savedPhotosAlbum
       
-      GCDTool.delay(0.2, task: { 
-        self.viewController.presentViewController(self.imagePicker, animated: true, completion: nil)
-      })
+//      GCDTool.delay(0.2, task: { 
+        self.viewController.present(self.imagePicker, animated: true, completion: nil)
+//      })
     }
   }
 }
@@ -88,33 +88,33 @@ extension ImagePicker: UIActionSheetDelegate {
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     debugPrint(info)
     let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
     
-    if picker.sourceType == .Camera {
+    if picker.sourceType == .camera {
       UIImageWriteToSavedPhotosAlbum(originalImage, self, #selector(ImagePicker.image(_:didFinishSavingWithError:contextInfo:)), nil)
     } else {
       let newImage = cutImage(originalImage)
       delegate?.imagePickerDidFinishPickingImage?(newImage)
-      picker.dismissViewControllerAnimated(true, completion: nil)
+      picker.dismiss(animated: true, completion: nil)
     }
   }
   
-  func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-    picker.dismissViewControllerAnimated(true, completion: nil)
+  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    picker.dismiss(animated: true, completion: nil)
   }
   
 
   
-  func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>) {
+  func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafeRawPointer) {
     if let err = error {
       UIAlertView(title: "错误", message: err.localizedDescription, delegate: nil, cancelButtonTitle: "确定").show()
     } else {
       getFirstPhoto({ (image) in
         let newImage = self.cutImage(image)
         self.delegate?.imagePickerDidFinishPickingImage?(newImage)
-        self.imagePicker.dismissViewControllerAnimated(true, completion: nil)
+        self.imagePicker.dismiss(animated: true, completion: nil)
       })
 //      let newImage = cutImage(image)
 //      delegate?.imagePickerDidFinishPickingImage?(newImage)
@@ -139,7 +139,7 @@ extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDe
     }
   }
   
-  func cutImage(originalImage: UIImage) -> UIImage {
+  func cutImage(_ originalImage: UIImage) -> UIImage {
     let width = originalImage.size.width
     let height = originalImage.size.height
     
@@ -152,12 +152,12 @@ extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDe
     } else {
       let newHeight = width * 9 / 17
       cutRect = CGRect(x: (height - newHeight)/2, y: 0, width: newHeight, height: width)
-      let newImage = originalImage.cutImage(cutRect, orientation: UIImageOrientation.Right)
+      let newImage = originalImage.cutImage(cutRect, orientation: UIImageOrientation.right)
       return newImage
     }
   }
   
-  func getFirstPhoto(compeletion: (UIImage) -> ()) {
+  func getFirstPhoto(_ compeletion: @escaping (UIImage) -> ()) {
 // 获取相册
 //    let results =  PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .AlbumRegular, options: nil)
 //    let count = results.count
@@ -169,9 +169,9 @@ extension ImagePicker: UIImagePickerControllerDelegate, UINavigationControllerDe
     let options = PHFetchOptions()
     let sort = NSSortDescriptor(key: "creationDate", ascending: false)
     options.sortDescriptors = [sort]
-    let result = PHAsset.fetchAssetsWithMediaType(.Image, options: options)
-    let asset = result.objectAtIndex(0) as! PHAsset
-    PHImageManager().requestImageForAsset(asset, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFit, options: nil) { (image, dics) in
+    let result = PHAsset.fetchAssets(with: .image, options: options)
+    let asset = result.object(at: 0) 
+    PHImageManager().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: nil) { (image, dics) in
       compeletion(image!)
     }
   }

@@ -28,8 +28,8 @@ class MineCell: UITableViewCell {
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    self.selectionStyle = .None
-    self.backgroundColor = UIColor.clearColor()
+    self.selectionStyle = .none
+    self.backgroundColor = UIColor.clear
     
 //    setViews()
   }
@@ -38,27 +38,27 @@ class MineCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override func drawRect(rect: CGRect) {
+  override func draw(_ rect: CGRect) {
     //获取画笔上下文
-    let context:CGContextRef = UIGraphicsGetCurrentContext()!
+    let context:CGContext = UIGraphicsGetCurrentContext()!
     //设置画笔的颜色
-    CGContextSetStrokeColorWithColor(context, UIColor.whiteColor().CGColor)
+    context.setStrokeColor(UIColor.white.cgColor)
     //抗锯齿设置
-    CGContextSetAllowsAntialiasing(context, true)
+    context.setAllowsAntialiasing(true)
     
     //画直线
-    CGContextSetLineWidth(context, 2) //设置画笔的宽度
-    CGContextMoveToPoint(context, vline, 0)
-    CGContextAddLineToPoint(context, vline, rect.height)
-    CGContextStrokePath(context)  //关闭路径
+    context.setLineWidth(2) //设置画笔的宽度
+    context.move(to: CGPoint(x: vline, y: 0))
+    context.addLine(to: CGPoint(x: vline, y: rect.height))
+    context.strokePath()  //关闭路径
     
     //画圆
-    UIColor.whiteColor().set()
-    CGContextAddEllipseInRect(context, CGRectMake(107 - 15, 22, 30, 30))
-    CGContextFillPath(context)
+    UIColor.white.set()
+    context.addEllipse(in: CGRect(x: 107 - 15, y: 22, width: 30, height: 30))
+    context.fillPath()
     
     
-    CGContextStrokePath(context)  //关闭路径
+    context.strokePath()  //关闭路径
   }
   
   class func identifier() -> String{
@@ -71,7 +71,7 @@ class MineCell: UITableViewCell {
     moodImageView = {
       let m = UIImageView(image: UIImage(named: "mood_h"))
       self.addSubview(m)
-      m.snp_makeConstraints(closure: { (make) in
+      m.snp.makeConstraints({ (make) in
         make.top.equalTo(22 + 2)
         make.left.equalTo(106 - 12)
         make.width.height.equalTo(26)
@@ -83,7 +83,7 @@ class MineCell: UITableViewCell {
       let t = TimeLabel()
       t.setAttrText("0707月")
       self.addSubview(t)
-      t.snp_makeConstraints(closure: { (make) in
+      t.snp.makeConstraints({ (make) in
         make.centerY.equalTo(moodImageView)
         make.left.equalTo(10)
       })
@@ -93,12 +93,12 @@ class MineCell: UITableViewCell {
     locationLabel = {
       let l = UILabel()
       l.text = "上海"
-      l.font = UIFont.systemFontOfSize(12)
-      l.textColor = UIColor.whiteColor()
+      l.font = UIFont.systemFont(ofSize: 12)
+      l.textColor = UIColor.white
       self.addSubview(l)
-      l.snp_makeConstraints(closure: { (make) in
-        make.top.equalTo(timeLabel.snp_bottom)
-        make.left.equalTo(timeLabel.snp_left)
+      l.snp.makeConstraints({ (make) in
+        make.top.equalTo(timeLabel.snp.bottom)
+        make.left.equalTo(timeLabel.snp.left)
       })
       return l
     }()
@@ -106,13 +106,13 @@ class MineCell: UITableViewCell {
     contentLabel = {
       let c = UILabel()
       c.text = "这个是世界很无奈"
-      c.font = UIFont.systemFontOfSize(14)
-      c.textColor = UIColor.whiteColor()
+      c.font = UIFont.systemFont(ofSize: 14)
+      c.textColor = UIColor.white
       self.addSubview(c)
-      c.snp_makeConstraints(closure: { (make) in
+      c.snp.makeConstraints({ (make) in
         make.left.equalTo(106 + 15)
-        make.top.equalTo(moodImageView.snp_bottom).offset(2)
-        make.right.equalTo(self.snp_right).offset(-15)
+        make.top.equalTo(moodImageView.snp.bottom).offset(2)
+        make.right.equalTo(self.snp.right).offset(-15)
       })
       return c
     }()
@@ -122,9 +122,9 @@ class MineCell: UITableViewCell {
       p.layer.cornerRadius = 3
       p.layer.masksToBounds = true
       self.addSubview(p)
-      p.snp_makeConstraints(closure: { (make) in
-        make.left.equalTo(contentLabel.snp_left)
-        make.top.equalTo(contentLabel.snp_bottom).offset(10)
+      p.snp.makeConstraints({ (make) in
+        make.left.equalTo(contentLabel.snp.left)
+        make.top.equalTo(contentLabel.snp.bottom).offset(10)
         make.width.height.equalTo(60)
       })
       return p
@@ -132,32 +132,32 @@ class MineCell: UITableViewCell {
     
     countLabel = {
       let c = UILabel()
-      c.textColor = UIColor.whiteColor()
+      c.textColor = UIColor.white
       c.text = "共5张"
-      c.font = UIFont.systemFontOfSize(12)
+      c.font = UIFont.systemFont(ofSize: 12)
       self.addSubview(c)
-      c.snp_makeConstraints(closure: { (make) in
-        make.left.equalTo(photoImageView.snp_right).offset(10)
-        make.bottom.equalTo(photoImageView.snp_bottom)
+      c.snp.makeConstraints({ (make) in
+        make.left.equalTo(photoImageView.snp.right).offset(10)
+        make.bottom.equalTo(photoImageView.snp.bottom)
       })
       return c
     }()
   }
   
-  func refresh(model: FeetModel) {
+  func refresh(_ model: FeetModel) {
     countLabel.text = "共\(model.pics.count)张"
     contentLabel.text = model.content
     timeLabel.setAttrText(parseTime(model.time))
-    locationLabel.text = model.city.componentsSeparatedByString("=")[0]
+    locationLabel.text = model.city.components(separatedBy: "=")[0]
     
-    if let url = NSURL(string: model.pics[0]) {
-      photoImageView.sd_setImageWithURL(url)
+    if let url = URL(string: model.pics[0]) {
+      photoImageView.sd_setImage(with: url)
     }
   }
   
-  func parseTime(str: String) -> String {
-    let time1 = str.componentsSeparatedByString(" ")
-    let time2 = time1[0].componentsSeparatedByString("-")
+  func parseTime(_ str: String) -> String {
+    let time1 = str.components(separatedBy: " ")
+    let time2 = time1[0].components(separatedBy: "-")
     let time3 = time2[1] + time2[2] + "月"
     return time3
   }

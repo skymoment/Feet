@@ -38,9 +38,9 @@ class FeetInfo: NSObject {
     
     let pictures = json["pics"].stringValue
     if !pictures.isEmpty {
-      if pictures.containsString(",") {
-        let p = pictures.componentsSeparatedByString(",")
-        pics.appendContentsOf(p)
+      if pictures.contains(",") {
+        let p = pictures.components(separatedBy: ",")
+        pics.append(contentsOf: p)
       } else {
         pics.append(pictures)
       }

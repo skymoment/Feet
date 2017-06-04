@@ -18,8 +18,8 @@ class CommentCell: UITableViewCell {
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    self.backgroundColor = UIColor.clearColor()
-    self.selectionStyle = .None
+    self.backgroundColor = UIColor.clear
+    self.selectionStyle = .none
     setViews()
   }
   
@@ -33,7 +33,7 @@ class CommentCell: UITableViewCell {
     setViews()
   }
   
-  override func setSelected(selected: Bool, animated: Bool) {
+  override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
     
     // Configure the view for the selected state
@@ -43,26 +43,26 @@ class CommentCell: UITableViewCell {
   func setViews() {
     let c = CommentLabel()
     let v = UIView()
-    v.backgroundColor = UIColor.whiteColor()
+    v.backgroundColor = UIColor.white
     contentView.addSubview(v)
-    v.snp_makeConstraints { (make) in
-      make.left.equalTo(contentView.snp_left).offset(15)
-      make.right.equalTo(contentView.snp_right).offset(-15)
+    v.snp.makeConstraints { (make) in
+      make.left.equalTo(contentView.snp.left).offset(15)
+      make.right.equalTo(contentView.snp.right).offset(-15)
       make.top.equalTo(contentView)
-      make.bottom.equalTo(contentView.snp_bottom)
+      make.bottom.equalTo(contentView.snp.bottom)
     }
     
     v.addSubview(c)
-    c.snp_makeConstraints { (make) in
+    c.snp.makeConstraints { (make) in
       make.left.equalTo(8)
       make.right.equalTo(-8)
-      make.bottom.equalTo(v.snp_bottom).offset(-5)
-      make.top.equalTo(v.snp_top).offset(5)
+      make.bottom.equalTo(v.snp.bottom).offset(-5)
+      make.top.equalTo(v.snp.top).offset(5)
     }
     self.commentLabel = c
   }
  
-  func refresh(model: CommentInfo) {
+  func refresh(_ model: CommentInfo) {
     commentLabel.loadData(model)
   }
 }

@@ -13,9 +13,9 @@ class NavigationController: UINavigationController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    navigationBar.setBackgroundImage(UIImage(named: "touming"), forBarMetrics: .Default)
-    navigationBar.barStyle = .BlackTranslucent
+    navigationBar.setBackgroundImage(UIImage(named: "touming"), for: .default)
+    navigationBar.barStyle = .blackTranslucent
     navigationBar.clipsToBounds = true;
-    navigationBar.tintColor = UIColor.whiteColor()
+    navigationBar.tintColor = UIColor.white
   }
 }

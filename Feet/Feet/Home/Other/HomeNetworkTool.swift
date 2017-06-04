@@ -13,21 +13,21 @@ struct HomeNetworkTool {
   /**
    获取 Feets
    */
-  static func getFeet(params: [String: String],completon:(Promise<FeetModels>) ->()) {
+  static func getFeet(_ params: [String: String],completon:@escaping (Promise<FeetModels>) ->()) {
     
     let url = FeetAPI.Feet.feet
     debugPrint(url)
     debugPrint(UserDefaultsTool.userToken)
-    func parseJson(json: JSON) -> Promise<FeetModels>{
+    func parseJson(_ json: JSON) -> Promise<FeetModels>{
       if json["code"].intValue == 12000 {
         let feetModels = FeetModels(json: json["data"])
-        return Promise.Success(feetModels)
+        return Promise.success(feetModels)
       } else {
-        return Promise.Error(MyError(error: json["msg"].stringValue))
+        return Promise.error(MyError(error: json["msg"].stringValue))
       }
     }
     
-    ApiClient.fetch(.POST, URLString: url,paramters: params) { promiseJSON in
+    ApiClient.fetch(.POST, URLString: url,paramters: params as [String : AnyObject]?) { promiseJSON in
       let result = promiseJSON.then(parseJson)
       debugPrint(result)
       completon(result)
@@ -37,19 +37,19 @@ struct HomeNetworkTool {
   /**
    *  Feet 详情
    */
-  static func getFeetDetail(params: [String: String],completon:(Promise<FeetDetailModel>) ->()) {
+  static func getFeetDetail(_ params: [String: String],completon:@escaping (Promise<FeetDetailModel>) ->()) {
     let url = FeetAPI.Feet.getInfo
     
-    func parseJson(json: JSON) -> Promise<FeetDetailModel>{
+    func parseJson(_ json: JSON) -> Promise<FeetDetailModel>{
       if json["code"].intValue == 12000 {
         let model = FeetDetailModel(json: json)
-        return Promise.Success(model)
+        return Promise.success(model)
       } else {
-        return Promise.Error(MyError(error: json["msg"].stringValue))
+        return Promise.error(MyError(error: json["msg"].stringValue))
       }
     }
     
-    ApiClient.fetch(.POST, URLString: url,paramters: params) { promiseJSON in
+    ApiClient.fetch(.POST, URLString: url,paramters: params as [String : AnyObject]?) { promiseJSON in
       let result = promiseJSON.then(parseJson)
       debugPrint(result)
       completon(result)
@@ -60,18 +60,18 @@ struct HomeNetworkTool {
   /**
    评论
    */
-  static func commentFeet(params: [String: String],completon:(Promise<Void>) ->()) {
+  static func commentFeet(_ params: [String: String],completon:@escaping (Promise<Void>) ->()) {
     let url = FeetAPI.Comment.add
     
-    func parseJson(json: JSON) -> Promise<Void>{
+    func parseJson(_ json: JSON) -> Promise<Void>{
       if json["code"].intValue == 12000 {
-        return Promise.Success()
+        return Promise.success()
       } else {
-        return Promise.Error(MyError(error: json["msg"].stringValue))
+        return Promise.error(MyError(error: json["msg"].stringValue))
       }
     }
     
-    ApiClient.fetch(.POST, URLString: url,paramters: params) { promiseJSON in
+    ApiClient.fetch(.POST, URLString: url,paramters: params as [String : AnyObject]?) { promiseJSON in
       let result = promiseJSON.then(parseJson)
       debugPrint(result)
       completon(result)
@@ -81,18 +81,18 @@ struct HomeNetworkTool {
   /**
    点赞
    */
-  static func zanFeet(params: [String: String],completon:(Promise<Void>) ->()) {
+  static func zanFeet(_ params: [String: String],completon:@escaping (Promise<Void>) ->()) {
     let url = FeetAPI.Comment.zan
     
-    func parseJson(json: JSON) -> Promise<Void>{
+    func parseJson(_ json: JSON) -> Promise<Void>{
       if json["code"].intValue == 12000 {
-        return Promise.Success()
+        return Promise.success()
       } else {
-        return Promise.Error(MyError(error: json["msg"].stringValue))
+        return Promise.error(MyError(error: json["msg"].stringValue))
       }
     }
     
-    ApiClient.fetch(.POST, URLString: url,paramters: params) { promiseJSON in
+    ApiClient.fetch(.POST, URLString: url,paramters: params as [String : AnyObject]?) { promiseJSON in
       let result = promiseJSON.then(parseJson)
       debugPrint(result)
       completon(result)
@@ -102,15 +102,15 @@ struct HomeNetworkTool {
   /**
    每日一句
    */
-  static func owFeet(completon:(Promise<OWModel>) ->()) {
+  static func owFeet(_ completon:@escaping (Promise<OWModel>) ->()) {
     let url = FeetAPI.Feet.ow
     
-    func parseJson(json: JSON) -> Promise<OWModel>{
+    func parseJson(_ json: JSON) -> Promise<OWModel>{
       if json["code"].intValue == 12000 {
         let model = OWModel(json: json["data"])
-        return Promise.Success(model)
+        return Promise.success(model)
       } else {
-        return Promise.Error(MyError(error: json["msg"].stringValue))
+        return Promise.error(MyError(error: json["msg"].stringValue))
       }
     }
     

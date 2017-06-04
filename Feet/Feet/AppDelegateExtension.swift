@@ -23,7 +23,7 @@ extension AppDelegate {
 
 /// 每日一句
 extension AppDelegate {
-  func owFeet(compeletion: ((OWModel) -> ())? = nil, fail: (() -> ())? = nil) {
+  func owFeet(_ compeletion: ((OWModel) -> ())? = nil, fail: (() -> ())? = nil) {
     HomeNetworkTool.owFeet { promiseMode in
       do {
         let _ = try promiseMode.then({ model in

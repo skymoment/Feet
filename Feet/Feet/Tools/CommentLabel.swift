@@ -9,9 +9,9 @@
 import UIKit
 
 protocol CommentDelegate: class{
-  func commentNameselected(name: CommentInfo, y: Int)
-  func commentOtherNameSelected(otherName: CommentInfo, y: Int)
-  func commentContentSelected(name: CommentInfo, y: Int)
+  func commentNameselected(_ name: CommentInfo, y: Int)
+  func commentOtherNameSelected(_ otherName: CommentInfo, y: Int)
+  func commentContentSelected(_ name: CommentInfo, y: Int)
 }
 
 class CommentLabel: UILabel {
@@ -27,7 +27,7 @@ class CommentLabel: UILabel {
   override init(frame: CGRect) {
     super.init(frame: frame)
     self.numberOfLines = 0
-    self.font = UIFont.systemFontOfSize(14)
+    self.font = UIFont.systemFont(ofSize: 14)
     setMutableString()
     addTapGestrue()
   }
@@ -37,7 +37,7 @@ class CommentLabel: UILabel {
   }
   
   // MARK: - LoadData
-  func loadData(model: CommentInfo) {
+  func loadData(_ model: CommentInfo) {
     self.model = model
     name = model.nickname
     otherName = model.replyUserName
@@ -46,7 +46,7 @@ class CommentLabel: UILabel {
   }
   
   func addTapGestrue() {
-    self.userInteractionEnabled = true
+    self.isUserInteractionEnabled = true
     let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
     self.addGestureRecognizer(tap)
   }
@@ -72,16 +72,16 @@ class CommentLabel: UILabel {
     return rect
   }
   
-  func rectWithString(string: String) -> CGRect {
+  func rectWithString(_ string: String) -> CGRect {
     let l = UILabel()
     l.text = string
     l.sizeToFit()
     return l.frame
   }
   
-  func tapAction(tap: UITapGestureRecognizer) {
-    let point = tap.locationInView(self)
-    let rect = self.superview!.superview!.convertRect(self.superview!.frame, toView: window?.subviews.last)
+  func tapAction(_ tap: UITapGestureRecognizer) {
+    let point = tap.location(in: self)
+    let rect = self.superview!.superview!.convert(self.superview!.frame, to: window?.subviews.last)
     let y = Int(rect.origin.y + rect.size.height)
     debugPrint("y === \(y)")
     if nameRect().contains(point) {
@@ -96,7 +96,7 @@ class CommentLabel: UILabel {
     }
   }
   
-  func refresh(name:String, otherName: String = "", comment: String) {
+  func refresh(_ name:String, otherName: String = "", comment: String) {
     self.name = name
     self.otherName = otherName
     self.comment = comment
@@ -104,9 +104,9 @@ class CommentLabel: UILabel {
 }
 
 extension UILabel {
-  func attrbuteText(text: String, color: UIColor,font: UIFont) {
-    if self.text!.containsString(text) {
-      let range = (self.text! as NSString).rangeOfString(text)
+  func attrbuteText(_ text: String, color: UIColor,font: UIFont) {
+    if self.text!.contains(text) {
+      let range = (self.text! as NSString).range(of: text)
       let attr = NSMutableAttributedString(string: self.text!)
       attr.addAttributes([NSForegroundColorAttributeName: color, NSFontAttributeName: font], range: range)
       self.attributedText = attr

@@ -27,7 +27,7 @@ class SexView: UIView {
   func setViews() {
     let h = TransparentView()
     self.addSubview(h)
-    h.snp_makeConstraints { (make) in
+    h.snp.makeConstraints { (make) in
       make.top.equalTo(64 + 15)
       make.left.equalTo(15)
       make.right.equalTo(-15)
@@ -37,10 +37,10 @@ class SexView: UIView {
     
     let label = UILabel()
     h.addSubview(label)
-    label.textColor = UIColor.whiteColor()
+    label.textColor = UIColor.white
     label.text = "or"
-    label.font = UIFont.systemFontOfSize(20)
-    label.snp_makeConstraints(closure: { (make) in
+    label.font = UIFont.systemFont(ofSize: 20)
+    label.snp.makeConstraints({ (make) in
       make.centerX.equalTo(h)
       make.top.equalTo(15)
     })
@@ -48,28 +48,28 @@ class SexView: UIView {
     
     let manImage = UIImageView(image: UIImage(named:"sex_m_d"))
     h.addSubview(manImage)
-    manImage.snp_makeConstraints(closure: { (make) in
+    manImage.snp.makeConstraints({ (make) in
       make.centerY.equalTo(label)
-      make.right.equalTo(label.snp_left).offset(-8)
+      make.right.equalTo(label.snp.left).offset(-8)
       make.width.height.equalTo(24)
     })
     
     let womanImage = UIImageView(image: UIImage(named:"sex_m_d"))
     h.addSubview(womanImage)
-    womanImage.snp_makeConstraints(closure: { (make) in
+    womanImage.snp.makeConstraints({ (make) in
       make.centerY.equalTo(label)
-      make.left.equalTo(label.snp_right).offset(8)
+      make.left.equalTo(label.snp.right).offset(8)
       make.width.height.equalTo(24)
     })
     
     manBtn = {
       let manBtn = BorderButton()
       manBtn.tag = 0
-      manBtn.setTitle("男", forState: .Normal)
+      manBtn.setTitle("男", for: UIControlState())
       h.addSubview(manBtn)
-      manBtn.addTarget(self, action: #selector(sexButton), forControlEvents: .TouchUpInside)
-      manBtn.snp_makeConstraints { (make) in
-        make.top.equalTo(label.snp_bottom).offset(30)
+      manBtn.addTarget(self, action: #selector(sexButton), for: .touchUpInside)
+      manBtn.snp.makeConstraints { (make) in
+        make.top.equalTo(label.snp.bottom).offset(30)
         make.centerX.equalTo(h)
         make.width.equalTo(100)
         make.height.equalTo(35)
@@ -80,11 +80,11 @@ class SexView: UIView {
     womanBtn = {
       let womanBtn = BorderButton()
       womanBtn.tag = 1
-      womanBtn.setTitle("女", forState: .Normal)
+      womanBtn.setTitle("女", for: UIControlState())
       h.addSubview(womanBtn)
-      womanBtn.addTarget(self, action: #selector(sexButton), forControlEvents: .TouchUpInside)
-      womanBtn.snp_makeConstraints { (make) in
-        make.top.equalTo(manBtn.snp_bottom).offset(15)
+      womanBtn.addTarget(self, action: #selector(sexButton), for: .touchUpInside)
+      womanBtn.snp.makeConstraints { (make) in
+        make.top.equalTo(manBtn.snp.bottom).offset(15)
         make.centerX.equalTo(h)
         make.width.equalTo(100)
         make.height.equalTo(35)
@@ -93,14 +93,14 @@ class SexView: UIView {
     }()
   }
   
-  func sexButton(button: UIButton) {
+  func sexButton(_ button: UIButton) {
     sex = button.tag
     if sex == 0 {
-      manBtn.backgroundColor = UIColor.lightGrayColor()
-      womanBtn.backgroundColor = UIColor.clearColor()
+      manBtn.backgroundColor = UIColor.lightGray
+      womanBtn.backgroundColor = UIColor.clear
     } else {
-      manBtn.backgroundColor = UIColor.clearColor()
-      womanBtn.backgroundColor = UIColor.lightGrayColor()
+      manBtn.backgroundColor = UIColor.clear
+      womanBtn.backgroundColor = UIColor.lightGray
     }
   }
 }

@@ -10,15 +10,15 @@ import UIKit
 
 struct ControllerTool {
     static func chooseRootViewController() -> UIViewController {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
+        let userDefaults = UserDefaults.standard
         // 检查沙盒中的版本号，如果存储的版本号和本次版本号不同或者版本号不存在，显示新特性界面，并保存mainBundle里面的版本号，比如1789
-        let lastVersion = userDefaults.stringForKey(String(kCFBundleVersionKey)) ?? ""
-        let currentVersion = NSBundle.mainBundle().infoDictionary![String(kCFBundleVersionKey)] as! String
+        let lastVersion = userDefaults.string(forKey: String(kCFBundleVersionKey)) ?? ""
+        let currentVersion = Bundle.main.infoDictionary![String(kCFBundleVersionKey)] as! String
         
         if lastVersion == currentVersion {
           return TabBarController()
         } else {
-          userDefaults.setObject(currentVersion, forKey: String(kCFBundleVersionKey))
+          userDefaults.set(currentVersion, forKey: String(kCFBundleVersionKey))
           userDefaults.synchronize()
           return FeatureViewController()
         }

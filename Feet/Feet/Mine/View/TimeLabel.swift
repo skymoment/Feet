@@ -10,13 +10,13 @@ import UIKit
 
 class TimeLabel: UILabel {
   
-  func setAttrText(text: String) {
-    self.textColor = UIColor.whiteColor()
+  func setAttrText(_ text: String) {
+    self.textColor = UIColor.white
     let attr = NSMutableAttributedString(string: text)
     
-    attr.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(30), range: NSMakeRange(0, 2))
+    attr.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 30), range: NSMakeRange(0, 2))
     
-    attr.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(12), range: NSMakeRange(2, text.characters.count - 2))
+    attr.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 12), range: NSMakeRange(2, text.characters.count - 2))
     
     self.attributedText = attr
   }
