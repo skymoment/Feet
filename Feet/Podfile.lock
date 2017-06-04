@@ -17,6 +17,7 @@ PODS:
   - Alamofire (4.2.0)
   - BaiduMapKit (3.3.1)
   - HappyDNS (0.3.10)
+  - IQKeyboardManagerSwift (4.0.8)
   - MJRefresh (3.1.12)
   - Qiniu (7.1.5):
     - AFNetworking (~> 3)
@@ -36,6 +37,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.2.0)
   - BaiduMapKit
+  - IQKeyboardManagerSwift (= 4.0.8)
   - MJRefresh
   - Qiniu
   - SDWebImage
@@ -51,6 +53,7 @@ SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
   BaiduMapKit: 9e8ff80bbcfb8f96b4a58b2844d728590dac90ca
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
+  IQKeyboardManagerSwift: c04bc9f68473823f825eb44d958fce98d921bead
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   Qiniu: 77a3dba411556a383d72d17e842345a9d4c83252
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
@@ -61,6 +64,6 @@ SPEC CHECKSUMS:
   UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
   Zhugeio: 0cbf34536b167368acbad1e3583062be3b47cce2
 
-PODFILE CHECKSUM: b36669e353ca5b78f74194047c0442efe4e0cfd2
+PODFILE CHECKSUM: 3bb918878b6605bbcf648be798d100ced4ef0bba
 
 COCOAPODS: 1.2.1
