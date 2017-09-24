@@ -89,7 +89,8 @@ class DetailViewController: UIViewController {
       commentView.delegate = self
       view.addSubview(commentView)
       commentView.snp.makeConstraints { (make) in
-        make.bottom.equalTo(view.snp.bottom).priorityMedium()
+        make.bottom.equalTo(view.snp.bottom).priority(700)
+        make.bottom.equalTo(view.snp.bottom)
         make.left.right.equalTo(view)
         make.height.equalTo(50)
       }
@@ -99,11 +100,16 @@ class DetailViewController: UIViewController {
       return commentView
     }()
   }
+    
+    func checkData(model: FeetDetailModel) {
+        
+    }
   
   // MAKR: - LoadData
   func loadData() {
     HUD.show()
     HomeNetworkTool.getFeetDetail(["id": id]) { (promisModel) in
+        
       do {
         let _ = try promisModel.then({ model in
           self.model = model
@@ -129,7 +135,7 @@ class DetailViewController: UIViewController {
     let height = rect?.height
     heightOfKB = height! + 50
     commentView.snp.updateConstraints { (make) in
-//      make.bottom.equalTo(view.snp.bottom).offset((-height)!)
+      make.bottom.equalTo(view.snp.bottom).offset(-(height)!)
     }
   
     view.setNeedsUpdateConstraints()

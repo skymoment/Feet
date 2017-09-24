@@ -19,10 +19,10 @@ class CommentLabel: UILabel {
   weak var delegate: CommentDelegate?
   
   var model: CommentInfo!
-  var name: String! = "UOUO"
-  var otherName: String! = "HUHU"
-  var middleName: String! = " 回复 "
-  var comment: String! = "阿萨德剪阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发发"
+  var name: String = "UOUO"
+  var otherName: String = "HUHU"
+  var middleName: String = " 回复 "
+  var comment: String = "阿萨德剪阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发阿萨德剪发发"
   
   override init(frame: CGRect) {
     super.init(frame: frame)

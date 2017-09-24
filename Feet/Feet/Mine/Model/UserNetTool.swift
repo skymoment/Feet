@@ -15,7 +15,7 @@ struct UserNetworkTool {
     * 用户信息：更新、获取
     */
   static func userInfo(_ params: [String: String], completion: @escaping (Promise<UserInfoModel>) -> ()) {
-    let url = "http://115.28.110.10:8080/feet/user/updateUserInfo" //FeetAPI.User.updateUserInfo
+    let url = FeetAPI.User.updateUserInfo //FeetAPI.User.updateUserInfo
     
     func parseJson(_ json: JSON) -> Promise<UserInfoModel> {
       if json["code"].intValue == 12000 {

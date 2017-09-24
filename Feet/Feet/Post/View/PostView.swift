@@ -119,7 +119,8 @@ class PostView: UIView {
         make.top.equalTo(imageView1.snp.bottom).offset(8)
         make.left.equalTo(imageView1.snp.left).offset(8)
         make.right.equalTo(imageView1.snp.right).offset(-8)
-        make.height.equalTo(35).priorityMedium()
+        make.height.equalTo(35).priority(700)
+        make.height.equalTo(35)
       })
     
       return t
@@ -170,7 +171,8 @@ class PostView: UIView {
       make.top.equalTo(0)
       make.left.equalTo(15)
       make.right.equalTo(-15)
-      make.height.equalTo(98 + (KScreenWidth - 30)*9/17).priorityMedium()
+      make.height.equalTo(98 + (KScreenWidth - 30)*9/17)
+      make.height.equalTo(98 + (KScreenWidth - 30)*9/17).priority(700)
     })
   }
   

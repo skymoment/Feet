@@ -25,6 +25,8 @@
 
 #import <BaiduMapAPI_Radar/BMKRadarComponent.h>//引入周边雷达功能所有的头文件
 
+#import "BMKClusterManager.h"
+
 #import "UIImage+ImageEffects.h"
 
 #endif /* Feet_Bridging_Header_h */

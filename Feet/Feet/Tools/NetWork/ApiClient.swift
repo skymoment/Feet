@@ -32,7 +32,8 @@ struct ApiClient {
   
   fileprivate static func feetHeaders() -> [String: String] {
     let headers = [
-      "X-User-Token": UserDefaultsTool.userToken
+      "X-User-Token": UserDefaultsTool.userToken,
+      "feeToken": UserDefaultsTool.userToken
 //      "X-App-Id": QSQAppId,
 //      "X-Requested-With": "XMLHttpRequest",
 //      "X-CLIENT-ID": "iOS",
@@ -40,6 +41,7 @@ struct ApiClient {
 //      "X-User-Phone-Brand" : BasicTool.getMobileVersion(),
 //      "X-User-System" : BasicTool.getOSVersion()
     ]
+    debugPrint("userToken === \(UserDefaultsTool.userToken)")
     return headers
   }
   
@@ -60,6 +62,7 @@ struct ApiClient {
         if let value = response.result.value {
           let json = JSON(value)
           let code = json["code"].intValue
+          debugPrint("code === \(code)")
           if code == 14000 {
             LoginService.showLogin()
             let msg = json["msg"].stringValue

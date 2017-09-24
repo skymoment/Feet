@@ -14,6 +14,11 @@
 		2112E23D1E1E9911008600C8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2112E23C1E1E9911008600C8 /* AVFoundation.framework */; };
 		2112E23E1E1EA145008600C8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2112E2381E1E98C9008600C8 /* AssetsLibrary.framework */; };
 		2112E23F1E1EA512008600C8 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2112E23A1E1E98F1008600C8 /* Photos.framework */; };
+		2131DE9A1EE4560700D5F2DE /* TestBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2131DE991EE4560700D5F2DE /* TestBViewController.swift */; };
+		2131DEA51EE4581400D5F2DE /* BMKClusterAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2131DE9E1EE4581400D5F2DE /* BMKClusterAlgorithm.m */; };
+		2131DEA61EE4581400D5F2DE /* BMKClusterItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2131DEA01EE4581400D5F2DE /* BMKClusterItem.m */; };
+		2131DEA71EE4581400D5F2DE /* BMKClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2131DEA21EE4581400D5F2DE /* BMKClusterManager.m */; };
+		2131DEA81EE4581400D5F2DE /* BMKClusterQuadtree.m in Sources */ = {isa = PBXBuildFile; fileRef = 2131DEA41EE4581400D5F2DE /* BMKClusterQuadtree.m */; };
 		218EF8801E12B62C0057F1BC /* FeatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EF87F1E12B62C0057F1BC /* FeatureViewController.swift */; };
 		218EF8821E12B8AF0057F1BC /* ControllerTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EF8811E12B8AF0057F1BC /* ControllerTool.swift */; };
 		219B05941EBF5175005C1FFE /* FeetMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219B05931EBF5175005C1FFE /* FeetMapViewController.swift */; };
@@ -121,6 +126,15 @@
 		2112E2381E1E98C9008600C8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2112E23A1E1E98F1008600C8 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		2112E23C1E1E9911008600C8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2131DE991EE4560700D5F2DE /* TestBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestBViewController.swift; sourceTree = "<group>"; };
+		2131DE9D1EE4581400D5F2DE /* BMKClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKClusterAlgorithm.h; sourceTree = "<group>"; };
+		2131DE9E1EE4581400D5F2DE /* BMKClusterAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMKClusterAlgorithm.m; sourceTree = "<group>"; };
+		2131DE9F1EE4581400D5F2DE /* BMKClusterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKClusterItem.h; sourceTree = "<group>"; };
+		2131DEA01EE4581400D5F2DE /* BMKClusterItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMKClusterItem.m; sourceTree = "<group>"; };
+		2131DEA11EE4581400D5F2DE /* BMKClusterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKClusterManager.h; sourceTree = "<group>"; };
+		2131DEA21EE4581400D5F2DE /* BMKClusterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMKClusterManager.m; sourceTree = "<group>"; };
+		2131DEA31EE4581400D5F2DE /* BMKClusterQuadtree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKClusterQuadtree.h; sourceTree = "<group>"; };
+		2131DEA41EE4581400D5F2DE /* BMKClusterQuadtree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMKClusterQuadtree.m; sourceTree = "<group>"; };
 		218EF87F1E12B62C0057F1BC /* FeatureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureViewController.swift; sourceTree = "<group>"; };
 		218EF8811E12B8AF0057F1BC /* ControllerTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerTool.swift; sourceTree = "<group>"; };
 		219B05931EBF5175005C1FFE /* FeetMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeetMapViewController.swift; sourceTree = "<group>"; };
@@ -259,6 +273,21 @@
 			path = Compent;
 			sourceTree = "<group>";
 		};
+		2131DE9C1EE4581400D5F2DE /* BMKCluster */ = {
+			isa = PBXGroup;
+			children = (
+				2131DE9D1EE4581400D5F2DE /* BMKClusterAlgorithm.h */,
+				2131DE9E1EE4581400D5F2DE /* BMKClusterAlgorithm.m */,
+				2131DE9F1EE4581400D5F2DE /* BMKClusterItem.h */,
+				2131DEA01EE4581400D5F2DE /* BMKClusterItem.m */,
+				2131DEA11EE4581400D5F2DE /* BMKClusterManager.h */,
+				2131DEA21EE4581400D5F2DE /* BMKClusterManager.m */,
+				2131DEA31EE4581400D5F2DE /* BMKClusterQuadtree.h */,
+				2131DEA41EE4581400D5F2DE /* BMKClusterQuadtree.m */,
+			);
+			path = BMKCluster;
+			sourceTree = "<group>";
+		};
 		471589E01DA78CD20006E727 /* Information */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +353,7 @@
 		47250F5C1CFEBF4500BF2D2D /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				2131DE9C1EE4581400D5F2DE /* BMKCluster */,
 				21050F1B1DF4531400A8FF8E /* Compent */,
 				471589EB1DA79C280006E727 /* Services */,
 				476592981D7A6E75006A4506 /* UIImage+ImageEffects */,
@@ -361,6 +391,7 @@
 			children = (
 				47FD45A21D37D44D0097D794 /* MapViewController.swift */,
 				472DD4ED1D2EAFA500D35DD3 /* PostViewController.swift */,
+				2131DE991EE4560700D5F2DE /* TestBViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -956,11 +987,14 @@
 				471589EA1DA795D30006E727 /* EmailView.swift in Sources */,
 				47250F5E1CFEBF6A00BF2D2D /* GCDTool.swift in Sources */,
 				4756F1CF1D4E4920006100BE /* SetUserInfoViewController.swift in Sources */,
+				2131DEA81EE4581400D5F2DE /* BMKClusterQuadtree.m in Sources */,
 				21FC30521DE152680069CE42 /* CommentView.swift in Sources */,
+				2131DEA51EE4581400D5F2DE /* BMKClusterAlgorithm.m in Sources */,
 				478A9A161D31FA4A0037EE08 /* MineCell.swift in Sources */,
 				477611091D32875E00CD8EB9 /* ImagePicker.swift in Sources */,
 				218EF8821E12B8AF0057F1BC /* ControllerTool.swift in Sources */,
 				473107F71D7885E30086F055 /* Notifications.swift in Sources */,
+				2131DEA61EE4581400D5F2DE /* BMKClusterItem.m in Sources */,
 				210815A11E1BEB9000091193 /* HUD.swift in Sources */,
 				471589E41DA795A10006E727 /* NameView.swift in Sources */,
 				21BC15CF1E255B42008642D2 /* DayViewController.swift in Sources */,
@@ -969,6 +1003,7 @@
 				2112E2371E1E4279008600C8 /* OWModel.swift in Sources */,
 				473AED471D28BC09005B3E79 /* UITextFieldExtension.swift in Sources */,
 				47250F5B1CFEBF1D00BF2D2D /* FeetModel.swift in Sources */,
+				2131DEA71EE4581400D5F2DE /* BMKClusterManager.m in Sources */,
 				478A9A1A1D3202980037EE08 /* TimeLabel.swift in Sources */,
 				471589E21DA795920006E727 /* SignView.swift in Sources */,
 				21D53DAB1DD822DD00B0E309 /* FeetDetailModel.swift in Sources */,
@@ -984,6 +1019,7 @@
 				21F7637A1DC4D91700FC57ED /* BorderButton.swift in Sources */,
 				4706B6DB1D002F8D00CAC365 /* RealmFeetItem.swift in Sources */,
 				478A9A101D3152F80037EE08 /* PostView.swift in Sources */,
+				2131DE9A1EE4560700D5F2DE /* TestBViewController.swift in Sources */,
 				478A9A141D31F4480037EE08 /* MineTableHeader.swift in Sources */,
 				47F423301D36998000DFA915 /* QiniuTool.swift in Sources */,
 				473AED4B1D28BC0E005B3E79 /* ApiClient.swift in Sources */,
