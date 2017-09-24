@@ -141,7 +141,18 @@ class PostViewController: UIViewController {
     }
     
     func postAction() {
-        debugPrint("正在发布发布")
+        
+        guard postView.textView.text! != "" else {
+            HUD.toast("就没有啥想说的嘛？")
+            
+            return
+        }
+        
+        guard imagesPaths.count != 0 else {
+            HUD.toast("选张图意思意思吧~")
+            return
+        }
+        
         HUD.show("正在上传...")
         QiniuTool.upLoadImages(imagesPaths, completion: { (progress, keys) in
             debugPrint("上传进度 \(progress)")

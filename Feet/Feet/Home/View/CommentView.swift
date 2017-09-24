@@ -107,11 +107,12 @@ extension CommentView: UITextFieldDelegate {
     let content = textField.text!.components(separatedBy: ":")
     
     guard LoginService.isLogin() else {
+      LoginService.showLogin()
       return false
     }
     
     guard textField.text?.length() > 0 else {
-      debugPrint("评论内容不能为空哦")
+      HUD.toast("评论内容不能为空哦")
       return true
     }
     
